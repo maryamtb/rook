@@ -21,9 +21,10 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://userook.app"),
   title: "Rook: The note-taking app for developers",
   description:
-    "Rich text, code blocks, syntax highlighting, and themes that actually look good. A native macOS note-taking app built for the way you work.",
+    "Rich text and code blocks, syntax highlighting, and various themes. Available for macOS.",
   icons: {
     icon: "/icon-128.png",
     apple: "/icon-256.png",
@@ -31,8 +32,24 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Rook: The note-taking app for developers",
     description:
-      "Rich text, code blocks, syntax highlighting, and themes that actually look good. A native macOS app built for the way you work.",
+      "Rich text and code blocks, syntax highlighting, and various themes. Available for macOS.",
     type: "website",
+    url: "https://userook.app",
+    images: [
+      {
+        url: "/og.png",
+        width: 2134,
+        height: 1147,
+        alt: "Rook, a native macOS note-taking app for developers",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rook: The note-taking app for developers",
+    description:
+      "Rich text and code blocks, syntax highlighting, and various themes. Available for macOS.",
+    images: ["/og.png"],
   },
 };
 
