@@ -500,7 +500,7 @@ export default function Home() {
               Community Cheatsheets
             </h2>
             <p className="mt-3 text-[15px] text-muted-foreground">
-              Markdown cheatsheets for common commands.
+              Markdown cheatsheets for common commands
             </p>
           </motion.div>
 
