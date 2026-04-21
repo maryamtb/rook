@@ -22,6 +22,15 @@ kubectl config set-context --current --namespace=<namespace>   # set default nam
 
 Every namespaced command below accepts `-n <namespace>`. Set a default on your context (last command above) or pass `-n` explicitly.
 
+## Resource docs
+
+```bash
+kubectl explain <resource>                # docs for a resource type (e.g., kubectl explain pod)
+kubectl explain <resource>.<field>        # drill into a specific field (e.g., pod.spec.containers)
+kubectl explain <resource> --recursive    # full nested schema
+kubectl api-resources                     # list every resource type in the cluster
+```
+
 ## Pods
 
 ```bash
