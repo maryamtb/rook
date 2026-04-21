@@ -7,11 +7,20 @@ import { AppMockup } from "@/components/mockup";
 import { themes } from "@/lib/themes";
 import { Lock, Mail, Menu } from "lucide-react";
 import { NotifyForm } from "@/components/notify-form";
+import { CountdownBanner } from "@/components/countdown-banner";
 
 function GitHubIcon({ className }: { className?: string; }) {
   return (
     <svg className={className} viewBox="0 0 16 16" fill="currentColor">
       <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+    </svg>
+  );
+}
+
+function XIcon({ className }: { className?: string; }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
     </svg>
   );
 }
@@ -53,6 +62,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
+      <CountdownBanner />
       <div
         className="absolute top-[50px] left-0 right-0 h-[700px] pointer-events-none z-0"
         style={{
@@ -74,7 +84,7 @@ export default function Home() {
       />
 
       {/* ── Nav ── */}
-      <nav className="fixed top-0 inset-x-0 z-50 bg-background/60 backdrop-blur-xl">
+      <nav className="fixed top-10 inset-x-0 z-50 bg-background/60 backdrop-blur-xl">
         <div className="max-w-[1200px] mx-auto flex sm:grid sm:grid-cols-[1fr_auto_1fr] items-center justify-between h-14 px-4 sm:px-6">
           <a href="#" className="flex items-center gap-2 sm:justify-self-start">
             <Image src="/icon-64.png" alt="Rook" width={22} height={22} className="rounded-[5px]" />
@@ -88,11 +98,18 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-2 justify-self-end">
-            <Button variant="ghost" size="icon" asChild className="hidden sm:inline-flex">
-              <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <GitHubIcon className="size-4" />
-              </a>
-            </Button>
+            <div className="hidden sm:flex items-center -space-x-1">
+              <Button variant="ghost" size="icon" asChild>
+                <a href="https://x.com/userookapp" target="_blank" rel="noopener noreferrer" aria-label="X">
+                  <XIcon className="size-4" />
+                </a>
+              </Button>
+              <Button variant="ghost" size="icon" asChild>
+                <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                  <GitHubIcon className="size-4" />
+                </a>
+              </Button>
+            </div>
             <Button asChild className="bg-[#E8962E] text-background hover:bg-[#d4841e] hidden sm:inline-flex">
               <a href="#download">
                 <Mail className="size-4" />
@@ -114,6 +131,10 @@ export default function Home() {
                   <a href="#themes" className="text-muted-foreground hover:text-foreground transition-colors">Themes</a>
                   <a href="#shortcuts" className="text-muted-foreground hover:text-foreground transition-colors">Shortcuts</a>
                   <Separator className="my-1" />
+                  <a href="https://x.com/userookapp" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-muted-foreground hover:text-foreground transition-colors">
+                    <XIcon className="size-[18px]" />
+                    X
+                  </a>
                   <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-muted-foreground hover:text-foreground transition-colors">
                     <GitHubIcon className="size-[18px]" />
                     GitHub
@@ -132,7 +153,7 @@ export default function Home() {
       </nav>
 
       {/* ── Hero ── */}
-      <section className="pt-[140px] md:pt-[176px]">
+      <section className="pt-[180px] md:pt-[216px]">
         <div className="max-w-[680px] mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -465,6 +486,55 @@ export default function Home() {
 
       <Separator className="max-w-[1080px] mx-auto opacity-50" />
 
+      {/* ── Community Notes ── */}
+      <section id="community" className="py-24 md:py-32">
+        <div className="max-w-[1080px] mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="text-center mb-14"
+          >
+            <h2 className="text-[28px] sm:text-[32px] font-semibold tracking-tight">
+              Community Cheatsheets
+            </h2>
+            <p className="mt-3 text-[15px] text-muted-foreground">
+              Markdown cheatsheets for common commands.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="max-w-[720px] mx-auto"
+          >
+            <AppMockup theme={themes[3]} variant="aws" />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-8 text-center"
+          >
+            <a
+              href="https://github.com/maryamtb/rook/tree/main/community-notes"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[13px] font-mono text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Browse all on GitHub →
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      <Separator className="max-w-[1080px] mx-auto opacity-50" />
+
       {/* ── CTA ── */}
       <section id="download" className="py-28 md:py-36">
         <motion.div
@@ -509,6 +579,7 @@ export default function Home() {
             <span className="text-[12px] font-mono text-muted-foreground/40">Rook</span>
           </div>
           <div className="flex items-center gap-4 text-[12px] text-muted-foreground/40">
+            <a href="https://x.com/userookapp" target="_blank" rel="noopener noreferrer" className="hover:text-muted-foreground transition-colors">X</a>
             <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="hover:text-muted-foreground transition-colors">GitHub</a>
           </div>
         </div>

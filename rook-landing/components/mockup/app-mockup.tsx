@@ -5,10 +5,11 @@ import { TitleBar } from "./title-bar";
 import { Sidebar } from "./sidebar";
 import { AuthAnimatedEditor } from "./auth-editor";
 import { DsaAnimatedEditor } from "./dsa-editor";
+import { AwsStaticEditor } from "./aws-editor";
 
-export type MockupVariant = "auth" | "dsa";
+export type MockupVariant = "auth" | "dsa" | "aws";
 
-export function AppMockup({ theme: t, variant = "auth" }: { theme: ThemeColors; variant?: MockupVariant }) {
+export function AppMockup({ theme: t, variant = "auth" }: { theme: ThemeColors; variant?: MockupVariant; }) {
   const isLight = t.name === "Light" || t.name === "Paper";
 
   return (
@@ -27,7 +28,9 @@ export function AppMockup({ theme: t, variant = "auth" }: { theme: ThemeColors; 
           <Sidebar t={t} variant={variant} />
           <div className="flex-1 flex flex-col min-w-0 relative overflow-hidden">
             <div className="flex-1 overflow-hidden transition-colors duration-500" style={{ backgroundColor: t.bg }}>
-              {variant === "auth" ? <AuthAnimatedEditor t={t} /> : <DsaAnimatedEditor t={t} />}
+              {variant === "auth" ? <AuthAnimatedEditor t={t} />
+                : variant === "aws" ? <AwsStaticEditor t={t} />
+                  : <DsaAnimatedEditor t={t} />}
             </div>
           </div>
         </div>

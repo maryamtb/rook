@@ -1,7 +1,7 @@
 import type { ThemeColors } from "@/lib/themes";
 import type { MockupVariant } from "./app-mockup";
 
-export function Sidebar({ t, variant }: { t: ThemeColors; variant: MockupVariant }) {
+export function Sidebar({ t, variant }: { t: ThemeColors; variant: MockupVariant; }) {
   return (
     <div
       className="w-[200px] shrink-0 flex flex-col self-stretch transition-colors duration-500"
@@ -51,6 +51,12 @@ export function Sidebar({ t, variant }: { t: ThemeColors; variant: MockupVariant
               <NoteItem label="Two Pointers" t={t} />
               <NoteItem label="BFS / DFS" t={t} />
             </>
+          ) : variant === "aws" ? (
+            <>
+              <NoteItem label="aws cli quick ref" active t={t} />
+              <NoteItem label="kubectl quick ref" t={t} />
+              <NoteItem label="Docker commands" t={t} />
+            </>
           ) : (
             <>
               <NoteItem label="kubectl quick ref" active t={t} />
@@ -92,7 +98,7 @@ export function Sidebar({ t, variant }: { t: ThemeColors; variant: MockupVariant
   );
 }
 
-function NoteItem({ label, active, t }: { label: string; active?: boolean; t: ThemeColors }) {
+function NoteItem({ label, active, t }: { label: string; active?: boolean; t: ThemeColors; }) {
   return (
     <div
       className="flex items-center gap-1.5 px-2 py-[3px] rounded-[5px] transition-colors duration-500"
