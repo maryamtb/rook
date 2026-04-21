@@ -66,3 +66,18 @@ git log --graph --oneline --all    # visual tree of all branches
 git log -p <file>                  # diffs for a specific file over time
 git log --author="name"
 ```
+
+## Digging in
+
+```bash
+# bisect: binary-search commits to find which one introduced a bug
+git bisect start
+git bisect bad                     # mark current commit as broken
+git bisect good <sha>              # mark an earlier commit as working
+# git checks out commits in between; mark each as good/bad until found
+git bisect reset                   # end the session
+
+# rerere: "reuse recorded resolution" for merge conflicts you've solved before
+git config --global rerere.enabled true
+git rerere status                  # see recorded resolutions
+```
