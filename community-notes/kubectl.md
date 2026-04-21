@@ -33,6 +33,8 @@ kubectl logs <pod-name> -n <namespace> -c <container>          # specific contai
 kubectl logs <pod-name> -n <namespace> --previous              # previous crashed container
 kubectl exec -it <pod-name> -n <namespace> -- /bin/sh
 kubectl port-forward <pod-name> -n <namespace> 8080:80
+kubectl cp <pod-name>:<remote-path> <local-path> -n <namespace>   # copy from pod to local
+kubectl cp <local-path> <pod-name>:<remote-path> -n <namespace>   # copy from local to pod
 ```
 
 ## Watching
