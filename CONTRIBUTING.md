@@ -30,7 +30,7 @@ command --other <placeholder>
 
 ### Guidelines
 
-- **Practical over exhaustive.** Commands you actually type from muscle memory, not a dump of the man page. No AI slop.
+- **Practical.** Commands you use frequently.
 - **Copy-paste ready.** Use `<placeholder>` for values the reader has to fill in.
 - **Grouped by task, not by flag.** "Pods" and "Deployments" beats "`-n`" and "`-o`".
 - **One topic per note.** If scope creeps, split it.
