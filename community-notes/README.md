@@ -8,6 +8,7 @@ Cheatsheets you can paste into Rook in markdown.
 - [AWS CLI](aws-cli.md). AWS cli basics for installation, auth, profiles.
 - [Git](git.md). Commands for branches, undoing, rebase, remote, log.
 - [DSA (Python)](dsa-python/). Algorithm patterns and complexity reference.
+- [DFS Pattern (Python)](dsa-python/dfs-pattern.md). Spot DFS, walk through LC 200, and practice variants.
 
 ## Adding a new note
 
