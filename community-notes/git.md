@@ -23,6 +23,8 @@ git reset HEAD~1               # undo last commit, keep changes staged
 git reset --hard HEAD~1        # undo last commit, discard changes (destructive)
 git revert <sha>               # create a new commit that undoes <sha>
 git reflog                     # every HEAD move you've made; use this when you think you lost a commit
+git reflog --date=iso          # reflog with timestamps, for the "it was around 6pm last night" moments
+git reflog --date=relative     # reflog with "2 hours ago" style timestamps
 git reset --hard <sha>         # rescue a commit from reflog
 ```
 
