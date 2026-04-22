@@ -126,7 +126,7 @@ docker network prune
 ## Dockerfile essentials
 
 ```dockerfile
-FROM node:20-alpine                     # base image, pinned and small
+FROM node:22-alpine                     # base image, pinned and small
 WORKDIR /app                            # default dir for RUN/CMD/COPY
 COPY package*.json ./                   # copy first for layer caching
 RUN npm ci --omit=dev                   # cachable install step
@@ -138,14 +138,14 @@ CMD ["node", "server.js"]               # default process
 ### Multi-stage build (smaller final image)
 
 ```dockerfile
-FROM node:20 AS build
+FROM node:22 AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM node:20-alpine AS runtime
+FROM node:22-alpine AS runtime
 WORKDIR /app
 COPY --from=build /app/dist ./dist
 COPY package*.json ./
