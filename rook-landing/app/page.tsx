@@ -40,7 +40,17 @@ const shortcuts = [
 
 export default function Home() {
   const [activeTheme, setActiveTheme] = useState(0);
+  const [stars, setStars] = useState<number | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    fetch("/api/stars")
+      .then((r) => r.json())
+      .then((d) => {
+        if (typeof d?.stars === "number") setStars(d.stars);
+      })
+      .catch(() => { });
+  }, []);
 
   const startCarousel = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
@@ -104,9 +114,14 @@ export default function Home() {
                   <XIcon className="size-4" />
                 </a>
               </Button>
-              <Button variant="ghost" size="icon" asChild>
-                <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <Button variant="ghost" size="sm" asChild className="gap-1.5 px-2">
+                <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" aria-label={stars !== null ? `GitHub, ${stars} stars` : "GitHub"}>
                   <GitHubIcon className="size-4" />
+                  {stars !== null && (
+                    <span className="text-[12px] font-mono tabular-nums text-muted-foreground/70">
+                      {stars}
+                    </span>
+                  )}
                 </a>
               </Button>
             </div>
@@ -137,7 +152,12 @@ export default function Home() {
                   </a>
                   <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-muted-foreground hover:text-foreground transition-colors">
                     <GitHubIcon className="size-[18px]" />
-                    GitHub
+                    <span>GitHub</span>
+                    {stars !== null && (
+                      <span className="ml-auto text-[13px] font-mono tabular-nums text-muted-foreground/60">
+                        {stars}
+                      </span>
+                    )}
                   </a>
                   <Button asChild className="bg-[#E8962E] text-background hover:bg-[#d4841e] mt-2">
                     <a href="#download">
@@ -190,34 +210,37 @@ export default function Home() {
             Available for macOS.
           </motion.p>
 
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.26 }}
+            className="mt-5 text-[13px] font-mono text-[#E8962E]/90"
+          >
+            First 100 to join get a lifetime discount on Pro.
+          </motion.p>
+
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.32 }}
-            className="mt-8 flex items-center justify-center gap-3"
+            className="mt-6"
           >
-            <Button size="lg" asChild className="bg-[#E8962E] text-background hover:bg-[#d4841e]">
-              <a href="#download">
-                <Mail className="size-4" />
-                Notify Me
-              </a>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
-              <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer">
-                <GitHubIcon className="size-4" />
-                GitHub
-              </a>
-            </Button>
+            <NotifyForm />
           </motion.div>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="mt-4 text-[12px] text-muted-foreground/50"
+            className="mt-4 flex items-center justify-center gap-2.5 text-[12px] text-muted-foreground/50"
           >
-            Free to download. macOS 14+.
-          </motion.p>
+            <span>Free to download. macOS 14+.</span>
+            <span aria-hidden className="text-muted-foreground/30">·</span>
+            <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-foreground transition-colors">
+              <GitHubIcon className="size-3" />
+              GitHub
+            </a>
+          </motion.div>
         </div>
 
         {/* App mockup */}
@@ -557,17 +580,115 @@ export default function Home() {
           </h2>
 
           <p className="mt-3 text-[15px] text-muted-foreground">
-            Get notified as soon as Rook launches.
+            Join the waitlist. <span className="text-foreground font-medium">The first 100 to join</span> get a lifetime discount on future Pro features.
           </p>
 
           <div className="mt-8">
             <NotifyForm />
           </div>
 
-          <p className="mt-4 text-[12px] text-muted-foreground/40">
+          <p className="mt-5 text-[12px] text-muted-foreground/60">
+            Building in public. Follow along on{" "}
+            <a href="https://x.com/userookapp" target="_blank" rel="noopener noreferrer" className="underline decoration-muted-foreground/30 underline-offset-2 hover:text-foreground transition-colors">X</a>
+            {" "}and{" "}
+            <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="underline decoration-muted-foreground/30 underline-offset-2 hover:text-foreground transition-colors">GitHub</a>.
+          </p>
+
+          <p className="mt-3 text-[12px] text-muted-foreground/40">
             Requires macOS 14 Sonoma or later.
           </p>
         </motion.div>
+      </section>
+
+      {/* ── Tweet vibe ── */}
+      <section className="pb-20 md:pb-24">
+        <div className="max-w-[1080px] mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-3 items-center">
+          <motion.a
+            href="https://x.com/userookapp"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="block rounded-2xl border border-border/60 bg-secondary/20 p-5 hover:bg-secondary/30 transition-colors"
+          >
+            <div className="flex items-center gap-2.5">
+              <Image src="/icon-64.png" alt="" width={36} height={36} className="rounded-full" />
+              <div className="flex flex-col leading-tight">
+                <span className="text-[14px] font-semibold">Rook</span>
+                <span className="text-[12px] text-muted-foreground/70">@userookapp</span>
+              </div>
+              <XIcon className="ml-auto size-4 text-muted-foreground/40" />
+            </div>
+            <p className="mt-3 text-[15px] leading-[1.5]">
+              if vscode and apple notes had a child ??
+            </p>
+          </motion.a>
+
+          <motion.a
+            href="https://x.com/userookapp"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.08 }}
+            className="block rounded-2xl border border-border/60 bg-secondary/20 p-5 hover:bg-secondary/30 transition-colors"
+          >
+            <div className="flex items-center gap-2.5">
+              <Image src="/icon-64.png" alt="" width={36} height={36} className="rounded-full" />
+              <div className="flex flex-col leading-tight">
+                <span className="text-[14px] font-semibold">Rook</span>
+                <span className="text-[12px] text-muted-foreground/70">@userookapp</span>
+              </div>
+              <XIcon className="ml-auto size-4 text-muted-foreground/40" />
+            </div>
+            <div className="mt-3 rounded-lg bg-background/60 border border-border/40 p-3 font-mono text-[11px] leading-[1.75] overflow-x-auto">
+              <div className="text-muted-foreground/50 whitespace-nowrap"># apps for code notes</div>
+              <div className="whitespace-nowrap">
+                <span className="text-[#c4a7e7]">apps</span>
+                <span className="text-muted-foreground/80"> = [</span>
+                <span className="text-[#7ec16e]">&quot;apple notes&quot;</span>
+                <span className="text-muted-foreground/80">, </span>
+                <span className="text-[#7ec16e]">&quot;notion&quot;</span>
+                <span className="text-muted-foreground/80">, </span>
+                <span className="text-[#7ec16e]">&quot;rook&quot;</span>
+                <span className="text-muted-foreground/80">]</span>
+              </div>
+              <div className="mt-1">
+                <span className="text-[#c4a7e7]">apps</span>
+                <span className="text-muted-foreground/80">[</span>
+                <span className="text-[#E8962E]">-1</span>
+                <span className="text-muted-foreground/80">]</span>
+              </div>
+            </div>
+            <p className="mt-1 text-[15px] leading-[1.5]">?</p>
+          </motion.a>
+
+          <motion.a
+            href="https://x.com/userookapp"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.16 }}
+            className="block rounded-2xl border border-border/60 bg-secondary/20 p-5 hover:bg-secondary/30 transition-colors"
+          >
+            <div className="flex items-center gap-2.5">
+              <Image src="/icon-64.png" alt="" width={36} height={36} className="rounded-full" />
+              <div className="flex flex-col leading-tight">
+                <span className="text-[14px] font-semibold">Rook</span>
+                <span className="text-[12px] text-muted-foreground/70">@userookapp</span>
+              </div>
+              <XIcon className="ml-auto size-4 text-muted-foreground/40" />
+            </div>
+            <p className="mt-3 text-[15px] leading-[1.5]">
+              the rook owns the file... fitting, for a notes app
+            </p>
+          </motion.a>
+        </div>
       </section>
 
       {/* ── Footer ── */}

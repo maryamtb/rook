@@ -13,3 +13,7 @@ Cheatsheets you can paste into Rook in markdown.
 ## Adding a new note
 
 See [CONTRIBUTING.md](../CONTRIBUTING.md) for the format and PR checklist.
+
+## About
+
+Part of [Rook](https://userook.app), a notes app built for developers. macOS 14+. [Join the waitlist.](https://userook.app)
