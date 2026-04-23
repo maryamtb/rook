@@ -39,7 +39,7 @@ export async function POST(request: Request) {
         from: "Maryam from Rook <hello@userook.app>",
         replyTo: process.env.NOTIFY_EMAIL!,
         to: normalizedEmail,
-        subject: "Rook early access",
+        subject: "Rook early access! 👋",
         headers: {
           "List-Unsubscribe": "<mailto:hello@userook.app?subject=unsubscribe>",
         },
