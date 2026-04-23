@@ -602,10 +602,12 @@ export default function Home() {
           </div>
 
           <p className="mt-5 text-[12px] text-muted-foreground/60">
-            Building in public. Follow along on{" "}
+            Follow on{" "}
             <a href="https://x.com/userookapp" target="_blank" rel="noopener noreferrer" className="underline decoration-muted-foreground/30 underline-offset-2 hover:text-foreground transition-colors">X</a>
             {" "}and{" "}
-            <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="underline decoration-muted-foreground/30 underline-offset-2 hover:text-foreground transition-colors">GitHub</a>.
+            <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="underline decoration-muted-foreground/30 underline-offset-2 hover:text-foreground transition-colors">GitHub</a>
+            {". Read the story on "}
+            <a href="https://dev.to/mimobenjo/why-i-stopped-using-apple-notes-for-my-code-notes-110p" target="_blank" rel="noopener noreferrer" className="underline decoration-muted-foreground/30 underline-offset-2 hover:text-foreground transition-colors">Dev.to</a>.
           </p>
 
           <a
