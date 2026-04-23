@@ -93,6 +93,9 @@ kubectl get pod <pod-name> -n <namespace> -o jsonpath='{.spec.containers[*].imag
 
 # Open a shell in a new pod on the same node as a target pod
 kubectl debug <pod-name> -n <namespace> -it --image=busybox --target=<container>
+
+# Fetch kubelet logs directly from the API server (no SSH to the node)
+kubectl get --raw "/api/v1/nodes/<node-name>/proxy/logs/?query=kubelet"
 ```
 
 ## Delete things
