@@ -1,11 +1,15 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Download, Mail } from "lucide-react";
+import { toast } from "sonner";
 
 const DMG_URL = "https://lfubd2pcrenetvqi.public.blob.vercel-storage.com/Rook.dmg";
+const UNLOCK_KEY = "rook-early-unlocked";
 
 function GitHubIcon({ className }: { className?: string; }) {
   return (
@@ -24,6 +28,49 @@ function XIcon({ className }: { className?: string; }) {
 }
 
 export default function Leaked() {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [unlocked, setUnlocked] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && localStorage.getItem(UNLOCK_KEY) === "1") {
+      setUnlocked(true);
+    }
+  }, []);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok && res.status !== 409) {
+        toast.error(data.error || "Something went wrong. Try again?");
+        return;
+      }
+
+      if (res.status === 409) {
+        toast("Welcome back! Ready to install.", { style: { background: "#E8962E", color: "#111", border: "none" } });
+      } else {
+        toast("You're in! Ready to install.", { style: { background: "#2D6A4F", color: "#fff", border: "none" } });
+      }
+
+      localStorage.setItem(UNLOCK_KEY, "1");
+      setUnlocked(true);
+    } catch {
+      toast.error("Something went wrong. Try again?");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <main className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center px-6 relative overflow-hidden">
       <div
@@ -88,16 +135,42 @@ export default function Leaked() {
           transition={{ duration: 0.5, ease: "easeOut", delay: 0.3 }}
           className="mt-10"
         >
-          <Button
-            size="lg"
-            asChild
-            className="bg-[#E8962E] text-background hover:bg-[#d4841e] h-12 px-8 text-[15px] font-semibold"
-          >
-            <a href={DMG_URL} download>
-              <Download className="size-4" />
-              Install Rook
-            </a>
-          </Button>
+          {unlocked ? (
+            <Button
+              size="lg"
+              asChild
+              className="bg-[#E8962E] text-background hover:bg-[#d4841e] h-12 px-8 text-[15px] font-semibold"
+            >
+              <a href={DMG_URL} download>
+                <Download className="size-4" />
+                Install Rook
+              </a>
+            </Button>
+          ) : (
+            <form onSubmit={handleSubmit} className="flex flex-col items-center gap-3 max-w-sm mx-auto">
+              <p className="text-[13px] text-muted-foreground">
+                Drop your email to get the install link.
+              </p>
+              <div className="flex items-center gap-2 w-full">
+                <Input
+                  type="email"
+                  placeholder="rhoward@dundermifflin.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="h-12"
+                />
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="bg-[#E8962E] text-background hover:bg-[#d4841e] h-12 px-5 text-[14px] font-semibold shrink-0 cursor-pointer"
+                >
+                  <Mail className="size-4" />
+                  {loading ? "..." : "Continue"}
+                </Button>
+              </div>
+            </form>
+          )}
         </motion.div>
 
         <motion.p
