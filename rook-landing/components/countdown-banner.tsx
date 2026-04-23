@@ -26,7 +26,7 @@ export function CountdownBanner() {
   if (remaining === 0) {
     return (
       <div className="fixed top-0 inset-x-0 z-[60] bg-[#E8962E]/10 backdrop-blur-xl border-b border-[#E8962E]/20 py-2.5 text-center text-[13px] font-mono">
-        <a href={DOWNLOAD_URL} className="text-foreground font-medium hover:underline">
+        <a href={DOWNLOAD_URL} download className="text-foreground font-medium hover:underline">
           Download Rook now →
         </a>
       </div>

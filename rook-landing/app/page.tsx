@@ -108,6 +108,20 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-2 justify-self-end">
+            <a
+              href="https://www.producthunt.com/products/rook-4?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-rook-5"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Rook on Product Hunt"
+              className="hidden sm:inline-block transition-opacity hover:opacity-80"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                alt="Rook on Product Hunt"
+                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1130811&theme=light&t=1776961478535"
+                className="h-8 w-auto"
+              />
+            </a>
             <div className="hidden sm:flex items-center -space-x-1">
               <Button variant="ghost" size="icon" asChild>
                 <a href="https://x.com/userookapp" target="_blank" rel="noopener noreferrer" aria-label="X">
@@ -593,6 +607,21 @@ export default function Home() {
             {" "}and{" "}
             <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="underline decoration-muted-foreground/30 underline-offset-2 hover:text-foreground transition-colors">GitHub</a>.
           </p>
+
+          <a
+            href="https://www.producthunt.com/products/rook-4?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-rook-5"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-block transition-opacity hover:opacity-80"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              alt="Rook - The note-taking app for developers | Product Hunt"
+              width={250}
+              height={54}
+              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1130811&theme=dark&t=1776961478535"
+            />
+          </a>
 
           <p className="mt-3 text-[12px] text-muted-foreground/40">
             Requires macOS 14 Sonoma or later.
