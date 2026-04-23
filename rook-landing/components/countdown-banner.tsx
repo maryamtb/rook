@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 const LAUNCH_DATE = new Date("2026-04-24T17:00:00+01:00");
-const DOWNLOAD_URL = "https://github.com/maryamtb/rook/releases/latest";
+const DOWNLOAD_URL = "https://lfubd2pcrenetvqi.public.blob.vercel-storage.com/Rook.dmg";
 
 export function CountdownBanner() {
   const [remaining, setRemaining] = useState<number | null>(null);
