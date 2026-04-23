@@ -41,8 +41,7 @@ export async function POST(request: Request) {
         to: normalizedEmail,
         subject: "Rook early access",
         headers: {
-          "List-Unsubscribe": "<{{{RESEND_UNSUBSCRIBE_URL}}}>",
-          "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+          "List-Unsubscribe": "<mailto:hello@userook.app?subject=unsubscribe>",
         },
         html: `<!DOCTYPE html>
 <html>
@@ -85,7 +84,7 @@ export async function POST(request: Request) {
         </td></tr>
         <tr><td style="padding:24px 36px;border-top:1px solid #2a2a2a;color:#666666;font-size:11px;line-height:1.6;">
           <p style="margin:0 0 12px;">You are receiving this email because you opted in via our site.</p>
-          <p style="margin:0 0 12px;">Want to change how you receive these emails?<br/><a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#888888;text-decoration:underline;">You can unsubscribe from this list.</a></p>
+          <p style="margin:0 0 12px;">Want to change how you receive these emails?<br/><a href="mailto:hello@userook.app?subject=unsubscribe" style="color:#888888;text-decoration:underline;">You can unsubscribe from this list.</a></p>
           <p style="margin:0;">Rook<br/><a href="https://userook.app" style="color:#888888;text-decoration:none;">https://userook.app</a></p>
         </td></tr>
       </table>
