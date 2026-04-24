@@ -8,6 +8,7 @@ Cheatsheets you can paste into Rook in markdown.
 - [Docker](docker.md). Images, containers, logs, networking, volumes, Compose, cleanup.
 - [AWS CLI](aws-cli.md). AWS cli basics for installation, auth, profiles.
 - [Git](git.md). Commands for branches, undoing, rebase, remote, log.
+- [FastAPI](fastapi.md). Install, app structure, routes, validation, and testing.
 - [DSA (Python)](dsa-python/). Algorithm patterns and complexity reference.
 - [DFS Pattern (Python)](dsa-python/dfs-pattern.md). Spot DFS, walk through LC 200, and practice variants.
 
