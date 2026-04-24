@@ -224,13 +224,8 @@ export async function POST(request: Request) {
 										</td>
 									</tr>
 								</table>
-								<p style="margin: 0 0 12px>
-									Encountered a bug? Open an issue
-									<a
-										href="https://github.com/maryamtb/rook/issues"
-										style="color: #e8962e; text-decoration: none"
-										>here</a
-									>!
+								<p style="margin: 0 0 12px">
+									Encountered a bug? Open an issue <a href="https://github.com/maryamtb/rook/issues" style="color: #e8962e; text-decoration: none">here</a>!
 								</p>
 								<p style="margin: 0">
 									We have
