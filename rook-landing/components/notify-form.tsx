@@ -27,7 +27,7 @@ export function NotifyForm() {
 
       if (!res.ok) {
         if (res.status === 409) {
-          posthog.capture("waitlist_signup_duplicate", { source: "homepage_cta" });
+          posthog.capture("pro_discount_signup_duplicate", { source: "homepage_cta" });
           toast(data.error, { style: { background: "#E8962E", color: "#111", border: "none" } });
         } else {
           toast.error(data.error);
@@ -36,7 +36,7 @@ export function NotifyForm() {
       }
 
       posthog.identify(email, { email });
-      posthog.capture("waitlist_signup", { source: "homepage_cta" });
+      posthog.capture("pro_discount_signup", { source: "homepage_cta" });
       toast("Claimed! We'll email you when Pro is ready.", { style: { background: "#2D6A4F", color: "#fff", border: "none" } });
       setSubmitted(true);
     } catch {
