@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { track } from "@vercel/analytics";
 import { AppMockup } from "@/components/mockup";
 import { themes } from "@/lib/themes";
 import { Download, Lock, Menu } from "lucide-react";
@@ -140,7 +141,7 @@ export default function Home() {
               </Button>
             </div>
             <Button asChild className="bg-[#E8962E] text-background hover:bg-[#d4841e] hidden sm:inline-flex">
-              <a href={DMG_URL} download>
+              <a href={DMG_URL} download onClick={() => track("install_click", { source: "nav" })}>
                 <Download className="size-4" />
                 Download
               </a>
@@ -174,7 +175,7 @@ export default function Home() {
                     )}
                   </a>
                   <Button asChild className="bg-[#E8962E] text-background hover:bg-[#d4841e] mt-2">
-                    <a href={DMG_URL} download>
+                    <a href={DMG_URL} download onClick={() => track("install_click", { source: "nav_mobile" })}>
                       <Download className="size-4" />
                       Download
                     </a>
@@ -235,7 +236,7 @@ export default function Home() {
               asChild
               className="bg-[#E8962E] text-background hover:bg-[#d4841e] h-12 px-8 text-[15px] font-semibold"
             >
-              <a href={DMG_URL} download>
+              <a href={DMG_URL} download onClick={() => track("install_click", { source: "hero" })}>
                 <Download className="size-4" />
                 Download for macOS
               </a>
@@ -643,7 +644,7 @@ export default function Home() {
               asChild
               className="bg-[#E8962E] text-background hover:bg-[#d4841e] h-12 px-8 text-[15px] font-semibold"
             >
-              <a href={DMG_URL} download>
+              <a href={DMG_URL} download onClick={() => track("install_click", { source: "footer_cta" })}>
                 <Download className="size-4" />
                 Download for macOS
               </a>

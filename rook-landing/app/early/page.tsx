@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { track } from "@vercel/analytics";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Download, Mail } from "lucide-react";
@@ -141,7 +142,7 @@ export default function Leaked() {
               asChild
               className="bg-[#E8962E] text-background hover:bg-[#d4841e] h-12 px-8 text-[15px] font-semibold"
             >
-              <a href={DMG_URL} download>
+              <a href={DMG_URL} download onClick={() => track("install_click", { source: "early" })}>
                 <Download className="size-4" />
                 Install Rook
               </a>
