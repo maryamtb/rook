@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { getSupabase } from "@/lib/supabase";
+import { getPostHogClient } from "@/lib/posthog-server";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -33,6 +34,18 @@ export async function POST(request: Request) {
         { status: 500 }
       );
     }
+
+    const posthog = getPostHogClient();
+    posthog.capture({
+      distinctId: normalizedEmail,
+      event: "waitlist_insert",
+      properties: { email: normalizedEmail },
+    });
+    posthog.identify({
+      distinctId: normalizedEmail,
+      properties: { email: normalizedEmail },
+    });
+    await posthog.shutdown();
 
     await Promise.all([
       resend.emails.send({

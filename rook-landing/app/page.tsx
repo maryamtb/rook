@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { track } from "@vercel/analytics";
+import posthog from "posthog-js";
 import { AppMockup } from "@/components/mockup";
 import { themes } from "@/lib/themes";
 import { Download, Lock, Menu } from "lucide-react";
@@ -115,6 +115,7 @@ export default function Home() {
               rel="noopener noreferrer"
               aria-label="Rook on Product Hunt"
               className="hidden sm:inline-block transition-opacity hover:opacity-80"
+              onClick={() => posthog.capture("product_hunt_click", { source: "nav" })}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -130,7 +131,7 @@ export default function Home() {
                 </a>
               </Button>
               <Button variant="ghost" size="sm" asChild className="gap-1.5 px-2">
-                <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" aria-label={stars !== null ? `GitHub, ${stars} stars` : "GitHub"}>
+                <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" aria-label={stars !== null ? `GitHub, ${stars} stars` : "GitHub"} onClick={() => posthog.capture("github_click", { source: "nav" })}>
                   <GitHubIcon className="size-4" />
                   {stars !== null && (
                     <span className="text-[12px] font-mono tabular-nums text-muted-foreground/70">
@@ -141,7 +142,7 @@ export default function Home() {
               </Button>
             </div>
             <Button asChild className="bg-[#E8962E] text-background hover:bg-[#d4841e] hidden sm:inline-flex">
-              <a href={DMG_URL} download onClick={() => track("install_click", { source: "nav" })}>
+              <a href={DMG_URL} download onClick={() => posthog.capture("install_click", { source: "nav" })}>
                 <Download className="size-4" />
                 Download
               </a>
@@ -165,7 +166,7 @@ export default function Home() {
                     <XIcon className="size-[18px]" />
                     X
                   </a>
-                  <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-muted-foreground hover:text-foreground transition-colors">
+                  <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-muted-foreground hover:text-foreground transition-colors" onClick={() => posthog.capture("github_click", { source: "nav_mobile" })}>
                     <GitHubIcon className="size-[18px]" />
                     <span>GitHub</span>
                     {stars !== null && (
@@ -175,7 +176,7 @@ export default function Home() {
                     )}
                   </a>
                   <Button asChild className="bg-[#E8962E] text-background hover:bg-[#d4841e] mt-2">
-                    <a href={DMG_URL} download onClick={() => track("install_click", { source: "nav_mobile" })}>
+                    <a href={DMG_URL} download onClick={() => posthog.capture("install_click", { source: "nav_mobile" })}>
                       <Download className="size-4" />
                       Download
                     </a>
@@ -236,7 +237,7 @@ export default function Home() {
               asChild
               className="bg-[#E8962E] text-background hover:bg-[#d4841e] h-12 px-8 text-[15px] font-semibold"
             >
-              <a href={DMG_URL} download onClick={() => track("install_click", { source: "hero" })}>
+              <a href={DMG_URL} download onClick={() => posthog.capture("install_click", { source: "hero" })}>
                 <Download className="size-4" />
                 Download for macOS
               </a>
@@ -263,7 +264,7 @@ export default function Home() {
           >
             <span>Free. macOS 14+. Apple Silicon &amp; Intel.</span>
             <span aria-hidden className="text-muted-foreground/30">·</span>
-            <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-foreground transition-colors">
+            <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-foreground transition-colors" onClick={() => posthog.capture("github_click", { source: "hero" })}>
               <GitHubIcon className="size-3" />
               GitHub
             </a>
@@ -278,6 +279,7 @@ export default function Home() {
             rel="noopener noreferrer"
             className="mt-5 sm:hidden inline-block transition-opacity hover:opacity-80"
             aria-label="Rook on Product Hunt"
+            onClick={() => posthog.capture("product_hunt_click", { source: "hero" })}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -644,7 +646,7 @@ export default function Home() {
               asChild
               className="bg-[#E8962E] text-background hover:bg-[#d4841e] h-12 px-8 text-[15px] font-semibold"
             >
-              <a href={DMG_URL} download onClick={() => track("install_click", { source: "footer_cta" })}>
+              <a href={DMG_URL} download onClick={() => posthog.capture("install_click", { source: "footer_cta" })}>
                 <Download className="size-4" />
                 Download for macOS
               </a>
@@ -789,7 +791,7 @@ export default function Home() {
             <a href="mailto:hello@userook.app" className="hover:text-muted-foreground transition-colors">hello@userook.app</a>
             <a href="/changelog" className="hover:text-muted-foreground transition-colors">Changelog</a>
             <a href="https://x.com/userookapp" target="_blank" rel="noopener noreferrer" className="hover:text-muted-foreground transition-colors">X</a>
-            <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="hover:text-muted-foreground transition-colors">GitHub</a>
+            <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="hover:text-muted-foreground transition-colors" onClick={() => posthog.capture("github_click", { source: "footer" })}>GitHub</a>
             <a href="https://dev.to/mimobenjo/why-i-stopped-using-apple-notes-for-my-code-notes-110p" target="_blank" rel="noopener noreferrer" className="hover:text-muted-foreground transition-colors">Blog</a>
           </div>
         </div>

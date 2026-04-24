@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { track } from "@vercel/analytics";
+import posthog from "posthog-js";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Download, Mail } from "lucide-react";
@@ -57,9 +58,12 @@ export default function Leaked() {
         return;
       }
 
+      posthog.identify(email, { email });
       if (res.status === 409) {
+        posthog.capture("early_access_signup", { source: "early_page", returning: true });
         toast("Welcome back! Ready to install.", { style: { background: "#E8962E", color: "#111", border: "none" } });
       } else {
+        posthog.capture("early_access_signup", { source: "early_page", returning: false });
         toast("You're in! Ready to install.", { style: { background: "#2D6A4F", color: "#fff", border: "none" } });
       }
 
@@ -90,7 +94,7 @@ export default function Leaked() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <a href="/" aria-label="Back to Rook home" className="inline-block">
+          <Link href="/" aria-label="Back to Rook home" className="inline-block">
             <Image
               src="/icon-512.png"
               alt="Rook"
@@ -98,7 +102,7 @@ export default function Leaked() {
               height={88}
               className="mx-auto mb-8 rounded-[20px] transition-transform hover:scale-105"
             />
-          </a>
+          </Link>
         </motion.div>
 
         <motion.p
@@ -142,7 +146,7 @@ export default function Leaked() {
               asChild
               className="bg-[#E8962E] text-background hover:bg-[#d4841e] h-12 px-8 text-[15px] font-semibold"
             >
-              <a href={DMG_URL} download onClick={() => track("install_click", { source: "early" })}>
+              <a href={DMG_URL} download onClick={() => posthog.capture("install_click", { source: "early" })}>
                 <Download className="size-4" />
                 Install Rook
               </a>
@@ -205,6 +209,7 @@ export default function Leaked() {
                 href="https://github.com/maryamtb/rook"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => posthog.capture("github_click", { source: "early" })}
               >
                 <GitHubIcon className="size-3.5" />
                 Star on GitHub
@@ -216,6 +221,7 @@ export default function Leaked() {
             target="_blank"
             rel="noopener noreferrer"
             className="mt-3 transition-opacity hover:opacity-80"
+            onClick={() => posthog.capture("product_hunt_click", { source: "early" })}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

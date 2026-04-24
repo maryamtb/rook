@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { track } from "@vercel/analytics";
+import posthog from "posthog-js";
 
 const LAUNCH_DATE = new Date("2026-04-24T17:00:00+01:00");
 const DOWNLOAD_URL = "https://lfubd2pcrenetvqi.public.blob.vercel-storage.com/Rook.dmg";
@@ -30,7 +30,7 @@ export function CountdownBanner() {
         <a
           href={DOWNLOAD_URL}
           download
-          onClick={() => track("install_click", { source: "banner" })}
+          onClick={() => posthog.capture("install_click", { source: "banner" })}
           className="text-foreground font-medium hover:underline"
         >
           Download Rook now →

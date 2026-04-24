@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, JetBrains_Mono, Space_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "sonner";
+import { PostHogInit } from "@/components/posthog-init";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -63,6 +64,7 @@ export default function RootLayout({
       <body
         className={`${jakarta.variable} ${jetbrains.variable} ${spaceMono.variable} antialiased`}
       >
+        <PostHogInit />
         {children}
         <Toaster richColors position="bottom-right" />
         <Analytics />
