@@ -786,6 +786,7 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-4 text-[12px] text-muted-foreground/40">
             <a href="mailto:hello@userook.app" className="hover:text-muted-foreground transition-colors">hello@userook.app</a>
+            <a href="/changelog" className="hover:text-muted-foreground transition-colors">Changelog</a>
             <a href="https://x.com/userookapp" target="_blank" rel="noopener noreferrer" className="hover:text-muted-foreground transition-colors">X</a>
             <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="hover:text-muted-foreground transition-colors">GitHub</a>
             <a href="https://dev.to/mimobenjo/why-i-stopped-using-apple-notes-for-my-code-notes-110p" target="_blank" rel="noopener noreferrer" className="hover:text-muted-foreground transition-colors">Blog</a>
