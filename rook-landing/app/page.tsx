@@ -250,7 +250,7 @@ export default function Home() {
             transition={{ duration: 0.5, ease: "easeOut", delay: 0.42 }}
             className="mt-4 text-[13px] font-mono text-[#E8962E]/90"
           >
-            First 100 installs get a{" "}
+            First 100 signups get a{" "}
             <a href="#download" className="underline decoration-[#E8962E]/40 underline-offset-4 hover:decoration-[#E8962E]/80 transition-colors">
               lifetime discount on Pro
             </a>.
@@ -658,7 +658,7 @@ export default function Home() {
           </p>
 
           <div className="mt-10 pt-8 border-t border-border/30">
-            <p className="text-[13px] text-muted-foreground mb-3"><span className="text-foreground font-medium">First 100 installs</span> get a lifetime discount on Pro.</p>
+            <p className="text-[13px] text-muted-foreground mb-3"><span className="text-foreground font-medium">First 100 signups</span> get a lifetime discount on Pro.</p>
             <NotifyForm />
           </div>
 
