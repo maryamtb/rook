@@ -39,7 +39,7 @@ export async function POST(request: Request) {
         from: "Maryam from Rook <hello@userook.app>",
         replyTo: process.env.NOTIFY_EMAIL!,
         to: normalizedEmail,
-        subject: "Rook early access! 👋",
+        subject: "Welcome to Rook 👋",
         headers: {
           "List-Unsubscribe": "<mailto:hello@userook.app?subject=unsubscribe>",
         },
@@ -56,7 +56,7 @@ export async function POST(request: Request) {
         </td></tr>
         <tr><td style="padding:0 36px 32px;color:#cccccc;font-size:15px;line-height:1.6;">
           <p style="margin:0 0 16px;">Hey!</p>
-          <p style="margin:0 0 16px;">Thank you for being one of the first 100 on the waitlist. You've unlocked <strong style="color:#ffffff;">a lifetime discount on Rook Pro</strong>, and you get <strong style="color:#ffffff;">early access</strong> to Rook starting today: <a href="https://userook.app/early" style="color:#E8962E;text-decoration:underline;">userook.app/early</a>.</p>
+          <p style="margin:0 0 16px;">Thank you for being one of the first 100 on the waitlist. You've unlocked <strong style="color:#ffffff;">a lifetime discount on Rook Pro</strong>. You can download Rook today at <a href="https://userook.app" style="color:#E8962E;text-decoration:underline;">userook.app</a>.</p>
           <p style="margin:0 0 16px;">Rook is launching on Product Hunt on <strong style="color:#ffffff;">May 19</strong>. Would looove to see you there.</p>
           <p style="margin:0 0 16px;">Curious about rook's origin story? I wrote about it here: <a href="https://dev.to/mimobenjo/why-i-stopped-using-apple-notes-for-my-code-notes-110p" style="color:#E8962E;text-decoration:underline;">Dev.to</a>.</p>
           <p style="margin:0 0 16px;">Any feedback and feature requests very welcome! I read every reply.</p>
