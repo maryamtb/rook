@@ -5,9 +5,10 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { AppMockup } from "@/components/mockup";
 import { themes } from "@/lib/themes";
-import { Lock, Mail, Menu } from "lucide-react";
+import { Download, Lock, Menu } from "lucide-react";
 import { NotifyForm } from "@/components/notify-form";
-import { CountdownBanner } from "@/components/countdown-banner";
+
+const DMG_URL = "https://lfubd2pcrenetvqi.public.blob.vercel-storage.com/Rook.dmg";
 
 function GitHubIcon({ className }: { className?: string; }) {
   return (
@@ -72,7 +73,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
-      <CountdownBanner />
       <div
         className="absolute top-[50px] left-0 right-0 h-[700px] pointer-events-none z-0"
         style={{
@@ -94,7 +94,7 @@ export default function Home() {
       />
 
       {/* ── Nav ── */}
-      <nav className="fixed top-10 inset-x-0 z-50 bg-background/60 backdrop-blur-xl">
+      <nav className="fixed top-0 inset-x-0 z-50 bg-background/60 backdrop-blur-xl">
         <div className="max-w-[1200px] mx-auto flex sm:grid sm:grid-cols-[1fr_auto_1fr] items-center justify-between h-14 px-4 sm:px-6">
           <a href="#" className="flex items-center gap-2 sm:justify-self-start">
             <Image src="/icon-64.png" alt="Rook" width={22} height={22} className="rounded-[5px]" />
@@ -140,9 +140,9 @@ export default function Home() {
               </Button>
             </div>
             <Button asChild className="bg-[#E8962E] text-background hover:bg-[#d4841e] hidden sm:inline-flex">
-              <a href="#download">
-                <Mail className="size-4" />
-                Notify Me
+              <a href={DMG_URL} download>
+                <Download className="size-4" />
+                Download
               </a>
             </Button>
 
@@ -174,9 +174,9 @@ export default function Home() {
                     )}
                   </a>
                   <Button asChild className="bg-[#E8962E] text-background hover:bg-[#d4841e] mt-2">
-                    <a href="#download">
-                      <Mail className="size-4" />
-                      Notify Me
+                    <a href={DMG_URL} download>
+                      <Download className="size-4" />
+                      Download
                     </a>
                   </Button>
                 </nav>
@@ -187,7 +187,7 @@ export default function Home() {
       </nav>
 
       {/* ── Hero ── */}
-      <section className="pt-[180px] md:pt-[216px]">
+      <section className="pt-[140px] md:pt-[176px]">
         <div className="max-w-[680px] mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -224,23 +224,35 @@ export default function Home() {
             Available for macOS.
           </motion.p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.26 }}
-            className="mt-5 text-[13px] font-mono text-[#E8962E]/90"
-          >
-            First 100 to join get a lifetime discount on Pro.
-          </motion.p>
-
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.32 }}
-            className="mt-6"
+            className="mt-8"
           >
-            <NotifyForm />
+            <Button
+              size="lg"
+              asChild
+              className="bg-[#E8962E] text-background hover:bg-[#d4841e] h-12 px-8 text-[15px] font-semibold"
+            >
+              <a href={DMG_URL} download>
+                <Download className="size-4" />
+                Download for macOS
+              </a>
+            </Button>
           </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.42 }}
+            className="mt-4 text-[13px] font-mono text-[#E8962E]/90"
+          >
+            First 100 installs get a{" "}
+            <a href="#download" className="underline decoration-[#E8962E]/40 underline-offset-4 hover:decoration-[#E8962E]/80 transition-colors">
+              lifetime discount on Pro
+            </a>.
+          </motion.p>
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -248,13 +260,32 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.5 }}
             className="mt-4 flex items-center justify-center gap-2.5 text-[12px] text-muted-foreground/50"
           >
-            <span>Free to download. macOS 14+.</span>
+            <span>Free. macOS 14+. Apple Silicon &amp; Intel.</span>
             <span aria-hidden className="text-muted-foreground/30">·</span>
             <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 hover:text-foreground transition-colors">
               <GitHubIcon className="size-3" />
               GitHub
             </a>
           </motion.div>
+
+          <motion.a
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            href="https://www.producthunt.com/products/rook-4?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-rook-5"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 sm:hidden inline-block transition-opacity hover:opacity-80"
+            aria-label="Rook on Product Hunt"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              alt="Rook on Product Hunt"
+              width={210}
+              height={45}
+              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1130811&theme=dark&t=1776961478535"
+            />
+          </motion.a>
         </div>
 
         {/* App mockup */}
@@ -556,15 +587,24 @@ export default function Home() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-8 text-center"
+            className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-[13px] font-mono text-muted-foreground"
           >
             <a
               href="https://github.com/maryamtb/rook/tree/main/community-notes"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[13px] font-mono text-muted-foreground hover:text-foreground transition-colors"
+              className="hover:text-foreground transition-colors"
             >
               Browse all on GitHub →
+            </a>
+            <span aria-hidden className="hidden sm:inline text-muted-foreground/30">·</span>
+            <a
+              href="https://github.com/maryamtb/rook/discussions"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors"
+            >
+              Introduce yourself in Discussions →
             </a>
           </motion.div>
         </div>
@@ -590,44 +630,58 @@ export default function Home() {
           />
 
           <h2 className="text-[28px] sm:text-[32px] font-semibold tracking-tight">
-            Rook is launching soon
+            Download Rook
           </h2>
 
           <p className="mt-3 text-[15px] text-muted-foreground">
-            Join the waitlist. <span className="text-foreground font-medium">The first 100 to join</span> get a lifetime discount on future Pro features.
+            Free, local, for macOS
           </p>
 
           <div className="mt-8">
+            <Button
+              size="lg"
+              asChild
+              className="bg-[#E8962E] text-background hover:bg-[#d4841e] h-12 px-8 text-[15px] font-semibold"
+            >
+              <a href={DMG_URL} download>
+                <Download className="size-4" />
+                Download for macOS
+              </a>
+            </Button>
+          </div>
+
+          <p className="mt-3 text-[12px] text-muted-foreground/40">
+            macOS 14+. Apple Silicon &amp; Intel.
+          </p>
+
+          <div className="mt-10 pt-8 border-t border-border/30">
+            <p className="text-[13px] text-muted-foreground mb-3"><span className="text-foreground font-medium">First 100 installs</span> get a lifetime discount on Pro.</p>
             <NotifyForm />
           </div>
 
-          <p className="mt-5 text-[12px] text-muted-foreground/60">
-            Follow on{" "}
+          <p className="mt-8 text-[12px] text-muted-foreground/60">
+            Say hi in{" "}
+            <a href="https://github.com/maryamtb/rook/discussions" target="_blank" rel="noopener noreferrer" className="underline decoration-muted-foreground/30 underline-offset-2 hover:text-foreground transition-colors">GitHub Discussions</a>
+            {". Follow on "}
             <a href="https://x.com/userookapp" target="_blank" rel="noopener noreferrer" className="underline decoration-muted-foreground/30 underline-offset-2 hover:text-foreground transition-colors">X</a>
-            {" "}and{" "}
-            <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="underline decoration-muted-foreground/30 underline-offset-2 hover:text-foreground transition-colors">GitHub</a>
             {". Read the story on "}
             <a href="https://dev.to/mimobenjo/why-i-stopped-using-apple-notes-for-my-code-notes-110p" target="_blank" rel="noopener noreferrer" className="underline decoration-muted-foreground/30 underline-offset-2 hover:text-foreground transition-colors">Dev.to</a>.
           </p>
 
-          <a
+          {/* <a
             href="https://www.producthunt.com/products/rook-4?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-rook-5"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-5 inline-block transition-opacity hover:opacity-80"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+            eslint-disable-next-line @next/next/no-img-element
             <img
               alt="Rook - The note-taking app for developers | Product Hunt"
               width={250}
               height={54}
               src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1130811&theme=dark&t=1776961478535"
             />
-          </a>
-
-          <p className="mt-3 text-[12px] text-muted-foreground/40">
-            Requires macOS 14 Sonoma or later.
-          </p>
+          </a> */}
         </motion.div>
       </section>
 
@@ -731,8 +785,10 @@ export default function Home() {
             <span className="text-[12px] font-mono text-muted-foreground/40">Rook</span>
           </div>
           <div className="flex items-center gap-4 text-[12px] text-muted-foreground/40">
+            <a href="mailto:hello@userook.app" className="hover:text-muted-foreground transition-colors">hello@userook.app</a>
             <a href="https://x.com/userookapp" target="_blank" rel="noopener noreferrer" className="hover:text-muted-foreground transition-colors">X</a>
             <a href="https://github.com/maryamtb/rook" target="_blank" rel="noopener noreferrer" className="hover:text-muted-foreground transition-colors">GitHub</a>
+            <a href="https://dev.to/mimobenjo/why-i-stopped-using-apple-notes-for-my-code-notes-110p" target="_blank" rel="noopener noreferrer" className="hover:text-muted-foreground transition-colors">Blog</a>
           </div>
         </div>
       </footer>

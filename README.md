@@ -8,20 +8,22 @@
   <p>Rich text and code blocks, syntax highlighting, and various themes. Available for macOS.</p>
 
   <p>
-    <a href="https://userook.app"><strong>Join the waitlist</strong></a>
+    <a href="https://userook.app"><strong>Download for macOS</strong></a>
   </p>
+
+  <p align="center">
+    <img alt="macOS" src="https://img.shields.io/badge/macOS-14+-000000?logo=apple&logoColor=white" />
+    <img alt="Swift" src="https://img.shields.io/badge/Swift-6-F05138?logo=swift&logoColor=white" />
+    <img alt="Status" src="https://img.shields.io/badge/status-available-2D6A4F" />
+    <a href="https://github.com/maryamtb/rook/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/maryamtb/rook?style=flat&color=E8962E" /></a>
+  </p>
+  
+  <br/>
 
   <img src="media/hero.png" alt="Rook editor" width="900" />
 </div>
 
 <br />
-
-<p align="center">
-  <img alt="macOS" src="https://img.shields.io/badge/macOS-14+-000000?logo=apple&logoColor=white" />
-  <img alt="Swift" src="https://img.shields.io/badge/Swift-6-F05138?logo=swift&logoColor=white" />
-  <img alt="Status" src="https://img.shields.io/badge/status-waitlist-E8962E" />
-  <a href="https://github.com/maryamtb/rook/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/maryamtb/rook?style=flat&color=E8962E" /></a>
-</p>
 
 ## Demo
 
@@ -53,7 +55,7 @@ The Rook macOS app itself is a closed-source Swift project distributed as a sign
 
 ## Status
 
-Rook is in pre-release. [Join the waitlist](https://userook.app) to get notified when it ships. Bug reports and feature requests are welcome in [issues](../../issues).
+Rook is available for macOS. [Download at userook.app](https://userook.app). Bug reports and feature requests welcome in [issues](../../issues), or say hi in [Discussions](../../discussions).
 
 ## License
 

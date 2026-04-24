@@ -33,7 +33,7 @@ export function NotifyForm() {
         return;
       }
 
-      toast("You're in! We'll notify you as soon as Rook launches.", { style: { background: "#2D6A4F", color: "#fff", border: "none" } });
+      toast("Claimed! We'll email you when Pro is ready.", { style: { background: "#2D6A4F", color: "#fff", border: "none" } });
       setSubmitted(true);
     } catch {
       toast.error("Something went wrong. Try again?");
@@ -66,7 +66,7 @@ export function NotifyForm() {
         className="bg-[#E8962E] text-background hover:bg-[#d4841e] h-10 shrink-0 cursor-pointer"
       >
         <Mail className="size-4" />
-        {loading ? "Sending..." : "Notify Me"}
+        {loading ? "Sending..." : "Claim discount"}
       </Button>
     </form>
   );
