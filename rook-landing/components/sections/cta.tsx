@@ -26,7 +26,7 @@ export function Cta({ capReached, signupMeta }: CtaProps) {
       >
         <Image
           src="/icon-512.png"
-          alt="Rook"
+          alt=""
           width={56}
           height={56}
           className="mx-auto mb-6 rounded-2xl"
