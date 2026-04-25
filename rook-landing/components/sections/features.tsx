@@ -16,6 +16,15 @@ export function Features() {
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="max-w-[1200px] mx-auto px-6"
       >
+        <div className="text-center mb-14">
+          <h2 className="text-[28px] sm:text-[32px] font-semibold tracking-tight">
+            Features
+          </h2>
+          <p className="mt-3 text-[15px] text-muted-foreground">
+            Built for the way developers take notes
+          </p>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 sm:gap-16 md:gap-14">
           <div className="text-center">
             <div className="flex items-center justify-center gap-1.5 mb-3">
