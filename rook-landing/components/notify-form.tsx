@@ -4,10 +4,9 @@ import { useState } from "react";
 import { toast } from "sonner";
 import posthog from "posthog-js";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { BrandButton } from "@/components/brand-button";
 import { Mail } from "lucide-react";
-
-type SignupMeta = { count: number; cap: number; capReached: boolean };
+import type { SignupMeta } from "@/hooks/use-signup-meta";
 
 export function NotifyForm({ meta }: { meta: SignupMeta | null }) {
   const [email, setEmail] = useState("");
@@ -40,10 +39,10 @@ export function NotifyForm({ meta }: { meta: SignupMeta | null }) {
         if (res.status === 410) {
           // Cap was reached between page load and submit. Switch to launch variant.
           setForcedCapReached(true);
-          toast(data.error, { style: { background: "#E8962E", color: "#111", border: "none" } });
+          toast(data.error, { style: { background: "var(--rook)", color: "#111", border: "none" } });
         } else if (res.status === 409) {
           posthog.capture(`${eventBase}_duplicate`, { source: "homepage_cta" });
-          toast(data.error, { style: { background: "#E8962E", color: "#111", border: "none" } });
+          toast(data.error, { style: { background: "var(--rook)", color: "#111", border: "none" } });
         } else {
           toast.error(data.error);
         }
@@ -72,23 +71,23 @@ export function NotifyForm({ meta }: { meta: SignupMeta | null }) {
   return (
     <div className="max-w-sm mx-auto">
       <CountPill meta={meta} forcedCapReached={forcedCapReached} />
-      <form onSubmit={handleSubmit} className="flex items-center gap-2">
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row sm:items-center gap-2">
         <Input
           type="email"
           placeholder="rhoward@dundermifflin.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="h-10"
+          className="h-10 w-full"
         />
-        <Button
+        <BrandButton
           type="submit"
           disabled={loading || !meta}
-          className="bg-[#E8962E] text-background hover:bg-[#d4841e] h-10 shrink-0 cursor-pointer"
+          className="h-10 sm:shrink-0 cursor-pointer"
         >
           <Mail className="size-4" />
           {loading ? "Sending..." : buttonLabel}
-        </Button>
+        </BrandButton>
       </form>
     </div>
   );
@@ -107,7 +106,7 @@ function CountPill({ meta, forcedCapReached }: { meta: SignupMeta | null; forced
   const shown = Math.min(meta.count, DISPLAY_CAP);
 
   return (
-    <p className="mb-3 text-[13px] text-muted-foreground text-center">
+    <p className="mb-3 text-sm sm:text-[13px] text-muted-foreground text-center">
       <span className="text-foreground font-medium tabular-nums">{shown} / {DISPLAY_CAP}</span>{" "}
       discount spots claimed
     </p>

@@ -74,10 +74,10 @@ export default function ChangelogPage() {
           {entries.map((entry) => (
             <li key={entry.version} id={`v${entry.version}`} className="scroll-mt-24">
               <div className="flex items-baseline gap-3 mb-4">
-                <span className="font-mono text-[13px] font-semibold text-[#E8962E] tabular-nums">
+                <span className="font-mono text-[13px] font-semibold text-rook tabular-nums">
                   v{entry.version}
                 </span>
-                <span className="font-mono text-[12px] text-muted-foreground/70 tabular-nums">
+                <span className="font-mono text-xs text-muted-foreground/70 tabular-nums">
                   {formatDate(entry.date)}
                 </span>
               </div>
@@ -94,7 +94,7 @@ export default function ChangelogPage() {
                     key={i}
                     className="flex gap-3 text-[14.5px] leading-[1.7] text-foreground/85"
                   >
-                    <span className="text-[#E8962E]/60 select-none shrink-0">·</span>
+                    <span className="text-rook/60 select-none shrink-0">·</span>
                     <span>{note}</span>
                   </li>
                 ))}
