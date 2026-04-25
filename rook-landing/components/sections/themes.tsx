@@ -80,7 +80,7 @@ export function Themes({ activeTheme, onSelect }: ThemesProps) {
           <div className="relative theme-morph hidden sm:block">
             <AppMockup theme={themes[activeTheme]} variant="dsa" />
           </div>
-          <div className="relative theme-morph sm:hidden">
+          <div className="relative theme-morph sm:hidden" role="presentation">
             <div className="rounded-xl overflow-hidden border shadow-2xl transition-colors duration-500" style={{ backgroundColor: themes[activeTheme].bg, borderColor: themes[activeTheme].border }}>
               <div className="flex items-center px-3 h-9 transition-colors duration-500" style={{ backgroundColor: themes[activeTheme].panel }}>
                 <div className="flex gap-[6px]">

@@ -13,7 +13,7 @@ export function AppMockup({ theme: t, variant = "auth" }: { theme: ThemeColors; 
   const isLight = t.name === "Light" || t.name === "Paper";
 
   return (
-    <div className="relative w-full max-w-[960px] mx-auto">
+    <div className="relative w-full max-w-[960px] mx-auto" role="presentation">
       <div
         className="relative rounded-xl shadow-2xl overflow-hidden transition-colors duration-500"
         style={{

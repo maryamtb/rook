@@ -27,7 +27,7 @@ export function SlashMenuPanel({ t }: { t: ThemeColors }) {
       <div className="flex items-center gap-1.5 px-3 pt-2.5 pb-1.5">
         <span className="text-xs font-bold font-mono transition-colors duration-500" style={{ color: t.accent }}>/</span>
         <span className="flex-1" />
-        <span className="text-[9px] font-mono transition-colors duration-500" style={{ color: `${t.subtext}50` }}>{items.length}</span>
+        <span className="text-[9px] font-mono transition-colors duration-500" style={{ color: `${t.subtext}cc` }}>{items.length}</span>
       </div>
       <div className="h-px transition-colors duration-500" style={{ backgroundColor: `${t.border}30` }} />
       <div className="p-1 max-h-[230px] overflow-hidden">
@@ -40,9 +40,9 @@ export function SlashMenuPanel({ t }: { t: ThemeColors }) {
             className="flex items-center gap-2.5 px-2.5 py-[5px] rounded-md transition-colors duration-500"
             style={{ backgroundColor: item.selected ? t.surface : "transparent" }}
           >
-            <MockIcon name={item.icon} color={item.selected ? t.accent : `${t.subtext}80`} size={12} />
+            <MockIcon name={item.icon} color={item.selected ? t.accent : `${t.subtext}cc`} size={12} />
             <span className="text-[11px] flex-1 transition-colors duration-500" style={{ color: item.selected ? t.text : t.subtext }}>{item.label}</span>
-            <span className="text-[9px] font-mono transition-colors duration-500" style={{ color: `${t.subtext}40` }}>{item.shortLabel}</span>
+            <span className="text-[9px] font-mono transition-colors duration-500" style={{ color: `${t.subtext}cc` }}>{item.shortLabel}</span>
           </motion.div>
         ))}
       </div>
