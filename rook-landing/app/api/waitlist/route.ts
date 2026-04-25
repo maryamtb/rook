@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { getSupabase } from "@/lib/supabase";
 import { getPostHogClient } from "@/lib/posthog-server";
+import { DISCOUNT_CAP, getDiscountCount } from "@/lib/signups";
+import { escapeHtml } from "@/lib/utils";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -17,6 +19,13 @@ export async function POST(request: Request) {
     }
 
     const normalizedEmail = email.toLowerCase().trim();
+
+    if ((await getDiscountCount()) >= DISCOUNT_CAP) {
+      return NextResponse.json(
+        { error: "The first 100 spots are filled." },
+        { status: 410 }
+      );
+    }
 
     const { error } = await getSupabase()
       .from("waitlist")
@@ -282,7 +291,7 @@ export async function POST(request: Request) {
         replyTo: process.env.NOTIFY_EMAIL!,
         to: process.env.NOTIFY_EMAIL!,
         subject: `New Rook signup: ${normalizedEmail}`,
-        html: `<p>${normalizedEmail} is part of the first 100.</p>`,
+        html: `<p>${escapeHtml(normalizedEmail)} is part of the first 100.</p>`,
       }),
     ]);
 

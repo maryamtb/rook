@@ -7,17 +7,28 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Mail } from "lucide-react";
 
-export function NotifyForm() {
+type SignupMeta = { count: number; cap: number; capReached: boolean };
+
+export function NotifyForm({ meta }: { meta: SignupMeta | null }) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [forcedCapReached, setForcedCapReached] = useState(false);
+
+  const capReached = forcedCapReached || (meta?.capReached ?? false);
+  const endpoint = capReached ? "/api/subscribers" : "/api/waitlist";
+  const eventBase = capReached ? "subscriber_signup" : "pro_discount_signup";
+  const buttonLabel = capReached ? "Subscribe" : "Claim discount";
+  const successMessage = capReached
+    ? "Subscribed."
+    : "Claimed! We'll email you when Pro is ready.";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const res = await fetch("/api/waitlist", {
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -26,8 +37,12 @@ export function NotifyForm() {
       const data = await res.json();
 
       if (!res.ok) {
-        if (res.status === 409) {
-          posthog.capture("pro_discount_signup_duplicate", { source: "homepage_cta" });
+        if (res.status === 410) {
+          // Cap was reached between page load and submit. Switch to launch variant.
+          setForcedCapReached(true);
+          toast(data.error, { style: { background: "#E8962E", color: "#111", border: "none" } });
+        } else if (res.status === 409) {
+          posthog.capture(`${eventBase}_duplicate`, { source: "homepage_cta" });
           toast(data.error, { style: { background: "#E8962E", color: "#111", border: "none" } });
         } else {
           toast.error(data.error);
@@ -36,8 +51,8 @@ export function NotifyForm() {
       }
 
       posthog.identify(email, { email });
-      posthog.capture("pro_discount_signup", { source: "homepage_cta" });
-      toast("Claimed! We'll email you when Pro is ready.", { style: { background: "#2D6A4F", color: "#fff", border: "none" } });
+      posthog.capture(eventBase, { source: "homepage_cta" });
+      toast(successMessage, { style: { background: "#2D6A4F", color: "#fff", border: "none" } });
       setSubmitted(true);
     } catch {
       toast.error("Something went wrong. Try again?");
@@ -55,23 +70,46 @@ export function NotifyForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center gap-2 max-w-sm mx-auto">
-      <Input
-        type="email"
-        placeholder="rhoward@dundermifflin.com"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-        className="h-10"
-      />
-      <Button
-        type="submit"
-        disabled={loading}
-        className="bg-[#E8962E] text-background hover:bg-[#d4841e] h-10 shrink-0 cursor-pointer"
-      >
-        <Mail className="size-4" />
-        {loading ? "Sending..." : "Claim discount"}
-      </Button>
-    </form>
+    <div className="max-w-sm mx-auto">
+      <CountPill meta={meta} forcedCapReached={forcedCapReached} />
+      <form onSubmit={handleSubmit} className="flex items-center gap-2">
+        <Input
+          type="email"
+          placeholder="rhoward@dundermifflin.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="h-10"
+        />
+        <Button
+          type="submit"
+          disabled={loading || !meta}
+          className="bg-[#E8962E] text-background hover:bg-[#d4841e] h-10 shrink-0 cursor-pointer"
+        >
+          <Mail className="size-4" />
+          {loading ? "Sending..." : buttonLabel}
+        </Button>
+      </form>
+    </div>
+  );
+}
+
+const DISPLAY_CAP = 100;
+
+function CountPill({ meta, forcedCapReached }: { meta: SignupMeta | null; forcedCapReached: boolean }) {
+  if (!meta) {
+    return <p className="mb-3 h-[20px]" aria-hidden />;
+  }
+
+  const capReached = forcedCapReached || meta.capReached;
+  if (capReached) return null;
+
+  const shown = Math.min(meta.count, DISPLAY_CAP);
+
+  return (
+    <p className="mb-3 text-[13px] text-muted-foreground text-center">
+      <span className="text-foreground font-medium tabular-nums">{shown} / {DISPLAY_CAP}</span>{" "}
+      discount spots claimed
+    </p>
   );
 }

@@ -40,9 +40,12 @@ const shortcuts = [
   { keys: ["⌘", "⇧", "⌫"], action: "Delete note" },
 ];
 
+type SignupMeta = { count: number; cap: number; capReached: boolean; };
+
 export default function Home() {
   const [activeTheme, setActiveTheme] = useState(0);
   const [stars, setStars] = useState<number | null>(null);
+  const [signupMeta, setSignupMeta] = useState<SignupMeta | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
@@ -53,6 +56,18 @@ export default function Home() {
       })
       .catch(() => { });
   }, []);
+
+  useEffect(() => {
+    fetch("/api/signups/count")
+      .then(async (r) => {
+        if (!r.ok) throw new Error(String(r.status));
+        return (await r.json()) as SignupMeta;
+      })
+      .then((d) => setSignupMeta(d))
+      .catch(() => setSignupMeta({ count: 0, cap: 105, capReached: false }));
+  }, []);
+
+  const capReached = signupMeta?.capReached ?? false;
 
   const startCarousel = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
@@ -250,10 +265,21 @@ export default function Home() {
             transition={{ duration: 0.5, ease: "easeOut", delay: 0.42 }}
             className="mt-4 text-[13px] font-mono text-[#E8962E]/90"
           >
-            First 100 signups get a{" "}
-            <a href="#download" className="underline decoration-[#E8962E]/40 underline-offset-4 hover:decoration-[#E8962E]/80 transition-colors">
-              lifetime discount on Pro
-            </a>.
+            {capReached ? (
+              <>
+                Pro is on the way.{" "}
+                <a href="#download" className="underline decoration-[#E8962E]/40 underline-offset-4 hover:decoration-[#E8962E]/80 transition-colors">
+                  Subscribe for updates
+                </a>.
+              </>
+            ) : (
+              <>
+                First 100 signups get a{" "}
+                <a href="#download" className="underline decoration-[#E8962E]/40 underline-offset-4 hover:decoration-[#E8962E]/80 transition-colors">
+                  lifetime discount on Pro
+                </a>.
+              </>
+            )}
           </motion.p>
 
           <motion.div
@@ -658,8 +684,14 @@ export default function Home() {
           </p>
 
           <div className="mt-10 pt-8 border-t border-border/30">
-            <p className="text-[13px] text-muted-foreground mb-3"><span className="text-foreground font-medium">First 100 signups</span> get a lifetime discount on Pro.</p>
-            <NotifyForm />
+            <p className="text-[13px] text-muted-foreground mb-3">
+              {capReached ? (
+                <><span className="text-foreground font-medium">Pro is on the way.</span> Subscribe for updates on Pro and what&apos;s next.</>
+              ) : (
+                <><span className="text-foreground font-medium">First 100 signups</span> get a lifetime discount on Pro.</>
+              )}
+            </p>
+            <NotifyForm meta={signupMeta} />
           </div>
 
           <p className="mt-8 text-[12px] text-muted-foreground/60">
