@@ -25,7 +25,7 @@ export function SlashMenuPanel({ t }: { t: ThemeColors }) {
       style={{ backgroundColor: t.panel, boxShadow: "0 8px 30px rgba(0,0,0,0.35)" }}
     >
       <div className="flex items-center gap-1.5 px-3 pt-2.5 pb-1.5">
-        <span className="text-[12px] font-bold font-mono transition-colors duration-500" style={{ color: t.accent }}>/</span>
+        <span className="text-xs font-bold font-mono transition-colors duration-500" style={{ color: t.accent }}>/</span>
         <span className="flex-1" />
         <span className="text-[9px] font-mono transition-colors duration-500" style={{ color: `${t.subtext}50` }}>{items.length}</span>
       </div>

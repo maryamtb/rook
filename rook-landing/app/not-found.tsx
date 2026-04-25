@@ -54,12 +54,12 @@ export default function NotFound() {
 
             <div className="min-h-[80px]">
               <p
-                className="text-[14px] leading-[1.75]"
+                className="text-sm leading-[1.75]"
                 style={{ color: "#9D9D9D" }}
               >
                 {typed}
                 <span
-                  className={`inline-block w-[2px] h-[16px] ml-[1px] align-text-bottom ${blink ? "bg-[#E8962E]" : "bg-transparent"}`}
+                  className={`inline-block w-[2px] h-[16px] ml-[1px] align-text-bottom ${blink ? "bg-rook" : "bg-transparent"}`}
                 />
               </p>
             </div>
@@ -69,7 +69,7 @@ export default function NotFound() {
         <div className="mt-8 text-center">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#E8962E] text-background text-[13px] font-medium hover:bg-[#d4841e] transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-rook text-background text-[13px] font-medium hover:bg-rook-hover transition-colors"
           >
             Back to home
           </Link>

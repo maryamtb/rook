@@ -53,8 +53,8 @@ export function DsaAnimatedEditor({ t }: { t: ThemeColors }) {
           <span className="relative">sorted array</span>
         </span>{" "}
         by repeatedly halving the search space.
-        Runs in <span className="font-mono text-[12px] px-1 py-0.5 rounded transition-colors duration-500" style={{ backgroundColor: `${t.accent}18`, color: t.accent }}>O(log n)</span> time
-        and <span className="font-mono text-[12px] px-1 py-0.5 rounded transition-colors duration-500" style={{ backgroundColor: `${t.accent}18`, color: t.accent }}>O(1)</span> space.
+        Runs in <span className="font-mono text-xs px-1 py-0.5 rounded transition-colors duration-500" style={{ backgroundColor: `${t.accent}18`, color: t.accent }}>O(log n)</span> time
+        and <span className="font-mono text-xs px-1 py-0.5 rounded transition-colors duration-500" style={{ backgroundColor: `${t.accent}18`, color: t.accent }}>O(1)</span> space.
       </p>
 
       <AnimatePresence>

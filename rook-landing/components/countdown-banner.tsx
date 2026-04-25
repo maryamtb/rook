@@ -18,7 +18,7 @@ export function CountdownBanner() {
 
   if (remaining === null) {
     return (
-      <div className="fixed top-0 inset-x-0 z-[60] bg-[#E8962E]/10 backdrop-blur-xl border-b border-[#E8962E]/20 py-2.5 text-center text-[13px] font-mono">
+      <div className="fixed top-0 inset-x-0 z-[60] bg-rook/10 backdrop-blur-xl border-b border-rook/20 py-2.5 text-center text-[13px] font-mono">
         <span className="text-muted-foreground">Download Rook Friday</span>
       </div>
     );
@@ -26,7 +26,7 @@ export function CountdownBanner() {
 
   if (remaining === 0) {
     return (
-      <div className="fixed top-0 inset-x-0 z-[60] bg-[#E8962E]/10 backdrop-blur-xl border-b border-[#E8962E]/20 py-2.5 text-center text-[13px] font-mono">
+      <div className="fixed top-0 inset-x-0 z-[60] bg-rook/10 backdrop-blur-xl border-b border-rook/20 py-2.5 text-center text-[13px] font-mono">
         <a
           href={DOWNLOAD_URL}
           download
@@ -45,7 +45,7 @@ export function CountdownBanner() {
   const seconds = Math.floor((remaining % 60_000) / 1000);
 
   return (
-    <div className="fixed top-0 inset-x-0 z-[60] bg-[#E8962E]/10 backdrop-blur-xl border-b border-[#E8962E]/20 py-2.5 text-center text-[13px] font-mono">
+    <div className="fixed top-0 inset-x-0 z-[60] bg-rook/10 backdrop-blur-xl border-b border-rook/20 py-2.5 text-center text-[13px] font-mono">
       <span className="text-muted-foreground">Download Rook in </span>
       <span className="text-foreground font-medium tabular-nums">
         {days}d {String(hours).padStart(2, "0")}h {String(minutes).padStart(2, "0")}m {String(seconds).padStart(2, "0")}s
