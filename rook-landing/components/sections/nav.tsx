@@ -15,11 +15,11 @@ export function Nav({ stars }: { stars: number | null; }) {
     <nav className="fixed top-0 inset-x-0 z-50 bg-background/60 backdrop-blur-xl">
       <div className="max-w-[1200px] mx-auto flex sm:grid sm:grid-cols-[1fr_auto_1fr] items-center justify-between h-14 px-4 sm:px-6">
         <a href="#" className="flex items-center gap-2 sm:justify-self-start">
-          <Image src="/icon-64.png" alt="Rook" width={22} height={22} className="rounded-[5px]" />
+          <Image src="/icon-64.png" alt="" width={22} height={22} className="rounded-[5px]" />
           <span className="text-[15px] font-mono font-semibold tracking-tight text-foreground">Rook</span>
         </a>
 
-        <div className="hidden sm:flex items-center gap-7 text-[13px] font-mono text-muted-foreground/60">
+        <div className="hidden sm:flex items-center gap-7 text-[13px] font-mono text-muted-foreground">
           <a href="#features" className="hover:text-foreground transition-colors">Features</a>
           <a href="#themes" className="hover:text-foreground transition-colors">Themes</a>
           <a href="#shortcuts" className="hover:text-foreground transition-colors">Shortcuts</a>
@@ -57,7 +57,7 @@ export function Nav({ stars }: { stars: number | null; }) {
               >
                 <GitHubIcon className="size-4" />
                 {stars !== null && (
-                  <span className="text-xs font-mono tabular-nums text-muted-foreground/70">
+                  <span className="text-xs font-mono tabular-nums text-muted-foreground">
                     {stars}
                   </span>
                 )}
@@ -73,7 +73,7 @@ export function Nav({ stars }: { stars: number | null; }) {
 
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="sm:hidden">
+              <Button variant="ghost" size="icon" className="sm:hidden" aria-label="Open menu">
                 <Menu className="size-5" />
               </Button>
             </SheetTrigger>

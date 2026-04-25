@@ -145,7 +145,7 @@ export function Hero({ capReached }: { capReached: boolean; }) {
         <div className="hidden sm:block">
           <AppMockup theme={themes[0]} />
         </div>
-        <div className="sm:hidden overflow-hidden rounded-xl border shadow-2xl" style={{ backgroundColor: themes[0].bg, borderColor: themes[0].border }}>
+        <div className="sm:hidden overflow-hidden rounded-xl border shadow-2xl" style={{ backgroundColor: themes[0].bg, borderColor: themes[0].border }} role="presentation">
           <div className="flex items-center px-3 h-9" style={{ backgroundColor: themes[0].panel }}>
             <div className="flex gap-[6px]">
               <div className="w-[10px] h-[10px] rounded-full bg-[#FF5F57]" />
