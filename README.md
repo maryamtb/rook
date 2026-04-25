@@ -17,7 +17,7 @@
     <img alt="Status" src="https://img.shields.io/badge/status-available-2D6A4F" />
     <a href="https://github.com/maryamtb/rook/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/maryamtb/rook?style=flat&color=E8962E" /></a>
   </p>
-  
+
   <br/>
 
   <img src="media/hero.png" alt="Rook editor" width="900" />
@@ -55,7 +55,7 @@ The Rook macOS app itself is a closed-source Swift project distributed as a sign
 
 ## Status
 
-Rook is available for macOS. [Download at userook.app](https://userook.app). Bug reports and feature requests welcome in [issues](../../issues), or say hi in [Discussions](../../discussions).
+Rook is available for macOS. [Download at userook.app](https://userook.app). Bug reports and feature requests welcome in [issues](../../issues), or say hi in [Discussions](../../discussions). See [ROADMAP.md](ROADMAP.md) for upcoming features.
 
 ## License
 
