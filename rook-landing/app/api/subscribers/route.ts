@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import { getSupabase } from "@/lib/supabase";
+import { getSupabase, getSupabaseAdmin } from "@/lib/supabase";
 import { getPostHogClient } from "@/lib/posthog-server";
 import { escapeHtml } from "@/lib/utils";
 
@@ -18,6 +18,19 @@ export async function POST(request: Request) {
     }
 
     const normalizedEmail = email.toLowerCase().trim();
+
+    const { data: waitlistRow } = await getSupabaseAdmin()
+      .from("waitlist")
+      .select("email")
+      .eq("email", normalizedEmail)
+      .maybeSingle();
+
+    if (waitlistRow) {
+      return NextResponse.json(
+        { error: "You're already in! With the lifetime discount claimed. 🚀" },
+        { status: 409 }
+      );
+    }
 
     const { error } = await getSupabase()
       .from("subscribers")

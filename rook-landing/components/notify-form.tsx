@@ -63,7 +63,7 @@ export function NotifyForm({ meta }: { meta: SignupMeta | null }) {
   if (submitted) {
     return (
       <p className="text-[15px] text-muted-foreground">
-        You&apos;re on the list. We&apos;ll be in touch!
+        You&apos;re on the list. More soon.
       </p>
     );
   }
