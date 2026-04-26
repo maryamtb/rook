@@ -114,13 +114,13 @@ export function Nav({ stars }: { stars: number | null; }) {
                   </a>
                 </SheetClose>
                 <SheetClose asChild>
-                  <BrandButton asChild className="mt-2 px-4">
+                  <BrandButton size="lg" asChild className="mt-2 w-full">
                     <a
                       href="#download"
                       onClick={() => posthog.capture("install_click_mobile_redirect", { source: "nav_mobile" })}
                     >
                       <Mail className="size-4" />
-                      Notify me on desktop
+                      Subscribe for updates
                     </a>
                   </BrandButton>
                 </SheetClose>

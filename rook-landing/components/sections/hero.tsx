@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import posthog from "posthog-js";
-import { Download, Mail } from "lucide-react";
+import { Download } from "lucide-react";
 import { AppMockup } from "@/components/mockup";
 import { BrandButton } from "@/components/brand-button";
 import { GitHubIcon } from "@/components/icons";
@@ -61,15 +61,9 @@ export function Hero({ capReached }: { capReached: boolean; }) {
               Download for macOS
             </a>
           </BrandButton>
-          <BrandButton size="lg" asChild className="sm:hidden">
-            <a
-              href="#download"
-              onClick={() => posthog.capture("install_click_mobile_redirect", { source: "hero_mobile" })}
-            >
-              <Mail className="size-4" />
-              Notify me when on desktop
-            </a>
-          </BrandButton>
+          <p className="sm:hidden text-[15px] font-semibold text-foreground">
+            Make your first move on a Mac!
+          </p>
         </motion.div>
 
         <motion.p
