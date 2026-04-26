@@ -8,7 +8,7 @@ import { BrandButton } from "@/components/brand-button";
 import { Mail } from "lucide-react";
 import type { SignupMeta } from "@/hooks/use-signup-meta";
 
-export function NotifyForm({ meta }: { meta: SignupMeta | null }) {
+export function NotifyForm({ meta }: { meta: SignupMeta | null; }) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -63,7 +63,7 @@ export function NotifyForm({ meta }: { meta: SignupMeta | null }) {
   if (submitted) {
     return (
       <p className="text-[15px] text-muted-foreground">
-        You&apos;re on the list. More soon.
+        You&apos;re on the list! More soon ✏️
       </p>
     );
   }
@@ -95,7 +95,7 @@ export function NotifyForm({ meta }: { meta: SignupMeta | null }) {
 
 const DISPLAY_CAP = 100;
 
-function CountPill({ meta, forcedCapReached }: { meta: SignupMeta | null; forcedCapReached: boolean }) {
+function CountPill({ meta, forcedCapReached }: { meta: SignupMeta | null; forcedCapReached: boolean; }) {
   if (!meta) {
     return <p className="mb-3 h-[20px]" aria-hidden />;
   }

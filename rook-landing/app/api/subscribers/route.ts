@@ -27,7 +27,7 @@ export async function POST(request: Request) {
 
     if (waitlistRow) {
       return NextResponse.json(
-        { error: "You're already in! With the lifetime discount claimed. 🚀" },
+        { error: "You're already in! Lifetime discount claimed 🚀" },
         { status: 409 }
       );
     }
