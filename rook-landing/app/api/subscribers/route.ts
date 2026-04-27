@@ -2,11 +2,24 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { getSupabase, getSupabaseAdmin } from "@/lib/supabase";
 import { getPostHogClient } from "@/lib/posthog-server";
+import { isSameOrigin } from "@/lib/csrf";
 import { escapeHtml } from "@/lib/utils";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
+  if (!isSameOrigin(request)) {
+    return NextResponse.json({ error: "Invalid origin." }, { status: 403 });
+  }
+
+  const notifyEmail = process.env.NOTIFY_EMAIL;
+  if (!notifyEmail) {
+    return NextResponse.json(
+      { error: "Something went wrong. Please try again in a few moments." },
+      { status: 500 }
+    );
+  }
+
   try {
     const { email } = await request.json();
 
@@ -44,7 +57,7 @@ export async function POST(request: Request) {
         );
       }
       return NextResponse.json(
-        { error: "Something went wrong. Try again?" },
+        { error: "Something went wrong. Please try again in a few moments." },
         { status: 500 }
       );
     }
@@ -64,7 +77,7 @@ export async function POST(request: Request) {
     await Promise.all([
       resend.emails.send({
         from: "Maryam from Rook 👋 <hello@userook.app>",
-        replyTo: process.env.NOTIFY_EMAIL!,
+        replyTo: notifyEmail,
         to: normalizedEmail,
         subject: "Welcome to Rook! ✏️",
         headers: {
@@ -301,8 +314,8 @@ export async function POST(request: Request) {
       }),
       resend.emails.send({
         from: "Rook <hello@userook.app>",
-        replyTo: process.env.NOTIFY_EMAIL!,
-        to: process.env.NOTIFY_EMAIL!,
+        replyTo: notifyEmail,
+        to: notifyEmail,
         subject: `New Rook subscriber: ${normalizedEmail}`,
         html: `<p>${escapeHtml(normalizedEmail)} subscribed for updates.</p>`,
       }),
@@ -311,7 +324,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json(
-      { error: "Something went wrong. Try again?" },
+      { error: "Something went wrong. Please try again in a few moments." },
       { status: 500 }
     );
   }

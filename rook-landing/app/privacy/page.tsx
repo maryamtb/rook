@@ -146,8 +146,7 @@ export default function PrivacyPage() {
               When you sign up
             </h2>
             <p className="mb-3">
-              If you sign up for updates or the lifetime discount, we
-              collect:
+              If you sign up for updates, we collect:
             </p>
             <ul className="space-y-2 mb-3 ml-4">
               <li className="flex gap-3">
@@ -160,7 +159,7 @@ export default function PrivacyPage() {
               </li>
               <li className="flex gap-3">
                 <span className="text-rook/60 select-none shrink-0">·</span>
-                <span>Which list you joined (lifetime or general updates)</span>
+                <span>Which list you joined</span>
               </li>
             </ul>
             <p className="mb-3">

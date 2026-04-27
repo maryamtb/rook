@@ -6,15 +6,16 @@ import posthog from "posthog-js";
 import { Input } from "@/components/ui/input";
 import { BrandButton } from "@/components/brand-button";
 import { Mail } from "lucide-react";
+import { SHOW_DISCOUNT_COUNTER } from "@/lib/constants";
 import type { SignupMeta } from "@/hooks/use-signup-meta";
 
-export function NotifyForm({ meta }: { meta: SignupMeta | null; }) {
+export function NotifyForm({ meta, capReached: capReachedProp }: { meta: SignupMeta | null; capReached: boolean; }) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [forcedCapReached, setForcedCapReached] = useState(false);
 
-  const capReached = forcedCapReached || (meta?.capReached ?? false);
+  const capReached = forcedCapReached || capReachedProp;
   const endpoint = capReached ? "/api/subscribers" : "/api/waitlist";
   const eventBase = capReached ? "subscriber_signup" : "pro_discount_signup";
   const buttonLabel = capReached ? "Subscribe" : "Claim discount";
@@ -44,7 +45,7 @@ export function NotifyForm({ meta }: { meta: SignupMeta | null; }) {
           posthog.capture(`${eventBase}_duplicate`, { source: "homepage_cta" });
           toast(data.error, { style: { background: "var(--rook)", color: "#111", border: "none" } });
         } else {
-          toast.error(data.error);
+          toast.error(data.error || "Something went wrong. Please try again in a few moments.");
         }
         return;
       }
@@ -54,7 +55,7 @@ export function NotifyForm({ meta }: { meta: SignupMeta | null; }) {
       toast(successMessage, { style: { background: "#2D6A4F", color: "#fff", border: "none" } });
       setSubmitted(true);
     } catch {
-      toast.error("Something went wrong. Try again?");
+      toast.error("Something went wrong. Please try again in a few moments.");
     } finally {
       setLoading(false);
     }
@@ -96,6 +97,8 @@ export function NotifyForm({ meta }: { meta: SignupMeta | null; }) {
 const DISPLAY_CAP = 100;
 
 function CountPill({ meta, forcedCapReached }: { meta: SignupMeta | null; forcedCapReached: boolean; }) {
+  if (!SHOW_DISCOUNT_COUNTER) return null;
+
   if (!meta) {
     return <p className="mb-3 h-[20px]" aria-hidden />;
   }

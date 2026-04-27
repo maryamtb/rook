@@ -65,7 +65,7 @@ export function Cta({ capReached, signupMeta }: CtaProps) {
               <><span className="text-foreground font-medium">First 100 signups</span> get a lifetime discount on Pro.</>
             )}
           </p>
-          <NotifyForm meta={signupMeta} />
+          <NotifyForm meta={signupMeta} capReached={capReached} />
         </div>
 
         <p className="mt-8 text-xs text-muted-foreground/60">

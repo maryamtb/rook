@@ -3,11 +3,32 @@ import { Resend } from "resend";
 import { getSupabase } from "@/lib/supabase";
 import { getPostHogClient } from "@/lib/posthog-server";
 import { DISCOUNT_CAP, getDiscountCount } from "@/lib/signups";
+import { SHOW_DISCOUNT_COUNTER } from "@/lib/constants";
+import { isSameOrigin } from "@/lib/csrf";
 import { escapeHtml } from "@/lib/utils";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
+  if (!isSameOrigin(request)) {
+    return NextResponse.json({ error: "Invalid origin." }, { status: 403 });
+  }
+
+  if (!SHOW_DISCOUNT_COUNTER) {
+    return NextResponse.json(
+      { error: "The discount is not currently available." },
+      { status: 410 }
+    );
+  }
+
+  const notifyEmail = process.env.NOTIFY_EMAIL;
+  if (!notifyEmail) {
+    return NextResponse.json(
+      { error: "Something went wrong. Please try again in a few moments." },
+      { status: 500 }
+    );
+  }
+
   try {
     const { email } = await request.json();
 
@@ -39,7 +60,7 @@ export async function POST(request: Request) {
         );
       }
       return NextResponse.json(
-        { error: "Something went wrong. Try again?" },
+        { error: "Something went wrong. Please try again in a few moments." },
         { status: 500 }
       );
     }
@@ -59,7 +80,7 @@ export async function POST(request: Request) {
     await Promise.all([
       resend.emails.send({
         from: "Maryam from Rook <hello@userook.app>",
-        replyTo: process.env.NOTIFY_EMAIL!,
+        replyTo: notifyEmail,
         to: normalizedEmail,
         subject: "Your Rook lifetime Pro discount 👋",
         headers: {
@@ -295,8 +316,8 @@ export async function POST(request: Request) {
       }),
       resend.emails.send({
         from: "Rook <hello@userook.app>",
-        replyTo: process.env.NOTIFY_EMAIL!,
-        to: process.env.NOTIFY_EMAIL!,
+        replyTo: notifyEmail,
+        to: notifyEmail,
         subject: `New Rook signup: ${normalizedEmail}`,
         html: `<p>${escapeHtml(normalizedEmail)} is part of the first 100.</p>`,
       }),
@@ -305,7 +326,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json(
-      { error: "Something went wrong. Try again?" },
+      { error: "Something went wrong. Please try again in a few moments." },
       { status: 500 }
     );
   }

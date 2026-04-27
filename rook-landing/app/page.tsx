@@ -2,6 +2,7 @@
 
 import { Separator } from "@/components/ui/separator";
 import { useSignupMeta, useStars, useThemeCarousel } from "@/hooks";
+import { SHOW_DISCOUNT_COUNTER } from "@/lib/constants";
 import {
   Nav,
   Hero,
@@ -24,7 +25,7 @@ export default function Home() {
   const signupMeta = useSignupMeta();
   const stars = useStars();
   const { activeTheme, selectTheme } = useThemeCarousel();
-  const capReached = signupMeta?.capReached ?? false;
+  const capReached = !SHOW_DISCOUNT_COUNTER || (signupMeta?.capReached ?? false);
 
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
