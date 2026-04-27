@@ -8,12 +8,12 @@ import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { BrandButton } from "@/components/brand-button";
 import { GitHubIcon, XIcon } from "@/components/icons";
-import { DMG_URL, PRODUCT_HUNT_URL } from "@/lib/constants";
+import { DMG_URL, PRODUCT_HUNT_URL, SIGNUPS_DISABLED } from "@/lib/constants";
 
 export function Nav({ stars }: { stars: number | null; }) {
   return (
     <div className="fixed top-0 inset-x-0 z-50">
-      <SignupOutageBanner />
+      {SIGNUPS_DISABLED && <SignupOutageBanner />}
       <nav className="bg-background/60 backdrop-blur-xl">
         <div className="max-w-[1200px] mx-auto flex sm:grid sm:grid-cols-[1fr_auto_1fr] items-center justify-between h-14 px-4 sm:px-6">
           <a href="#" className="flex items-center gap-2 sm:justify-self-start">

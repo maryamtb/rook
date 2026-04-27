@@ -31,7 +31,11 @@ export async function POST(request: Request) {
   try {
     const { email } = await request.json();
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (
+      typeof email !== "string" ||
+      email.length > 254 ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    ) {
       return NextResponse.json(
         { error: "Please enter a valid email address." },
         { status: 400 }
