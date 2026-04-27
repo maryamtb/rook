@@ -58,6 +58,14 @@ export async function POST(request: Request) {
       );
     }
 
+    const { data: existing } = await resend.contacts.get({ email: normalizedEmail });
+    if (existing) {
+      return NextResponse.json(
+        { error: "You're already on the list!" },
+        { status: 409 }
+      );
+    }
+
     const { error } = await resend.contacts.create({
       email: normalizedEmail,
       segments: [{ id: segmentId }],
@@ -65,12 +73,6 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      if (/already|exists/i.test(error.message ?? "")) {
-        return NextResponse.json(
-          { error: "You're already on the list!" },
-          { status: 409 }
-        );
-      }
       return NextResponse.json(
         { error: "Something went wrong. Please try again in a few moments." },
         { status: 500 }
