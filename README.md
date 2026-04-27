@@ -57,6 +57,10 @@ The Rook macOS app itself is a closed-source Swift project distributed as a sign
 
 Rook is available for macOS. [Download at userook.app](https://userook.app). Bug reports and feature requests welcome in [issues](../../issues), or say hi in [Discussions](../../discussions). See [ROADMAP.md](ROADMAP.md) for upcoming features.
 
+## Changelog
+
+See [rook.app/changelog](https://rook.app/changelog).
+
 ## License
 
 Contents of this repository are released under the [MIT License](LICENSE). The compiled Rook macOS application is proprietary and distributed separately.

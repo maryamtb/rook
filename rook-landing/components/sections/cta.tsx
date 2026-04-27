@@ -49,7 +49,11 @@ export function Cta({ capReached, signupMeta }: CtaProps) {
           </BrandButton>
         </div>
 
-        <p className="mt-3 text-xs text-muted-foreground/40 hidden sm:block">
+        <p className="mt-3 text-[12px] font-mono text-muted-foreground/70 hidden sm:block">
+          Notarized by Apple
+        </p>
+
+        <p className="mt-2 text-xs text-muted-foreground/40 hidden sm:block">
           macOS 14+. Apple Silicon &amp; Intel.
         </p>
 

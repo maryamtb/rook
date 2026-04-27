@@ -7,5 +7,7 @@ posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
   capture_exceptions: true,
   capture_pageview: "history_change",
   person_profiles: "identified_only",
+  persistence: "memory",
+  disable_session_recording: true,
   debug: process.env.NODE_ENV === "development",
 });

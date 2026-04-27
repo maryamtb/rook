@@ -268,9 +268,16 @@ export async function POST(request: Request) {
 										style="color: #888888; text-decoration: underline"
 										>You can unsubscribe from this list.</a
 									>
+									To delete your data, email
+									<a
+										href="mailto:hello@userook.app?subject=delete%20my%20data"
+										style="color: #888888; text-decoration: underline"
+										>hello@userook.app</a
+									>.
 								</p>
 								<p style="margin: 0">
-									Rook<br /><a
+									Rook<br />
+									<a
 										href="https://userook.app"
 										style="color: #888888; text-decoration: none"
 										>https://userook.app</a

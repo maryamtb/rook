@@ -16,7 +16,18 @@ type Entry = {
 
 const entries: Entry[] = [
   {
-    version: "1.0",
+    version: "1.2.0",
+    date: "2026-04-26",
+    notes: [
+      "bug fix: theme and color picker selections now persist correctly",
+      "automatic updates: rook can now install new versions in the background",
+      "smoother code blocks: cursor and return-key behavior around blocks, language and styling preserved across relaunches",
+      "slash menu: heading commands and link support added",
+      "general polish across the editor, sidebar, and zoom",
+    ],
+  },
+  {
+    version: "1.0.0",
     date: "2026-04-24",
     notes: [
       "rich text: headings, lists, todos, inline code, code blocks",
@@ -29,7 +40,6 @@ const entries: Entry[] = [
       "trash with restore",
       "local JSON store at ~/Library/Application Support/Rook/store.json",
       "autosave debounced 300ms after the last keystroke",
-      "universal binary for apple silicon and intel, macOS 15.2+",
     ],
   },
 ];
