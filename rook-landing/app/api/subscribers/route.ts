@@ -4,12 +4,20 @@ import { getSupabase, getSupabaseAdmin } from "@/lib/supabase";
 import { getPostHogClient } from "@/lib/posthog-server";
 import { isSameOrigin } from "@/lib/csrf";
 import { escapeHtml } from "@/lib/utils";
+import { SIGNUPS_DISABLED } from "@/lib/constants";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   if (!isSameOrigin(request)) {
     return NextResponse.json({ error: "Invalid origin." }, { status: 403 });
+  }
+
+  if (SIGNUPS_DISABLED) {
+    return NextResponse.json(
+      { error: "Signups are temporarily unavailable. Email hello@userook.app to be added manually." },
+      { status: 503 }
+    );
   }
 
   const notifyEmail = process.env.NOTIFY_EMAIL;

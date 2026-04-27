@@ -5,3 +5,5 @@ export const PRODUCT_HUNT_URL =
 
 export const SHOW_DISCOUNT_COUNTER =
   process.env.NEXT_PUBLIC_SHOW_DISCOUNT_COUNTER === "true";
+
+export const SIGNUPS_DISABLED = true;

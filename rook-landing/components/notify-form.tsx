@@ -6,7 +6,7 @@ import posthog from "posthog-js";
 import { Input } from "@/components/ui/input";
 import { BrandButton } from "@/components/brand-button";
 import { Mail } from "lucide-react";
-import { SHOW_DISCOUNT_COUNTER } from "@/lib/constants";
+import { SHOW_DISCOUNT_COUNTER, SIGNUPS_DISABLED } from "@/lib/constants";
 import type { SignupMeta } from "@/hooks/use-signup-meta";
 
 export function NotifyForm({ meta, capReached: capReachedProp }: { meta: SignupMeta | null; capReached: boolean; }) {
@@ -25,6 +25,7 @@ export function NotifyForm({ meta, capReached: capReachedProp }: { meta: SignupM
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (SIGNUPS_DISABLED) return;
     setLoading(true);
 
     try {
@@ -75,19 +76,20 @@ export function NotifyForm({ meta, capReached: capReachedProp }: { meta: SignupM
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row sm:items-center gap-2">
         <Input
           type="email"
-          placeholder="rhoward@dundermifflin.com"
+          placeholder={SIGNUPS_DISABLED ? "Signups paused" : "rhoward@dundermifflin.com"}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          disabled={SIGNUPS_DISABLED}
           className="h-10 w-full"
         />
         <BrandButton
           type="submit"
-          disabled={loading || !meta}
+          disabled={SIGNUPS_DISABLED || loading || !meta}
           className="h-10 sm:shrink-0 cursor-pointer"
         >
           <Mail className="size-4" />
-          {loading ? "Sending..." : buttonLabel}
+          {SIGNUPS_DISABLED ? "Unavailable" : loading ? "Sending..." : buttonLabel}
         </BrandButton>
       </form>
     </div>
