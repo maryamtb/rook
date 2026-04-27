@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import { getSupabase, getSupabaseAdmin } from "@/lib/supabase";
+import { getSupabaseAdmin } from "@/lib/supabase";
 import { getPostHogClient } from "@/lib/posthog-server";
 import { isSameOrigin } from "@/lib/csrf";
 import { escapeHtml } from "@/lib/utils";
@@ -21,7 +21,8 @@ export async function POST(request: Request) {
   }
 
   const notifyEmail = process.env.NOTIFY_EMAIL;
-  if (!notifyEmail) {
+  const segmentId = process.env.RESEND_SEGMENT_ID;
+  if (!notifyEmail || !segmentId) {
     return NextResponse.json(
       { error: "Something went wrong. Please try again in a few moments." },
       { status: 500 }
@@ -57,12 +58,14 @@ export async function POST(request: Request) {
       );
     }
 
-    const { error } = await getSupabase()
-      .from("subscribers")
-      .insert({ email: normalizedEmail });
+    const { error } = await resend.contacts.create({
+      email: normalizedEmail,
+      segments: [{ id: segmentId }],
+      unsubscribed: false,
+    });
 
     if (error) {
-      if (error.code === "23505") {
+      if (/already|exists/i.test(error.message ?? "")) {
         return NextResponse.json(
           { error: "You're already on the list!" },
           { status: 409 }
@@ -334,7 +337,7 @@ export async function POST(request: Request) {
     ]);
 
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (err) {
     return NextResponse.json(
       { error: "Something went wrong. Please try again in a few moments." },
       { status: 500 }
