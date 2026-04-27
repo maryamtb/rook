@@ -58,7 +58,7 @@ export function Hero({ capReached }: { capReached: boolean; }) {
           <BrandButton size="lg" asChild className="hidden sm:inline-flex">
             <a href={DMG_URL} download onClick={() => posthog.capture("install_click", { source: "hero" })}>
               <Download className="size-4" />
-              Download for macOS
+              Download 1.2.0 for macOS
             </a>
           </BrandButton>
           <p className="sm:hidden text-[15px] font-semibold text-foreground">
