@@ -16,6 +16,15 @@ type Entry = {
 
 const entries: Entry[] = [
   {
+    version: "1.2.2",
+    date: "2026-04-28",
+    notes: [
+      "fixed automatic updates for sandboxed installs",
+      "smoother link editor: cleaner empty state, focus returns to note on Done, explicit http preserved",
+      "inline code: refreshed light and paper themes, color preserved on titles, background survives theme switch",
+    ],
+  },
+  {
     version: "1.2.1",
     date: "2026-04-28",
     notes: [

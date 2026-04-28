@@ -44,7 +44,7 @@ export function Cta({ capReached, signupMeta }: CtaProps) {
           <BrandButton size="lg" asChild>
             <a href={DMG_URL} download onClick={() => posthog.capture("install_click", { source: "footer_cta" })}>
               <Download className="size-4" />
-              Download 1.2.1 for macOS
+              Download 1.2.2 for macOS
             </a>
           </BrandButton>
         </div>
