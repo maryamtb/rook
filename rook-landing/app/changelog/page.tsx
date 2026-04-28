@@ -16,6 +16,13 @@ type Entry = {
 
 const entries: Entry[] = [
   {
+    version: "1.2.1",
+    date: "2026-04-28",
+    notes: [
+      "added stack-frame filtering to error reporting",
+    ],
+  },
+  {
     version: "1.2.0",
     date: "2026-04-26",
     notes: [
