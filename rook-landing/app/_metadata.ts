@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 
-const TITLE = "Rook: The note-taking app for developers";
+const TITLE = "Rook: Notes that speak code";
 const DESCRIPTION =
-  "Rich text and code blocks, syntax highlighting, and various themes. Available for macOS.";
+  "A native Mac notes app for the code you write, paste, and keep around.";
 const SITE_URL = "https://userook.app";
 
 export const viewport: Viewport = {
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 2134,
         height: 1147,
-        alt: "Rook, a native macOS note-taking app for developers",
+        alt: "Rook, a native Mac notes app for the code you write, paste, and keep around",
       },
     ],
   },
