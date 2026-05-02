@@ -1,16 +1,16 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import posthog from "posthog-js";
 import { Download } from "lucide-react";
 import { AppMockup } from "@/components/mockup";
 import { BrandButton } from "@/components/brand-button";
-import { GitHubIcon } from "@/components/icons";
 import { themes } from "@/lib/themes";
-import { DMG_URL, PRODUCT_HUNT_URL } from "@/lib/constants";
+import { APP_VERSION, DMG_URL, PRODUCT_HUNT_URL } from "@/lib/constants";
+import { captureEvent } from "@/lib/posthog-safe";
 
-export function Hero({ capReached }: { capReached: boolean; }) {
+export function Hero() {
   return (
     <section className="pt-[140px] md:pt-[176px]">
       <div className="max-w-[680px] mx-auto px-6 text-center">
@@ -24,6 +24,7 @@ export function Hero({ capReached }: { capReached: boolean; }) {
             alt="Rook"
             width={72}
             height={72}
+            priority
             className="mx-auto mb-8 rounded-[18px]"
           />
         </motion.div>
@@ -32,33 +33,53 @@ export function Hero({ capReached }: { capReached: boolean; }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.08 }}
-          className="text-[clamp(28px,5vw,56px)] font-mono font-bold tracking-[-0.03em] leading-[1.12] text-foreground"
+          className="whitespace-nowrap text-[clamp(22px,6.5vw,52px)] font-mono font-bold tracking-[-0.03em] leading-[1.12] text-foreground"
         >
-          The note-taking app
-          <br className="hidden sm:block" />
-          {" "}for developers
+          Notes that speak <span className="text-rook">code</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-          className="mt-5 text-[17px] text-muted-foreground leading-relaxed max-w-[440px] mx-auto"
+          className="mt-5 text-[17px] text-muted-foreground leading-relaxed max-w-[580px] mx-auto"
         >
-          Rich text and code blocks, syntax highlighting, and various themes.
-          Available for macOS.
+          A native Mac notes app for the code you write, paste, and keep around
         </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.26 }}
+          className="hidden sm:flex justify-center mt-7"
+        >
+          <div className="relative group">
+            <span aria-hidden className="pill-glow absolute -inset-3 rounded-full" />
+            <Link
+              href={`/changelog#v${APP_VERSION}`}
+              className="relative inline-flex items-center gap-2 pl-1 pr-3 py-1 rounded-full border border-border/60 bg-background/40 backdrop-blur-md text-[12px] text-foreground/80 hover:text-foreground transition-colors"
+              onClick={() => captureEvent("changelog_click", { source: "hero" })}
+            >
+              <span aria-hidden className="pill-shine absolute inset-0 rounded-full p-[1px]" />
+              <span className="relative inline-flex items-center px-2 py-[2px] rounded-full bg-rook/[0.14] text-rook font-mono text-[10.5px] tracking-tight tabular-nums">
+                v{APP_VERSION}
+              </span>
+              <span className="relative">what&apos;s new</span>
+              <span aria-hidden className="relative text-foreground/40 transition-all duration-300 ease-out group-hover:translate-x-0.5 group-hover:text-foreground/70">→</span>
+            </Link>
+          </div>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.32 }}
-          className="mt-8"
+          className="mt-5"
         >
           <BrandButton size="lg" asChild className="hidden sm:inline-flex">
-            <a href={DMG_URL} download onClick={() => posthog.capture("install_click", { source: "hero" })}>
+            <a href={DMG_URL} download onClick={() => captureEvent("install_click", { source: "hero" })}>
               <Download className="size-4" />
-              Download 1.2.2 for macOS
+              Download v{APP_VERSION} for macOS
             </a>
           </BrandButton>
           <p className="sm:hidden text-[15px] font-semibold text-foreground">
@@ -70,7 +91,7 @@ export function Hero({ capReached }: { capReached: boolean; }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.36 }}
-          className="hidden sm:block mt-3 text-[12px] font-mono text-muted-foreground/70"
+          className="hidden sm:block mt-4 text-[12px] font-bold font-mono text-muted-foreground/70"
         >
           Notarized by Apple
         </motion.p>
@@ -78,44 +99,26 @@ export function Hero({ capReached }: { capReached: boolean; }) {
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.42 }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}
           className="mt-4 text-[13px] font-mono text-rook/90"
         >
-          {capReached ? (
-            <>
-              Pro is on the way.{" "}
-              <a href="#download" className="underline decoration-rook/40 underline-offset-4 hover:decoration-rook/80 transition-colors">
-                Subscribe for updates
-              </a>.
-            </>
-          ) : (
-            <>
-              First 100 signups get a{" "}
-              <a href="#download" className="underline decoration-rook/40 underline-offset-4 hover:decoration-rook/80 transition-colors">
-                lifetime discount on Pro
-              </a>.
-            </>
-          )}
+          Pro is on the way.{" "}
+          <a
+            href="#download"
+            className="underline decoration-rook/40 underline-offset-4 hover:decoration-rook/80 transition-colors"
+            onClick={() => captureEvent("subscribe_click", { source: "hero" })}
+          >
+            Subscribe for updates
+          </a>
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-4 flex items-center justify-center gap-2.5 text-xs text-muted-foreground/50"
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="hidden sm:flex mt-4 items-center justify-center gap-3 font-mono text-[11px] tracking-wide text-muted-foreground/55"
         >
-          <span>Free. macOS 14+. Apple Silicon &amp; Intel.</span>
-          <span aria-hidden className="text-muted-foreground/30">·</span>
-          <a
-            href="https://github.com/maryamtb/rook"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
-            onClick={() => posthog.capture("github_click", { source: "hero" })}
-          >
-            <GitHubIcon className="size-3" />
-            GitHub
-          </a>
+          <span>Free. macOS 14+. Apple Silicon &amp; Intel</span>
         </motion.div>
 
         <motion.a
@@ -127,7 +130,7 @@ export function Hero({ capReached }: { capReached: boolean; }) {
           rel="noopener noreferrer"
           className="mt-5 sm:hidden inline-block transition-opacity hover:opacity-80"
           aria-label="Rook on Product Hunt"
-          onClick={() => posthog.capture("product_hunt_click", { source: "hero" })}
+          onClick={() => captureEvent("product_hunt_click", { source: "hero" })}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img

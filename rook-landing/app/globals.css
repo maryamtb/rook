@@ -129,10 +129,6 @@
   }
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 .theme-morph,
 .theme-morph * {
   transition-property: color, background-color, border-color, fill, stroke, filter !important;
@@ -146,4 +142,41 @@ html {
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+@property --pill-shine-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes pill-shine-spin {
+  to { --pill-shine-angle: 360deg; }
+}
+
+.pill-shine {
+  background: conic-gradient(
+    from var(--pill-shine-angle),
+    transparent 0deg 230deg,
+    var(--rook) 290deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  animation: pill-shine-spin 2.6s linear infinite;
+}
+
+.pill-glow {
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--rook) 40%, transparent), transparent 75%);
+  filter: blur(10px);
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill-shine { animation: none; opacity: 0; }
 }

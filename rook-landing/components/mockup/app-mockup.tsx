@@ -17,7 +17,7 @@ export function AppMockup({ theme: t, variant = "auth" }: { theme: ThemeColors; 
       <div
         className="relative rounded-xl shadow-2xl overflow-hidden transition-colors duration-500"
         style={{
-          backgroundColor: t.bg,
+          backgroundColor: t.panel,
           border: `1px solid ${t.border}`,
           filter: isLight ? "brightness(0.82)" : undefined,
         }}
@@ -25,8 +25,13 @@ export function AppMockup({ theme: t, variant = "auth" }: { theme: ThemeColors; 
         <TitleBar t={t} />
 
         <div className="flex min-h-[440px]">
-          <Sidebar t={t} variant={variant} />
-          <div className="flex-1 flex flex-col min-w-0 relative overflow-hidden">
+          <div className=" pb-2 pl-[7px] pr-[7px] shrink-0">
+            <Sidebar t={t} variant={variant} />
+          </div>
+          <div
+            className="flex-1 flex flex-col min-w-0 relative overflow-hidden rounded-tl-lg transition-colors duration-500"
+            style={{ backgroundColor: t.bg }}
+          >
             <div className="flex-1 overflow-hidden transition-colors duration-500" style={{ backgroundColor: t.bg }}>
               {variant === "auth" ? <AuthAnimatedEditor t={t} />
                 : variant === "aws" ? <AwsStaticEditor t={t} />

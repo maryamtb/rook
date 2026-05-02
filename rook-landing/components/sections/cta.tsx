@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import posthog from "posthog-js";
 import { Download } from "lucide-react";
 import { BrandButton } from "@/components/brand-button";
-import { NotifyForm } from "@/components/notify-form";
-import { DMG_URL } from "@/lib/constants";
+import { NotifyForm, WaitlistClosedNotice } from "@/components/notify-form";
+import { FooterNewsletter } from "@/components/sections/footer-newsletter";
+import { APP_VERSION, DMG_URL, SHOW_DISCOUNT_COUNTER } from "@/lib/constants";
+import { captureEvent } from "@/lib/posthog-safe";
 import type { SignupMeta } from "@/hooks/use-signup-meta";
 
 type CtaProps = {
@@ -42,9 +43,9 @@ export function Cta({ capReached, signupMeta }: CtaProps) {
 
         <div className="mt-8 hidden sm:block">
           <BrandButton size="lg" asChild>
-            <a href={DMG_URL} download onClick={() => posthog.capture("install_click", { source: "footer_cta" })}>
+            <a href={DMG_URL} download onClick={() => captureEvent("install_click", { source: "footer_cta" })}>
               <Download className="size-4" />
-              Download 1.2.2 for macOS
+              Download v{APP_VERSION} for macOS
             </a>
           </BrandButton>
         </div>
@@ -58,14 +59,27 @@ export function Cta({ capReached, signupMeta }: CtaProps) {
         </p>
 
         <div className="mt-10 pt-8 border-t border-border/30">
-          <p className="text-sm sm:text-[13px] text-muted-foreground mb-3">
-            {capReached ? (
-              <><span className="text-foreground font-medium">Pro is on the way.</span> Subscribe for updates on Pro and what&apos;s next.</>
+          {SHOW_DISCOUNT_COUNTER ? (
+            capReached ? (
+              <WaitlistClosedNotice />
             ) : (
-              <><span className="text-foreground font-medium">First 100 signups</span> get a lifetime discount on Pro.</>
-            )}
-          </p>
-          <NotifyForm meta={signupMeta} capReached={capReached} />
+              <>
+                <p className="text-sm sm:text-[13px] text-muted-foreground mb-3">
+                  <span className="text-foreground font-medium">First 100 signups</span> get a lifetime discount on Pro.
+                </p>
+                <NotifyForm meta={signupMeta} />
+              </>
+            )
+          ) : (
+            <div className="max-w-sm mx-auto">
+              <p className="text-sm sm:text-[13px] text-muted-foreground mb-3 text-center">
+                <span className="text-foreground font-medium">Pro is on the way.</span> Subscribe for updates.
+              </p>
+              <div className="sm:flex sm:justify-center">
+                <FooterNewsletter source="cta" />
+              </div>
+            </div>
+          )}
         </div>
 
         <p className="mt-8 text-xs text-muted-foreground/60">

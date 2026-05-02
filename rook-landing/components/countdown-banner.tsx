@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import posthog from "posthog-js";
+
+import { captureEvent } from "@/lib/posthog-safe";
 
 const LAUNCH_DATE = new Date("2026-04-24T17:00:00+01:00");
 const DOWNLOAD_URL = "https://lfubd2pcrenetvqi.public.blob.vercel-storage.com/Rook.dmg";
@@ -30,7 +31,7 @@ export function CountdownBanner() {
         <a
           href={DOWNLOAD_URL}
           download
-          onClick={() => posthog.capture("install_click", { source: "banner" })}
+          onClick={() => captureEvent("install_click", { source: "banner" })}
           className="text-foreground font-medium hover:underline"
         >
           Download Rook now →

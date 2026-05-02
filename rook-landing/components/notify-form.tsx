@@ -1,64 +1,78 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { toast } from "sonner";
-import posthog from "posthog-js";
 import { Input } from "@/components/ui/input";
 import { BrandButton } from "@/components/brand-button";
 import { Mail } from "lucide-react";
 import { SHOW_DISCOUNT_COUNTER, SIGNUPS_DISABLED } from "@/lib/constants";
+import { captureEvent, identifyEmail } from "@/lib/posthog-safe";
 import type { SignupMeta } from "@/hooks/use-signup-meta";
 
-export function NotifyForm({ meta, capReached: capReachedProp }: { meta: SignupMeta | null; capReached: boolean; }) {
+const SUBMIT_TIMEOUT_MS = 10_000;
+
+export function NotifyForm({ meta }: { meta: SignupMeta | null }) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [forcedCapReached, setForcedCapReached] = useState(false);
+  const [capJustFilled, setCapJustFilled] = useState(false);
+  const isMounted = useRef(true);
 
-  const capReached = forcedCapReached || capReachedProp;
-  const endpoint = capReached ? "/api/subscribers" : "/api/waitlist";
-  const eventBase = capReached ? "subscriber_signup" : "pro_discount_signup";
-  const buttonLabel = capReached ? "Subscribe" : "Claim discount";
-  const successMessage = capReached
-    ? "Subscribed."
-    : "Claimed! We'll email you when Pro is ready.";
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (SIGNUPS_DISABLED) return;
+    if (SIGNUPS_DISABLED || loading) return;
     setLoading(true);
 
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), SUBMIT_TIMEOUT_MS);
+
     try {
-      const res = await fetch(endpoint, {
+      const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
+        signal: controller.signal,
       });
 
-      const data = await res.json();
+      const data: { error?: string } = await res.json().catch(() => ({}));
+      if (!isMounted.current) return;
 
       if (!res.ok) {
         if (res.status === 410) {
-          // Cap was reached between page load and submit. Switch to launch variant.
-          setForcedCapReached(true);
-          toast(data.error, { style: { background: "var(--rook)", color: "#111", border: "none" } });
+          setCapJustFilled(true);
+          toast(data.error ?? "Waitlist just filled.", { style: { background: "var(--rook)", color: "#111", border: "none" } });
         } else if (res.status === 409) {
-          posthog.capture(`${eventBase}_duplicate`, { source: "homepage_cta" });
-          toast(data.error, { style: { background: "var(--rook)", color: "#111", border: "none" } });
+          captureEvent("pro_discount_signup_duplicate", { source: "homepage_cta" });
+          toast(data.error ?? "You're already on the list.", { style: { background: "#3D5F53", color: "#fff", border: "none" } });
         } else {
-          toast.error(data.error || "Something went wrong. Please try again in a few moments.");
+          toast.error(data.error ?? "Something went wrong. Please try again in a few moments.");
         }
         return;
       }
 
-      posthog.identify(email, { email });
-      posthog.capture(eventBase, { source: "homepage_cta" });
-      toast(successMessage, { style: { background: "#2D6A4F", color: "#fff", border: "none" } });
+      identifyEmail(email);
+      captureEvent("pro_discount_signup", { source: "homepage_cta" });
+      toast("Claimed! We'll email you when Pro is ready.", { style: { background: "#2D6A4F", color: "#fff", border: "none" } });
       setSubmitted(true);
-    } catch {
-      toast.error("Something went wrong. Please try again in a few moments.");
+    } catch (err) {
+      if (!isMounted.current) return;
+      const aborted = err instanceof DOMException && err.name === "AbortError";
+      toast.error(
+        aborted
+          ? "The request took too long. Please try again."
+          : "Something went wrong. Please try again in a few moments.",
+      );
     } finally {
-      setLoading(false);
+      window.clearTimeout(timeout);
+      if (isMounted.current) setLoading(false);
     }
   }
 
@@ -70,9 +84,13 @@ export function NotifyForm({ meta, capReached: capReachedProp }: { meta: SignupM
     );
   }
 
+  if (capJustFilled) {
+    return <WaitlistClosedNotice />;
+  }
+
   return (
     <div className="max-w-sm mx-auto">
-      <CountPill meta={meta} forcedCapReached={forcedCapReached} />
+      <CountPill meta={meta} />
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row sm:items-center gap-2">
         <Input
           type="email"
@@ -89,7 +107,7 @@ export function NotifyForm({ meta, capReached: capReachedProp }: { meta: SignupM
           className="h-10 sm:shrink-0 cursor-pointer"
         >
           <Mail className="size-4" />
-          {SIGNUPS_DISABLED ? "Unavailable" : loading ? "Sending..." : buttonLabel}
+          {SIGNUPS_DISABLED ? "Unavailable" : loading ? "Sending..." : "Claim discount"}
         </BrandButton>
       </form>
     </div>
@@ -98,15 +116,10 @@ export function NotifyForm({ meta, capReached: capReachedProp }: { meta: SignupM
 
 const DISPLAY_CAP = 100;
 
-function CountPill({ meta, forcedCapReached }: { meta: SignupMeta | null; forcedCapReached: boolean; }) {
+function CountPill({ meta }: { meta: SignupMeta | null }) {
   if (!SHOW_DISCOUNT_COUNTER) return null;
-
-  if (!meta) {
-    return <p className="mb-3 h-[20px]" aria-hidden />;
-  }
-
-  const capReached = forcedCapReached || meta.capReached;
-  if (capReached) return null;
+  if (!meta) return <p className="mb-3 h-[20px]" aria-hidden />;
+  if (meta.capReached) return null;
 
   const shown = Math.min(meta.count, DISPLAY_CAP);
 
@@ -115,5 +128,20 @@ function CountPill({ meta, forcedCapReached }: { meta: SignupMeta | null; forced
       <span className="text-foreground font-medium tabular-nums">{shown} / {DISPLAY_CAP}</span>{" "}
       discount spots claimed
     </p>
+  );
+}
+
+export function WaitlistClosedNotice() {
+  return (
+    <div className="max-w-sm mx-auto text-sm sm:text-[14px] text-muted-foreground space-y-2">
+      <p>The Pro discount waitlist is full. We&apos;ll reopen it closer to launch.</p>
+      <p>
+        Want release notes in the meantime?{" "}
+        <Link href="#download" className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground transition-colors">
+          Subscribe here
+        </Link>
+        .
+      </p>
+    </div>
   );
 }

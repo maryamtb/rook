@@ -25,7 +25,7 @@ export default function Home() {
   const signupMeta = useSignupMeta();
   const stars = useStars();
   const { activeTheme, selectTheme } = useThemeCarousel();
-  const capReached = !SHOW_DISCOUNT_COUNTER || (signupMeta?.capReached ?? false);
+  const capReached = SHOW_DISCOUNT_COUNTER && (signupMeta?.capReached ?? false);
 
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
@@ -39,7 +39,7 @@ export default function Home() {
       />
 
       <Nav stars={stars} />
-      <Hero capReached={capReached} />
+      <Hero />
       <Features />
       <Separator className="max-w-[1080px] mx-auto opacity-50" />
       <Themes activeTheme={activeTheme} onSelect={selectTheme} />

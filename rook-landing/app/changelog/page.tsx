@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { FooterNewsletter } from "@/components/sections/footer-newsletter";
 
 export const metadata: Metadata = {
   title: "Changelog · Rook",
@@ -15,6 +16,23 @@ type Entry = {
 };
 
 const entries: Entry[] = [
+  {
+    version: "1.2.3",
+    date: "2026-05-02",
+    notes: [
+      "a new look",
+      "collections: a new top-level container above notebooks",
+      "smarter paste: code blocks preserved between notes, formatted output from markdown, IDE, and terminal sources",
+      "editor shortcuts: cmd+x cuts the line, cmd+delete clears a code-block line, cmd+up/down jump to start and end of a note",
+      "press space to preview notes in notebooks",
+      "shortcuts cheatsheet (cmd+/)",
+      "smoother zoom and sidebar animations",
+      "bash CLI commands colored in the theme accent",
+      "search finds notebooks and collections, not just notes",
+      "import from snippetslab",
+      "strikethrough text formatting",
+    ],
+  },
   {
     version: "1.2.2",
     date: "2026-04-28",
@@ -35,7 +53,7 @@ const entries: Entry[] = [
     version: "1.2.0",
     date: "2026-04-26",
     notes: [
-      "bug fix: theme and color picker selections now persist correctly",
+      "theme and color picker selections now persist correctly",
       "automatic updates: rook can now install new versions in the background",
       "smoother code blocks: cursor and return-key behavior around blocks, language and styling preserved across relaunches",
       "slash menu: heading commands and link support added",
@@ -51,7 +69,7 @@ const entries: Entry[] = [
       "syntax highlighting for 17 languages, including bash, python, and json, with auto-detect",
       "basic slash menu for blocks",
       "basic horizontal edit menu on double click",
-      "shortcuts: ⌘n to create a note, ⌘k / ⌘f to search, ⌘\\ to toggle the sidebar, ⌘⇧⌫ to delete a note, ⌘⇧↵ to insert a code block, ⌘, for settings, ⌘z / ⌘⇧z to undo and redo, ⌘= / ⌘- to zoom in and out, ⌥+click for multi-cursor",
+      "shortcuts: cmd+n to create a note, cmd+k / cmd+f to search, cmd+\\ to toggle the sidebar, cmd+shift+delete to delete a note, cmd+shift+return to insert a code block, cmd+, for settings, cmd+z / cmd+shift+z to undo and redo, cmd+= / cmd+- to zoom in and out, opt+click for multi-cursor",
       "notebooks to organize notes",
       "trash with restore",
       "local JSON store at ~/Library/Application Support/Rook/store.json",
@@ -85,15 +103,21 @@ export default function ChangelogPage() {
               alt="Rook"
               width={56}
               height={56}
+              priority
               className="rounded-[14px] transition-transform hover:scale-105"
             />
           </Link>
-          <h1 className="text-[clamp(28px,4vw,40px)] font-mono font-bold tracking-[-0.03em] leading-[1.1]">
-            Changelog
-          </h1>
-          <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed">
-            Release notes for Rook
-          </p>
+          <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between sm:gap-10">
+            <div>
+              <h1 className="text-[clamp(28px,4vw,40px)] font-mono font-bold tracking-[-0.03em] leading-[1.1]">
+                Changelog
+              </h1>
+              <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed">
+                Release notes for Rook
+              </p>
+            </div>
+            <FooterNewsletter source="changelog_page" />
+          </div>
         </header>
 
         <ol className="space-y-16">

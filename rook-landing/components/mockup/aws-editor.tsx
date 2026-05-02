@@ -8,7 +8,7 @@ export function AwsStaticEditor({ t }: { t: ThemeColors; }) {
         aws cli quick ref
       </h2>
       <p className="text-[13px] leading-[1.7] mb-4 transition-colors duration-500" style={{ color: t.subtext }}>
-        SSO login, profile switching, identity check.
+        SSO across multiple accounts. Login, switching, and checking current logged-in profile.
       </p>
 
       <p className="text-[13px] font-semibold mb-2 transition-colors duration-500" style={{ color: t.text }}>SSO</p>

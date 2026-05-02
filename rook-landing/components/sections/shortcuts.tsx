@@ -27,7 +27,7 @@ export function Shortcuts() {
             Shortcuts
           </h2>
           <p className="mt-3 text-[15px] text-muted-foreground">
-            All the usual suspects, and a few more
+            All the usual suspects, plus a few more
           </p>
         </motion.div>
 

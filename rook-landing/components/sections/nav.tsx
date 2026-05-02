@@ -1,14 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import posthog from "posthog-js";
 import { Download, Mail, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetClose } from "@/components/ui/sheet";
+import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetDescription, SheetClose } from "@/components/ui/sheet";
 import { BrandButton } from "@/components/brand-button";
 import { GitHubIcon, XIcon } from "@/components/icons";
 import { DMG_URL, PRODUCT_HUNT_URL, SIGNUPS_DISABLED } from "@/lib/constants";
+import { captureEvent } from "@/lib/posthog-safe";
 
 export function Nav({ stars }: { stars: number | null; }) {
   return (
@@ -34,7 +34,7 @@ export function Nav({ stars }: { stars: number | null; }) {
               rel="noopener noreferrer"
               aria-label="Rook on Product Hunt"
               className="hidden sm:inline-block transition-opacity hover:opacity-80"
-              onClick={() => posthog.capture("product_hunt_click", { source: "nav" })}
+              onClick={() => captureEvent("product_hunt_click", { source: "nav" })}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -55,7 +55,7 @@ export function Nav({ stars }: { stars: number | null; }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={stars !== null ? `GitHub, ${stars} stars` : "GitHub"}
-                  onClick={() => posthog.capture("github_click", { source: "nav" })}
+                  onClick={() => captureEvent("github_click", { source: "nav" })}
                 >
                   <GitHubIcon className="size-4" />
                   {stars !== null && (
@@ -67,7 +67,7 @@ export function Nav({ stars }: { stars: number | null; }) {
               </Button>
             </div>
             <BrandButton asChild className="hidden sm:inline-flex">
-              <a href={DMG_URL} download onClick={() => posthog.capture("install_click", { source: "nav" })}>
+              <a href={DMG_URL} download onClick={() => captureEvent("install_click", { source: "nav" })}>
                 <Download className="size-4" />
                 Download
               </a>
@@ -81,6 +81,7 @@ export function Nav({ stars }: { stars: number | null; }) {
               </SheetTrigger>
               <SheetContent side="right" className="w-[280px]">
                 <SheetTitle className="sr-only">Menu</SheetTitle>
+                <SheetDescription className="sr-only">Site navigation links</SheetDescription>
                 <nav className="flex flex-col gap-6 px-6 pt-10 text-[15px] font-mono">
                   <SheetClose asChild>
                     <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</a>
@@ -104,7 +105,7 @@ export function Nav({ stars }: { stars: number | null; }) {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2.5 text-muted-foreground hover:text-foreground transition-colors"
-                      onClick={() => posthog.capture("github_click", { source: "nav_mobile" })}
+                      onClick={() => captureEvent("github_click", { source: "nav_mobile" })}
                     >
                       <GitHubIcon className="size-[18px]" />
                       <span>GitHub</span>
@@ -119,7 +120,7 @@ export function Nav({ stars }: { stars: number | null; }) {
                     <BrandButton size="lg" asChild className="mt-2 w-full">
                       <a
                         href="#download"
-                        onClick={() => posthog.capture("install_click_mobile_redirect", { source: "nav_mobile" })}
+                        onClick={() => captureEvent("install_click_mobile_redirect", { source: "nav_mobile" })}
                       >
                         <Mail className="size-4" />
                         Subscribe for updates

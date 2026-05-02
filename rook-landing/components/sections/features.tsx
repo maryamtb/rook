@@ -21,7 +21,7 @@ export function Features() {
             Features
           </h2>
           <p className="mt-3 text-[15px] text-muted-foreground">
-            Built for the way developers take notes
+            Built for notes fluent in code
           </p>
         </div>
 
