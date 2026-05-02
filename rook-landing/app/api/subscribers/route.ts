@@ -339,7 +339,7 @@ export async function POST(request: Request) {
     ]);
 
     return NextResponse.json({ success: true });
-  } catch (err) {
+  } catch {
     return NextResponse.json(
       { error: "Something went wrong. Please try again in a few moments." },
       { status: 500 }
