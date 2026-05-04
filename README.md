@@ -5,7 +5,7 @@
 
   <p><strong>Notes app, made for code.</strong></p>
 
-  <p>Rich text and code blocks, syntax highlighting, and various themes. Available for macOS.</p>
+  <p>For the code you write, paste, and keep around. Native Mac app.</p>
 
   <p>
     <a href="https://userook.app"><strong>Download for macOS</strong></a>
@@ -38,14 +38,15 @@
 
 ## Keyboard shortcuts
 
-| Shortcut | Action |
-|---|---|
-| `⌘N` | New note |
-| `⌘F` | Search |
-| `⌘⇧↵` | Code block |
-| `⌘,` | Settings |
-| `⌥Click` | Multi-cursor |
-| `⌘⇧⌫` | Delete note |
+**Notes:** <kbd>⌘N</kbd> new · <kbd>⌘F</kbd> search · <kbd>Space</kbd> preview · <kbd>⌘⇧⌫</kbd> delete
+
+**Editor:** <kbd>⌘⇧↵</kbd> code block · <kbd>⌘X</kbd> cut line · <kbd>⌘⌫</kbd> clear line · <kbd>⌥Click</kbd> multi-cursor
+
+**Navigation:** <kbd>⌘↑</kbd> top · <kbd>⌘↓</kbd> bottom · <kbd>⌘&#92;</kbd> toggle sidebar
+
+**View:** <kbd>⌘=</kbd> zoom in · <kbd>⌘-</kbd> zoom out
+
+**App:** <kbd>⌘,</kbd> settings · <kbd>⌘/</kbd> shortcuts cheatsheet · <kbd>⌘Z</kbd> undo · <kbd>⌘⇧Z</kbd> redo
 
 ## Community notes
 
@@ -53,13 +54,17 @@ Drop-in Markdown cheatsheets for the CLIs and topics developers use every day. B
 
 The Rook macOS app itself is a closed-source Swift project distributed as a signed binary via the [website](https://userook.app) and GitHub Releases.
 
-## Status
+## Bugs and feature requests
 
-Rook is available for macOS. [Download at userook.app](https://userook.app). Bug reports and feature requests welcome in [issues](../../issues), or say hi in [Discussions](../../discussions). See [ROADMAP.md](ROADMAP.md) for upcoming features.
+Found a bug or want a feature? [Open an issue](../../issues/new/choose) and pick a template.
+
+## Discussions
+
+Questions, ideas, or just say hi in [Discussions](../../discussions).
 
 ## Changelog
 
-See [rook.app/changelog](https://rook.app/changelog).
+See [userook.app/changelog](https://userook.app/changelog).
 
 ## License
 

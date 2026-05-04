@@ -36,7 +36,7 @@ export default function PrivacyPage() {
         <div className="space-y-12 text-[14.5px] leading-[1.7] text-foreground/85">
           <section>
             <p>
-              Rook is a notes app for developers, built by Maryam TB. This
+              Rook is a notes app made for code, built by Maryam TB. This
               page explains what we collect, why, and how to remove your
               data.
             </p>

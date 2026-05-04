@@ -43,14 +43,6 @@ command --other <placeholder>
 - [ ] Under ~150 lines (split into multiple notes if longer)
 - [ ] Renders cleanly (preview it on GitHub)
 
-## Reporting a bug in the macOS app
+## Bugs and feature requests for the macOS app
 
-Open an [issue](../../issues/new) and include:
-- macOS version
-- Rook version (Rook → About)
-- Steps to reproduce
-- What you expected, what happened
-
-## Filing a feature request
-
-Also an [issue](../../issues/new). One per issue.
+Both go in [issues](../../issues/new/choose). Pick the **Bug** or **Feature request** template and fill in the prompts. One topic per issue.
