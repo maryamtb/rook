@@ -1,4 +1,6 @@
+<!-- ROOK:HEADER -->
 > Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
+<!-- /ROOK:HEADER -->
 
 # Sliding window
 
@@ -82,3 +84,17 @@ def longest_unique(s):
 | Find All Anagrams in a String (LC 438) | Medium | Fixed |
 | Longest Repeating Character Replacement (LC 424) | Medium | Variable |
 | Minimum Window Substring (LC 76) | Hard | Variable |
+
+<!-- ROOK:SERIES -->
+*More in this series: [Big-O quick reference](big-o.md) · [Binary search](binary-search.md) · [DFS pattern](dfs-pattern.md) · [Two pointers](two-pointers.md).*
+<!-- /ROOK:SERIES -->
+
+<!-- ROOK:FOOTER -->
+---
+
+> ## About Rook
+>
+> If you're looking for the perfect app for your code notes, you should check out **Rook**. Rook is a native macOS notes app made for code.
+>
+> [Download free at userook.app](https://userook.app) · [More community notes](https://github.com/maryamtb/rook/tree/main/community-notes)
+<!-- /ROOK:FOOTER -->

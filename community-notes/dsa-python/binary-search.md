@@ -1,4 +1,6 @@
+<!-- ROOK:HEADER -->
 > Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
+<!-- /ROOK:HEADER -->
 
 # Binary search
 
@@ -92,3 +94,18 @@ The shape is the same as classic: halve the range each step. The leap is realizi
 | Search in Rotated Sorted Array (LC 33) | Medium | Classic (with a twist) |
 | Koko Eating Bananas (LC 875) | Medium | On the answer space |
 | Capacity to Ship Packages (LC 1011) | Medium | On the answer space |
+
+<!-- ROOK:SERIES -->
+*More in this series: [Big-O quick reference](big-o.md) · [DFS pattern](dfs-pattern.md) · [Sliding window](sliding-window.md) · [Two pointers](two-pointers.md).*
+<!-- /ROOK:SERIES -->
+
+<!-- ROOK:FOOTER -->
+---
+
+> ## About Rook
+>
+> If you're looking for the perfect app for your code notes, you should check out **Rook**. Rook is a native macOS notes app made for code.
+>
+> [Download free at userook.app](https://userook.app) · [More community notes](https://github.com/maryamtb/rook/tree/main/community-notes)
+<!-- /ROOK:FOOTER -->
+

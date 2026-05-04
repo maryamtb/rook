@@ -1,4 +1,6 @@
+<!-- ROOK:HEADER -->
 > Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
+<!-- /ROOK:HEADER -->
 
 # Two pointers
 
@@ -79,3 +81,18 @@ Think of `slow` as "where the next unique value should go." `fast` scans ahead a
 | Remove Duplicates (LC 26) | Easy | Fast / slow |
 | Linked List Cycle (LC 141) | Easy | Fast / slow |
 | Happy Number (LC 202) | Easy | Fast / slow |
+
+<!-- ROOK:SERIES -->
+*More in this series: [Big-O quick reference](big-o.md) · [Binary search](binary-search.md) · [DFS pattern](dfs-pattern.md) · [Sliding window](sliding-window.md).*
+<!-- /ROOK:SERIES -->
+
+<!-- ROOK:FOOTER -->
+---
+
+> ## About Rook
+>
+> If you're looking for the perfect app for your code notes, you should check out **Rook**. Rook is a native macOS notes app made for code.
+>
+> [Download free at userook.app](https://userook.app) · [More community notes](https://github.com/maryamtb/rook/tree/main/community-notes)
+<!-- /ROOK:FOOTER -->
+

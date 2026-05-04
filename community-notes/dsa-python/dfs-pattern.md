@@ -1,4 +1,6 @@
+<!-- ROOK:HEADER -->
 > Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
+<!-- /ROOK:HEADER -->
 
 # DFS pattern
 
@@ -120,3 +122,17 @@ Same traversal idea, different control flow: LIFO stack gives depth-first behavi
 | Course Schedule (LC 207) | Medium | Directed cycle detection |
 | Path Sum (LC 112) | Easy | Root-to-leaf depth traversal |
 | Validate Binary Search Tree (LC 98) | Medium | Depth traversal with constraints |
+
+<!-- ROOK:SERIES -->
+*More in this series: [Big-O quick reference](big-o.md) · [Binary search](binary-search.md) · [Sliding window](sliding-window.md) · [Two pointers](two-pointers.md).*
+<!-- /ROOK:SERIES -->
+
+<!-- ROOK:FOOTER -->
+---
+
+> ## About Rook
+>
+> If you're looking for the perfect app for your code notes, you should check out **Rook**. Rook is a native macOS notes app made for code.
+>
+> [Download free at userook.app](https://userook.app) · [More community notes](https://github.com/maryamtb/rook/tree/main/community-notes)
+<!-- /ROOK:FOOTER -->

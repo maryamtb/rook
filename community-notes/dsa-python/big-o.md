@@ -1,4 +1,6 @@
+<!-- ROOK:HEADER -->
 > Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
+<!-- /ROOK:HEADER -->
 
 # Big-O quick reference
 
@@ -118,3 +120,17 @@ Backtracking               O(branches^depth)   often exponential
 2D DP                      O(n × m)
 Dijkstra (with heap)       O((V + E) log V)
 ```
+
+<!-- ROOK:SERIES -->
+*More in this series: [Binary search](binary-search.md) · [DFS pattern](dfs-pattern.md) · [Sliding window](sliding-window.md) · [Two pointers](two-pointers.md).*
+<!-- /ROOK:SERIES -->
+
+<!-- ROOK:FOOTER -->
+---
+
+> ## About Rook
+>
+> If you're looking for the perfect app for your code notes, you should check out **Rook**. Rook is a native macOS notes app made for code.
+>
+> [Download free at userook.app](https://userook.app) · [More community notes](https://github.com/maryamtb/rook/tree/main/community-notes)
+<!-- /ROOK:FOOTER -->
