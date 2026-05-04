@@ -1,3 +1,7 @@
+<!-- ROOK:HEADER -->
+> Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
+<!-- /ROOK:HEADER -->
+
 # Community Notes
 
 Cheatsheets you can paste into Rook in markdown. 
@@ -11,12 +15,18 @@ Cheatsheets you can paste into Rook in markdown.
 - [Git](git.md). Commands for branches, undoing, rebase, remote, log.
 - [FastAPI](fastapi.md). Install, app structure, routes, validation, and testing.
 - [DSA (Python)](dsa-python/). Algorithm patterns and complexity reference.
-- [DFS Pattern (Python)](dsa-python/dfs-pattern.md). Spot DFS, walk through LC 200, and practice variants.
+- [SOLID Principles](solid-principles/). Five OOP design principles, with Pythonic implementations.
 
 ## Adding a new note
 
 See [CONTRIBUTING.md](../CONTRIBUTING.md) for the format and PR checklist.
 
-## About
+<!-- ROOK:FOOTER -->
+---
 
-Part of [Rook](https://userook.app), a notes app made for code. macOS 14+. [Download at userook.app](https://userook.app).
+> ## About Rook
+>
+> If you're looking for the perfect app for your code notes, you should check out **Rook**. Rook is a native macOS notes app made for code.
+>
+> [Download free at userook.app](https://userook.app) · [More community notes](https://github.com/maryamtb/rook/tree/main/community-notes)
+<!-- /ROOK:FOOTER -->
