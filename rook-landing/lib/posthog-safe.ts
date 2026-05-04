@@ -1,6 +1,7 @@
 import posthog from "posthog-js";
+import type { EventName } from "./events";
 
-export function captureEvent(event: string, properties: Record<string, unknown>) {
+export function captureEvent(event: EventName, properties: Record<string, unknown>) {
   try {
     posthog.capture(event, properties);
   } catch {

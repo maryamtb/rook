@@ -1,0 +1,14 @@
+export const EVENT = {
+  ChangelogClick: "changelog_click",
+  GithubClick: "github_click",
+  InstallClick: "install_click",
+  InstallClickMobileRedirect: "install_click_mobile_redirect",
+  ProDiscountSignup: "pro_discount_signup",
+  ProDiscountSignupDuplicate: "pro_discount_signup_duplicate",
+  ProductHuntClick: "product_hunt_click",
+  SubscribeClick: "subscribe_click",
+  SubscriberSignup: "subscriber_signup",
+  SubscriberSignupDuplicate: "subscriber_signup_duplicate",
+} as const;
+
+export type EventName = typeof EVENT[keyof typeof EVENT];
