@@ -1,17 +1,3 @@
-export function SidebarToggleIcon({ color }: { color: string }) {
-  return (
-    <svg
-      className="w-[15px] h-[15px] transition-colors duration-500"
-      style={{ color }}
-      viewBox="0 0 28 20" fill="none"
-    >
-      <rect x="1" y="1" width="26" height="18" rx="3" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="1" y="1" width="9.5" height="18" rx="3" fill="currentColor" opacity="0.35" />
-      <line x1="10.5" y1="1" x2="10.5" y2="19" stroke="currentColor" strokeWidth="0.75" opacity="0.5" />
-    </svg>
-  );
-}
-
 export function MockIcon({ name, color, size = 12 }: { name: string; color: string; size?: number }) {
   const s = `${size}px`;
   switch (name) {
@@ -79,16 +65,16 @@ export function MockIcon({ name, color, size = 12 }: { name: string; color: stri
     case "strikethrough":
       return (
         <svg width={s} height={s} style={{ color }} viewBox="0 0 16 16" fill="none">
-          <line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-          <path d="M5.3 5.5c0-1.4 1.2-2.5 2.7-2.5 1.5 0 2.7.8 2.9 2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
-          <path d="M10.7 10.5c0 1.4-1.2 2.5-2.7 2.5-1.5 0-2.7-.8-2.9-2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+          <line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <path d="M5.3 5.5c0-1.4 1.2-2.5 2.7-2.5 1.5 0 2.7.8 2.9 2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+          <path d="M10.7 10.5c0 1.4-1.2 2.5-2.7 2.5-1.5 0-2.7-.8-2.9-2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
         </svg>
       );
     case "highlighter":
       return (
         <svg width={s} height={s} style={{ color }} viewBox="0 0 16 16" fill="none">
-          <path d="M9.5 2.5l4 4-6 6-1.5.5-.5-.5-1 1H2l1.5-2-.5-.5.5-1.5 6-6z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round" strokeLinecap="round"/>
-          <line x1="1" y1="15" x2="7" y2="15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+          <path d="M9.5 2.5l4 4-6 6-1.5.5-.5-.5-1 1H2l1.5-2-.5-.5.5-1.5 6-6z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round" strokeLinecap="round" />
+          <line x1="1" y1="15" x2="7" y2="15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
       );
     default:

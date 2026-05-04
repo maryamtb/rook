@@ -4,7 +4,7 @@ import { CodeBlock, CodeLine, Token } from "./code-block";
 export function AwsStaticEditor({ t }: { t: ThemeColors; }) {
   return (
     <div className="p-6">
-      <h2 className="text-[20px] font-bold mb-2 transition-colors duration-500" style={{ color: t.text, fontFamily: "var(--font-space-mono), ui-monospace, monospace" }}>
+      <h2 className="text-[20px] font-display font-bold mb-2 transition-colors duration-500" style={{ color: t.text }}>
         aws cli quick ref
       </h2>
       <p className="text-[13px] leading-[1.7] mb-4 transition-colors duration-500" style={{ color: t.subtext }}>

@@ -8,7 +8,7 @@ import { SlashMenuPanel } from "./slash-menu";
 
 type Phase = "idle" | "scroll" | "slash" | "menu";
 
-export function AuthAnimatedEditor({ t }: { t: ThemeColors }) {
+export function AuthAnimatedEditor({ t }: { t: ThemeColors; }) {
   const [phase, setPhase] = useState<Phase>("idle");
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -41,7 +41,7 @@ export function AuthAnimatedEditor({ t }: { t: ThemeColors }) {
         animate={{ y: isScrolled ? -50 : 0 }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
       >
-        <h2 className="text-[20px] font-bold mb-2 transition-colors duration-500" style={{ color: t.text, fontFamily: "var(--font-space-mono), ui-monospace, monospace" }}>
+        <h2 className="text-[20px] font-display font-bold mb-2 transition-colors duration-500" style={{ color: t.text }}>
           kubectl quick ref
         </h2>
         <p className="text-[13px] leading-[1.7] mb-4 transition-colors duration-500" style={{ color: t.subtext }}>

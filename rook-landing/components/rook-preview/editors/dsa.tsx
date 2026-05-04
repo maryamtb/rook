@@ -8,7 +8,7 @@ import { SelectionToolbarPanel } from "./selection-toolbar";
 
 type Phase = "idle" | "select" | "toolbar";
 
-export function DsaAnimatedEditor({ t }: { t: ThemeColors }) {
+export function DsaAnimatedEditor({ t }: { t: ThemeColors; }) {
   const [phase, setPhase] = useState<Phase>("idle");
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -32,7 +32,7 @@ export function DsaAnimatedEditor({ t }: { t: ThemeColors }) {
 
   return (
     <div className="relative h-full p-6">
-      <h2 className="text-[20px] font-bold mb-2 transition-colors duration-500" style={{ color: t.text, fontFamily: "var(--font-space-mono), ui-monospace, monospace" }}>
+      <h2 className="text-[20px] font-display font-bold mb-2 transition-colors duration-500" style={{ color: t.text }}>
         Binary Search
       </h2>
       <p className="text-[13px] leading-[1.7] mb-4 transition-colors duration-500 relative" style={{ color: t.subtext }}>

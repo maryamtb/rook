@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import type { ThemeColors } from "@/lib/themes";
-import { MockIcon } from "./icons";
+import { MockIcon } from "./mock-icon";
 
-type SlashMenuItem = { icon: string; label: string; shortLabel: string; selected?: boolean };
+type SlashMenuItem = { icon: string; label: string; shortLabel: string; selected?: boolean; };
 
 const items: SlashMenuItem[] = [
   { icon: "curlybraces", label: "Code Block", shortLabel: "code", selected: true },
@@ -18,7 +18,7 @@ const items: SlashMenuItem[] = [
   { icon: "highlighter", label: "Highlight", shortLabel: "hl" },
 ];
 
-export function SlashMenuPanel({ t }: { t: ThemeColors }) {
+export function SlashMenuPanel({ t }: { t: ThemeColors; }) {
   return (
     <div
       className="w-[220px] rounded-xl overflow-hidden transition-colors duration-500"
