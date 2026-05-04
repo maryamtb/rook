@@ -14,7 +14,10 @@ Community notes are plain Markdown files under [`community-notes/`](community-no
 
 ### Format
 
-```markdown
+````markdown
+<!-- ROOK:HEADER -->
+<!-- /ROOK:HEADER -->
+
 # Topic name
 
 One sentence on what this is and who it's for.
@@ -27,6 +30,12 @@ Short prose explaining the group of commands.
 command --flag value
 command --other <placeholder>
 ```
+
+<!-- ROOK:FOOTER -->
+<!-- /ROOK:FOOTER -->
+````
+
+The `<!-- ROOK:HEADER -->` and `<!-- ROOK:FOOTER -->` blocks are filled in automatically — leave them empty and run `pnpm sync` from `community-notes/` before pushing. If your note is part of a series (lives in a subdirectory next to a `README.md`), also add `<!-- ROOK:SERIES --><!-- /ROOK:SERIES -->` between the content and the footer; sync builds the cross-links from sibling files.
 
 ### Guidelines
 
@@ -41,6 +50,8 @@ command --other <placeholder>
 - [ ] File is under `community-notes/` and named `<topic>.md` (lowercase, hyphens)
 - [ ] Linked from `community-notes/README.md`
 - [ ] Under ~150 lines (split into multiple notes if longer)
+- [ ] Marker blocks present (header, footer, plus series for subdirectory notes)
+- [ ] Ran `pnpm sync` from `community-notes/`
 - [ ] Renders cleanly (preview it on GitHub)
 
 ## Bugs and feature requests for the macOS app

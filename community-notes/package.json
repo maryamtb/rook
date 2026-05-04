@@ -1,0 +1,8 @@
+{
+  "name": "rook-community-notes",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync-rook-blocks.mjs"
+  }
+}
