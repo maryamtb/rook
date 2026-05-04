@@ -5,9 +5,11 @@ import { motion } from "framer-motion";
 import { Download } from "lucide-react";
 import { BrandButton } from "@/components/brand-button";
 import { NotifyForm, WaitlistClosedNotice } from "@/components/notify-form";
-import { FooterNewsletter } from "@/components/sections/footer-newsletter";
+import { FooterNewsletter } from "@/components/footer-newsletter";
 import { APP_VERSION, DMG_URL, SHOW_DISCOUNT_COUNTER } from "@/lib/constants";
+import { sectionHeading } from "@/lib/motion";
 import { captureEvent } from "@/lib/posthog-safe";
+import { EVENT } from "@/lib/events";
 import type { SignupMeta } from "@/hooks/use-signup-meta";
 
 type CtaProps = {
@@ -18,13 +20,7 @@ type CtaProps = {
 export function Cta({ capReached, signupMeta }: CtaProps) {
   return (
     <section id="download" className="py-28 md:py-36">
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="max-w-[480px] mx-auto px-6 text-center"
-      >
+      <motion.div {...sectionHeading} className="max-w-[480px] mx-auto px-6 text-center">
         <Image
           src="/icon-512.png"
           alt=""
@@ -43,7 +39,7 @@ export function Cta({ capReached, signupMeta }: CtaProps) {
 
         <div className="mt-8 hidden sm:block">
           <BrandButton size="lg" asChild>
-            <a href={DMG_URL} download onClick={() => captureEvent("install_click", { source: "footer_cta" })}>
+            <a href={DMG_URL} download onClick={() => captureEvent(EVENT.InstallClick, { source: "footer_cta" })}>
               <Download className="size-4" />
               Download v{APP_VERSION} for macOS
             </a>

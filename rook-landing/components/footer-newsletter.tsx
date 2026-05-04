@@ -1,24 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { BrandButton } from "@/components/brand-button";
+import { useEmailForm } from "@/hooks/use-email-form";
+import { EVENT } from "@/lib/events";
 import { captureEvent, identifyEmail } from "@/lib/posthog-safe";
 import { subscribeRequest } from "@/lib/subscribe-client";
+import { TOAST_STYLE } from "@/lib/toast";
 
-export function FooterNewsletter({ source = "footer_newsletter" }: { source?: string; }) {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const isMounted = useRef(true);
-
-  useEffect(() => {
-    isMounted.current = true;
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
+export function FooterNewsletter({ source = "footer_newsletter" }: { source?: string }) {
+  const { email, setEmail, loading, setLoading, submitted, setSubmitted, isMounted } = useEmailForm();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -31,13 +23,13 @@ export function FooterNewsletter({ source = "footer_newsletter" }: { source?: st
     switch (outcome.kind) {
       case "ok":
         identifyEmail(email);
-        captureEvent("subscriber_signup", { source });
-        toast("Subscribed.", { style: { background: "#2D6A4F", color: "#fff", border: "none" } });
+        captureEvent(EVENT.SubscriberSignup, { source });
+        toast("Subscribed.", { style: TOAST_STYLE.success });
         setSubmitted(true);
         break;
       case "duplicate":
-        captureEvent("subscriber_signup_duplicate", { source });
-        toast(outcome.message ?? "You're already in.", { style: { background: "#3D5F53", color: "#fff", border: "none" } });
+        captureEvent(EVENT.SubscriberSignupDuplicate, { source });
+        toast(outcome.message ?? "You're already in.", { style: TOAST_STYLE.duplicate });
         setSubmitted(true);
         break;
       case "timeout":

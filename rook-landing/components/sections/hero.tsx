@@ -1,16 +1,49 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { Download } from "lucide-react";
-import { AppMockup } from "@/components/mockup";
-import { BrandButton } from "@/components/brand-button";
+import { InteractiveRook, MobileMockup, type MobileNote } from "@/components/rook-preview";
 import { themes } from "@/lib/themes";
-import { APP_VERSION, DMG_URL, PRODUCT_HUNT_URL } from "@/lib/constants";
+import { PRODUCT_HUNT_URL } from "@/lib/constants";
 import { captureEvent } from "@/lib/posthog-safe";
+import { EVENT } from "@/lib/events";
+import { DownloadCta } from "./download-cta";
+import { WhatsNewPill } from "./whats-new-pill";
+
+const HERO_THEME_IDX = 3;
+const HERO_THEME = themes[HERO_THEME_IDX];
+
+const CLAUDE_FIRST_API_NOTE: MobileNote = {
+  title: "my first API call: Dunder Mifflin Infinity 2.0",
+  description: "Apparently, this is how you call the AI, and these are some of the main params you pass to it",
+  codeLang: "python",
+  code: (
+    <>
+      <span style={{ color: HERO_THEME.variable }}>response</span>
+      <span style={{ color: HERO_THEME.codeText }}> = </span>
+      <span style={{ color: HERO_THEME.func }}>client.messages.create</span>
+      <span style={{ color: HERO_THEME.codeText }}>(</span>{"\n"}
+      {"  "}
+      <span style={{ color: HERO_THEME.variable }}>system</span>
+      <span style={{ color: HERO_THEME.codeText }}>=</span>
+      <span style={{ color: HERO_THEME.string }}>&quot;You are a thought leader.&quot;</span>
+      <span style={{ color: HERO_THEME.codeText }}>,</span>{"\n"}
+      {"  "}
+      <span style={{ color: HERO_THEME.variable }}>messages</span>
+      <span style={{ color: HERO_THEME.codeText }}>=[{"{"}</span>{"\n"}
+      {"    "}
+      <span style={{ color: HERO_THEME.string }}>&quot;content&quot;</span>
+      <span style={{ color: HERO_THEME.codeText }}>: </span>
+      <span style={{ color: HERO_THEME.string }} className="font-extrabold">&quot;Build Dunder Mifflin Infinity 2.0. No Mistakes.&quot;</span>{"\n"}
+      {"  "}
+      <span style={{ color: HERO_THEME.codeText }}>{"}"}]</span>{"\n"}
+      <span style={{ color: HERO_THEME.codeText }}>)</span>
+    </>
+  ),
+};
 
 export function Hero() {
+
   return (
     <section className="pt-[140px] md:pt-[176px]">
       <div className="max-w-[680px] mx-auto px-6 text-center">
@@ -35,7 +68,7 @@ export function Hero() {
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.08 }}
           className="whitespace-nowrap text-[clamp(22px,6.5vw,52px)] font-mono font-bold tracking-[-0.03em] leading-[1.12] text-foreground"
         >
-          Notes that speak <span className="text-rook">code</span>
+          Notes that speak <span className="text-rook shimmer">code</span>
         </motion.h1>
 
         <motion.p
@@ -47,45 +80,9 @@ export function Hero() {
           A native Mac notes app for the code you write, paste, and keep around
         </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.26 }}
-          className="hidden sm:flex justify-center mt-7"
-        >
-          <div className="relative group">
-            <span aria-hidden className="pill-glow absolute -inset-3 rounded-full" />
-            <Link
-              href={`/changelog#v${APP_VERSION}`}
-              className="relative inline-flex items-center gap-2 pl-1 pr-3 py-1 rounded-full border border-border/60 bg-background/40 backdrop-blur-md text-[12px] text-foreground/80 hover:text-foreground transition-colors"
-              onClick={() => captureEvent("changelog_click", { source: "hero" })}
-            >
-              <span aria-hidden className="pill-shine absolute inset-0 rounded-full p-[1px]" />
-              <span className="relative inline-flex items-center px-2 py-[2px] rounded-full bg-rook/[0.14] text-rook font-mono text-[10.5px] tracking-tight tabular-nums">
-                v{APP_VERSION}
-              </span>
-              <span className="relative">what&apos;s new</span>
-              <span aria-hidden className="relative text-foreground/40 transition-all duration-300 ease-out group-hover:translate-x-0.5 group-hover:text-foreground/70">→</span>
-            </Link>
-          </div>
-        </motion.div>
+        <WhatsNewPill source="hero" />
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.32 }}
-          className="mt-5"
-        >
-          <BrandButton size="lg" asChild className="hidden sm:inline-flex">
-            <a href={DMG_URL} download onClick={() => captureEvent("install_click", { source: "hero" })}>
-              <Download className="size-4" />
-              Download v{APP_VERSION} for macOS
-            </a>
-          </BrandButton>
-          <p className="sm:hidden text-[15px] font-semibold text-foreground">
-            Make your first move on a Mac!
-          </p>
-        </motion.div>
+        <DownloadCta source="hero" />
 
         <motion.p
           initial={{ opacity: 0 }}
@@ -106,7 +103,7 @@ export function Hero() {
           <a
             href="#download"
             className="underline decoration-rook/40 underline-offset-4 hover:decoration-rook/80 transition-colors"
-            onClick={() => captureEvent("subscribe_click", { source: "hero" })}
+            onClick={() => captureEvent(EVENT.SubscribeClick, { source: "hero" })}
           >
             Subscribe for updates
           </a>
@@ -130,7 +127,7 @@ export function Hero() {
           rel="noopener noreferrer"
           className="mt-5 sm:hidden inline-block transition-opacity hover:opacity-80"
           aria-label="Rook on Product Hunt"
-          onClick={() => captureEvent("product_hunt_click", { source: "hero" })}
+          onClick={() => captureEvent(EVENT.ProductHuntClick, { source: "hero" })}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -149,38 +146,10 @@ export function Hero() {
         className="mt-16 md:mt-20 max-w-[1080px] mx-auto px-4 sm:px-6 relative"
       >
         <div className="hidden sm:block">
-          <AppMockup theme={themes[0]} />
+          <InteractiveRook theme={themes[HERO_THEME_IDX]} />
         </div>
-        <div className="sm:hidden overflow-hidden rounded-xl border shadow-2xl" style={{ backgroundColor: themes[0].bg, borderColor: themes[0].border }} role="presentation">
-          <div className="flex items-center px-3 h-9" style={{ backgroundColor: themes[0].panel }}>
-            <div className="flex gap-[6px]">
-              <div className="w-[10px] h-[10px] rounded-full bg-[#FF5F57]" />
-              <div className="w-[10px] h-[10px] rounded-full bg-[#FEBC2E]" />
-              <div className="w-[10px] h-[10px] rounded-full bg-[#28C840]" />
-            </div>
-            <div className="flex-1" />
-            <div className="flex items-center gap-1 px-2 py-0.5 rounded-full" style={{ backgroundColor: themes[0].surface }}>
-              <svg className="w-[8px] h-[8px]" style={{ color: themes[0].subtext }} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" /></svg>
-              <span className="text-[9px] font-medium" style={{ color: themes[0].subtext }}>New note</span>
-            </div>
-          </div>
-          <div className="p-5" style={{ backgroundColor: themes[0].bg }}>
-            <h2 className="text-[18px] font-bold mb-2" style={{ color: themes[0].text, fontFamily: "var(--font-space-mono), ui-monospace, monospace" }}>kubectl quick ref</h2>
-            <p className="text-xs leading-[1.7] mb-3" style={{ color: themes[0].subtext }}>
-              Commands for managing context, pods, deployments.
-            </p>
-            <div className="rounded-lg overflow-hidden" style={{ backgroundColor: themes[0].codeBg }}>
-              <div className="flex items-center px-3 pt-2">
-                <span className="text-[9px]" style={{ color: `${themes[0].subtext}99` }}>bash</span>
-              </div>
-              <pre className="px-3 pb-3 pt-1 text-[10px] leading-[1.75] font-mono">
-                <span style={{ color: themes[0].func }}>kubectl</span> <span style={{ color: themes[0].codeText }}>config get-contexts</span>{"\n"}
-                <span style={{ color: themes[0].func }}>kubectl</span> <span style={{ color: themes[0].codeText }}>config use-context</span> <span style={{ color: themes[0].variable }}>&lt;name&gt;</span>{"\n"}
-                <span style={{ color: themes[0].func }}>kubectl</span> <span style={{ color: themes[0].codeText }}>get pods -n</span> <span style={{ color: themes[0].variable }}>&lt;ns&gt;</span>{"\n"}
-                <span style={{ color: themes[0].func }}>kubectl</span> <span style={{ color: themes[0].codeText }}>logs</span> <span style={{ color: themes[0].variable }}>&lt;pod&gt;</span> <span style={{ color: themes[0].keyword }}>--tail</span><span style={{ color: themes[0].codeText }}>=100 -f</span>
-              </pre>
-            </div>
-          </div>
+        <div className="sm:hidden">
+          <MobileMockup theme={HERO_THEME} note={CLAUDE_FIRST_API_NOTE} />
         </div>
         <div className="absolute -bottom-px inset-x-0 h-40 pointer-events-none" style={{ background: "linear-gradient(to top, hsl(var(--background)) 0%, hsl(var(--background)) 10%, transparent 100%)" }} />
       </motion.div>

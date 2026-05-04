@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Lock } from "lucide-react";
+import { cardReveal } from "@/lib/motion";
 import { themes } from "@/lib/themes";
 
 const LANGUAGES = ["Swift", "Python", "TypeScript", "Go", "Rust"];
@@ -9,13 +10,7 @@ const LANGUAGES = ["Swift", "Python", "TypeScript", "Go", "Rust"];
 export function Features() {
   return (
     <section id="features" className="py-28 md:py-36">
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="max-w-[1200px] mx-auto px-6"
-      >
+      <motion.div {...cardReveal()} className="max-w-[1200px] mx-auto px-6">
         <div className="text-center mb-14">
           <h2 className="text-[28px] sm:text-[32px] font-semibold tracking-tight">
             Features

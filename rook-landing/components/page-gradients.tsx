@@ -1,0 +1,22 @@
+const TOP_GRADIENT =
+  "radial-gradient(ellipse 120% 70% at 70% 50%, rgba(200, 120, 40, 0.10) 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 55% 45%, rgba(232, 150, 46, 0.08) 0%, transparent 70%)";
+
+const BOTTOM_GRADIENT =
+  "radial-gradient(ellipse 120% 70% at 70% 50%, rgba(200, 120, 40, 0.10) 0%, transparent 50%), radial-gradient(ellipse 50% 40% at 55% 45%, rgba(232, 150, 46, 0.08) 0%, transparent 50%)";
+
+export function PageGradients() {
+  return (
+    <>
+      <div
+        aria-hidden
+        className="absolute top-[50px] left-0 right-0 h-[700px] pointer-events-none z-0"
+        style={{ background: TOP_GRADIENT }}
+      />
+      <div
+        aria-hidden
+        className="absolute bottom-[50px] left-0 right-0 h-[700px] pointer-events-none z-0"
+        style={{ background: BOTTOM_GRADIENT }}
+      />
+    </>
+  );
+}

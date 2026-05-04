@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { FooterNewsletter } from "@/components/sections/footer-newsletter";
+import { FooterNewsletter } from "@/components/footer-newsletter";
 
 export const metadata: Metadata = {
   title: "Changelog · Rook",

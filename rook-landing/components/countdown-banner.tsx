@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { captureEvent } from "@/lib/posthog-safe";
+import { EVENT } from "@/lib/events";
 
 const LAUNCH_DATE = new Date("2026-04-24T17:00:00+01:00");
 const DOWNLOAD_URL = "https://lfubd2pcrenetvqi.public.blob.vercel-storage.com/Rook.dmg";
@@ -31,7 +32,7 @@ export function CountdownBanner() {
         <a
           href={DOWNLOAD_URL}
           download
-          onClick={() => captureEvent("install_click", { source: "banner" })}
+          onClick={() => captureEvent(EVENT.InstallClick, { source: "banner" })}
           className="text-foreground font-medium hover:underline"
         >
           Download Rook now →

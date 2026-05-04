@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { captureEvent, identifyEmail } from "@/lib/posthog-safe";
+import { EVENT } from "@/lib/events";
 import { subscribeRequest } from "@/lib/subscribe-client";
 
 export type Status =
@@ -36,11 +37,11 @@ export function useSubscribe(email: string, sourceTag: string) {
     switch (outcome.kind) {
       case "ok":
         identifyEmail(email);
-        captureEvent("subscriber_signup", { source: sourceTag });
+        captureEvent(EVENT.SubscriberSignup, { source: sourceTag });
         setStatus("success");
         return;
       case "duplicate":
-        captureEvent("subscriber_signup_duplicate", { source: sourceTag });
+        captureEvent(EVENT.SubscriberSignupDuplicate, { source: sourceTag });
         setStatus("duplicate");
         return;
       case "timeout":

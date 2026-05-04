@@ -9,6 +9,8 @@ import { BrandButton } from "@/components/brand-button";
 import { GitHubIcon, XIcon } from "@/components/icons";
 import { DMG_URL, PRODUCT_HUNT_URL, SIGNUPS_DISABLED } from "@/lib/constants";
 import { captureEvent } from "@/lib/posthog-safe";
+import { EVENT } from "@/lib/events";
+import { SignupOutageBanner } from "./signup-outage-banner";
 
 export function Nav({ stars }: { stars: number | null; }) {
   return (
@@ -34,7 +36,7 @@ export function Nav({ stars }: { stars: number | null; }) {
               rel="noopener noreferrer"
               aria-label="Rook on Product Hunt"
               className="hidden sm:inline-block transition-opacity hover:opacity-80"
-              onClick={() => captureEvent("product_hunt_click", { source: "nav" })}
+              onClick={() => captureEvent(EVENT.ProductHuntClick, { source: "nav" })}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -55,7 +57,7 @@ export function Nav({ stars }: { stars: number | null; }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={stars !== null ? `GitHub, ${stars} stars` : "GitHub"}
-                  onClick={() => captureEvent("github_click", { source: "nav" })}
+                  onClick={() => captureEvent(EVENT.GithubClick, { source: "nav" })}
                 >
                   <GitHubIcon className="size-4" />
                   {stars !== null && (
@@ -67,7 +69,7 @@ export function Nav({ stars }: { stars: number | null; }) {
               </Button>
             </div>
             <BrandButton asChild className="hidden sm:inline-flex">
-              <a href={DMG_URL} download onClick={() => captureEvent("install_click", { source: "nav" })}>
+              <a href={DMG_URL} download onClick={() => captureEvent(EVENT.InstallClick, { source: "nav" })}>
                 <Download className="size-4" />
                 Download
               </a>
@@ -105,7 +107,7 @@ export function Nav({ stars }: { stars: number | null; }) {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2.5 text-muted-foreground hover:text-foreground transition-colors"
-                      onClick={() => captureEvent("github_click", { source: "nav_mobile" })}
+                      onClick={() => captureEvent(EVENT.GithubClick, { source: "nav_mobile" })}
                     >
                       <GitHubIcon className="size-[18px]" />
                       <span>GitHub</span>
@@ -120,7 +122,7 @@ export function Nav({ stars }: { stars: number | null; }) {
                     <BrandButton size="lg" asChild className="mt-2 w-full">
                       <a
                         href="#download"
-                        onClick={() => captureEvent("install_click_mobile_redirect", { source: "nav_mobile" })}
+                        onClick={() => captureEvent(EVENT.InstallClickMobileRedirect, { source: "nav_mobile" })}
                       >
                         <Mail className="size-4" />
                         Subscribe for updates
@@ -133,24 +135,6 @@ export function Nav({ stars }: { stars: number | null; }) {
           </div>
         </div>
       </nav>
-    </div>
-  );
-}
-
-function SignupOutageBanner() {
-  return (
-    <div role="status" className="bg-amber-500/10 border-b border-amber-500/20 backdrop-blur-xl">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-2 text-[12px] sm:text-[13px] leading-snug text-amber-200 text-center">
-        <span aria-hidden className="mr-1">⚠️</span>
-        Signups are temporarily unavailable due to a third-party outage. Try again in a few hours, or email{" "}
-        <a
-          href="mailto:hello@userook.app"
-          className="underline decoration-amber-200/40 underline-offset-2 hover:decoration-amber-200 transition-colors"
-        >
-          hello@userook.app
-        </a>{" "}
-        to be added manually.
-      </div>
     </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
+import { sectionHeading } from "@/lib/motion";
 
 const SHORTCUTS = [
   { keys: ["⌘", "N"], action: "New note" },
@@ -16,13 +17,7 @@ export function Shortcuts() {
   return (
     <section id="shortcuts" className="py-24 md:py-32">
       <div className="max-w-[1080px] mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="text-center mb-14"
-        >
+        <motion.div {...sectionHeading} className="text-center mb-14">
           <h2 className="text-[28px] sm:text-[32px] font-semibold tracking-tight">
             Shortcuts
           </h2>

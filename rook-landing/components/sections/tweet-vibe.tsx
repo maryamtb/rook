@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { XIcon } from "@/components/icons";
+import { cardReveal } from "@/lib/motion";
 
 const TWEET_URL = "https://x.com/userookapp";
 
@@ -14,10 +15,7 @@ export function TweetVibe() {
           href={TWEET_URL}
           target="_blank"
           rel="noopener noreferrer"
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          {...cardReveal()}
           className="block rounded-2xl border border-border/60 bg-secondary/20 p-5 hover:bg-secondary/30 transition-colors"
         >
           <div className="flex items-center gap-2.5">
@@ -37,10 +35,7 @@ export function TweetVibe() {
           href={TWEET_URL}
           target="_blank"
           rel="noopener noreferrer"
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.08 }}
+          {...cardReveal(0.08)}
           className="block rounded-2xl border border-border/60 bg-secondary/20 p-5 hover:bg-secondary/30 transition-colors"
         >
           <div className="flex items-center gap-2.5">
@@ -77,10 +72,7 @@ export function TweetVibe() {
           href={TWEET_URL}
           target="_blank"
           rel="noopener noreferrer"
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.16 }}
+          {...cardReveal(0.16)}
           className="block rounded-2xl border border-border/60 bg-secondary/20 p-5 hover:bg-secondary/30 transition-colors"
         >
           <div className="flex items-center gap-2.5">

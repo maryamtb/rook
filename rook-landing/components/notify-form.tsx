@@ -1,30 +1,23 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { BrandButton } from "@/components/brand-button";
 import { Mail } from "lucide-react";
+import { useEmailForm } from "@/hooks/use-email-form";
 import { SHOW_DISCOUNT_COUNTER, SIGNUPS_DISABLED } from "@/lib/constants";
+import { EVENT } from "@/lib/events";
 import { captureEvent, identifyEmail } from "@/lib/posthog-safe";
+import { TOAST_STYLE } from "@/lib/toast";
 import type { SignupMeta } from "@/hooks/use-signup-meta";
 
 const SUBMIT_TIMEOUT_MS = 10_000;
 
 export function NotifyForm({ meta }: { meta: SignupMeta | null }) {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const { email, setEmail, loading, setLoading, submitted, setSubmitted, isMounted } = useEmailForm();
   const [capJustFilled, setCapJustFilled] = useState(false);
-  const isMounted = useRef(true);
-
-  useEffect(() => {
-    isMounted.current = true;
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -48,10 +41,10 @@ export function NotifyForm({ meta }: { meta: SignupMeta | null }) {
       if (!res.ok) {
         if (res.status === 410) {
           setCapJustFilled(true);
-          toast(data.error ?? "Waitlist just filled.", { style: { background: "var(--rook)", color: "#111", border: "none" } });
+          toast(data.error ?? "Waitlist just filled.", { style: TOAST_STYLE.highlight });
         } else if (res.status === 409) {
-          captureEvent("pro_discount_signup_duplicate", { source: "homepage_cta" });
-          toast(data.error ?? "You're already on the list.", { style: { background: "#3D5F53", color: "#fff", border: "none" } });
+          captureEvent(EVENT.ProDiscountSignupDuplicate, { source: "homepage_cta" });
+          toast(data.error ?? "You're already on the list.", { style: TOAST_STYLE.duplicate });
         } else {
           toast.error(data.error ?? "Something went wrong. Please try again in a few moments.");
         }
@@ -59,8 +52,8 @@ export function NotifyForm({ meta }: { meta: SignupMeta | null }) {
       }
 
       identifyEmail(email);
-      captureEvent("pro_discount_signup", { source: "homepage_cta" });
-      toast("Claimed! We'll email you when Pro is ready.", { style: { background: "#2D6A4F", color: "#fff", border: "none" } });
+      captureEvent(EVENT.ProDiscountSignup, { source: "homepage_cta" });
+      toast("Claimed! We'll email you when Pro is ready.", { style: TOAST_STYLE.success });
       setSubmitted(true);
     } catch (err) {
       if (!isMounted.current) return;
