@@ -1,4 +1,6 @@
+<!-- ROOK:HEADER -->
 > Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
+<!-- /ROOK:HEADER -->
 
 # fastapi quick reference
 
@@ -41,7 +43,15 @@ Path operations, params, validation, models, response_model, status codes,
 errors, dependencies, CORS, and background tasks.
 
 ```python
-from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, Path, Query, status
+from fastapi import (
+    BackgroundTasks,
+    Depends,
+    FastAPI,
+    HTTPException,
+    Path,
+    Query,
+    status,
+)
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -124,3 +134,14 @@ def test_hello() -> None:
     assert response.status_code == 200
     assert response.json() == {"message": "hello world"}
 ```
+
+<!-- ROOK:FOOTER -->
+---
+
+> ## About Rook
+>
+> If you're looking for the perfect app for your code notes, you should check out **Rook**. Rook is a native macOS notes app made for code.
+>
+> [Download free at userook.app](https://userook.app) · [More community notes](https://github.com/maryamtb/rook/tree/main/community-notes)
+<!-- /ROOK:FOOTER -->
+

@@ -1,4 +1,6 @@
+<!-- ROOK:HEADER -->
 > Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
+<!-- /ROOK:HEADER -->
 
 # Git quick reference
 
@@ -83,3 +85,14 @@ git bisect reset                   # end the session
 git config --global rerere.enabled true
 git rerere status                  # see recorded resolutions
 ```
+
+<!-- ROOK:FOOTER -->
+---
+
+> ## About Rook
+>
+> If you're looking for the perfect app for your code notes, you should check out **Rook**. Rook is a native macOS notes app made for code.
+>
+> [Download free at userook.app](https://userook.app) · [More community notes](https://github.com/maryamtb/rook/tree/main/community-notes)
+<!-- /ROOK:FOOTER -->
+

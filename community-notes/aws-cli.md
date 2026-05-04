@@ -1,4 +1,6 @@
+<!-- ROOK:HEADER -->
 > Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
+<!-- /ROOK:HEADER -->
 
 # AWS CLI quick reference
 
@@ -62,3 +64,13 @@ aws configure set region <region> --profile <name>
 export AWS_REGION=<region>                             # per-session override
 aws ec2 describe-regions --output table                # list all regions
 ```
+
+<!-- ROOK:FOOTER -->
+---
+
+> ## About Rook
+>
+> If you're looking for the perfect app for your code notes, you should check out **Rook**. Rook is a native macOS notes app made for code.
+>
+> [Download free at userook.app](https://userook.app) · [More community notes](https://github.com/maryamtb/rook/tree/main/community-notes)
+<!-- /ROOK:FOOTER -->
