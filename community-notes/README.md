@@ -4,6 +4,7 @@ Cheatsheets you can paste into Rook in markdown.
 
 ## Available notes
 
+- [bash](bash.md). Navigation, file ops, text processing, pipes, processes.
 - [kubectl](kubectl.md). Commands for contexts, pods, deployments, debugging.
 - [Docker](docker.md). Images, containers, logs, networking, volumes, Compose, cleanup.
 - [AWS CLI](aws-cli.md). AWS cli basics for installation, auth, profiles.
