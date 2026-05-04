@@ -3,12 +3,12 @@
 
   <h1>Rook</h1>
 
-  <p><strong>Notes app, made for code.</strong></p>
+  <p><strong>The notes app made for code</strong></p>
 
-  <p>For the code you write, paste, and keep around. Native Mac app.</p>
+  <p>For the code you write, paste, and keep around. Rich text and code blocks, syntax highlighting, and various themes.</p>
 
   <p>
-    <a href="https://userook.app"><strong>Download for macOS</strong></a>
+    <a href="https://userook.app"><strong>Download free for macOS</strong></a>
   </p>
 
   <p align="center">
@@ -18,23 +18,25 @@
     <a href="https://github.com/maryamtb/rook/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/maryamtb/rook?style=flat&color=E8962E" /></a>
   </p>
 
-  <br/>
+  <br />
 
-  <img src="media/hero.png" alt="Rook editor" width="900" />
+  
+
+  <img src="media/git-mockup.png" alt="Rook note showing three ways to undo the last git commit" width="900" />
+
 </div>
-
-<br />
-
-## Demo
-
-![Rook demo](media/hero-demo.gif)
 
 ## Features
 
-- **Code blocks.** 17 languages with syntax highlighting.
-- **Rich text and code.** Headings, lists, todos, code blocks.
-- **5 themes.** Dark, Light, Terminal, Paper, Midnight.
-- **Local and private.** No cloud, no account, your machine.
+- **Code block:.** 17 languages with syntax highlighting
+- **Rich text + code:** Headings, lists, todos, code blocks
+- **5 themes:** Dark, Light, Terminal, Paper, Midnight
+- **Local and private:** No cloud, no account, your machine
+
+<br />
+
+<img src="media/dsa-paper.png" alt="Rook editor with the Two Sum interview problem and Python solution" width="900" />
+
 
 ## Keyboard shortcuts
 
