@@ -1,3 +1,5 @@
+> Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
+
 # bash quick reference
 
 Navigation, files, text, pipes, processes, ports, env. macOS and Linux.

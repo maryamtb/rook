@@ -1,3 +1,5 @@
+> Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
+
 # Sliding window
 
 A window of consecutive elements that moves across the array, staying fixed size or expanding and shrinking as it goes.

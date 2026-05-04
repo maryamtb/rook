@@ -1,3 +1,5 @@
+> Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
+
 # Two pointers
 
 Two indices moving through an array so each element is visited once instead of every pair.

@@ -3,7 +3,7 @@
 
   <h1>Rook</h1>
 
-  <p><strong>The note-taking app for developers.</strong></p>
+  <p><strong>Notes app, made for code.</strong></p>
 
   <p>Rich text and code blocks, syntax highlighting, and various themes. Available for macOS.</p>
 

@@ -19,4 +19,4 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for the format and PR checklist.
 
 ## About
 
-Part of [Rook](https://userook.app), a notes app built for developers. macOS 14+. [Download at userook.app](https://userook.app).
+Part of [Rook](https://userook.app), a notes app made for code. macOS 14+. [Download at userook.app](https://userook.app).

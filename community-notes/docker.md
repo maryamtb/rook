@@ -1,3 +1,5 @@
+> Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
+
 # docker quick reference
 
 Commands for building, running, debugging, and managing containers.
