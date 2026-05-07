@@ -17,6 +17,18 @@ type Entry = {
 
 const entries: Entry[] = [
   {
+    version: "1.2.4",
+    date: "2026-05-07",
+    notes: [
+      "more accurate syntax highlighting across more languages",
+      "much longer code blocks paste and edit responsively",
+      "multi-select notes and notebooks: shift-click to add rows to the selection, then delete or right-click to act on the group",
+      "smarter paste from web pages: headings, bold, and italic come through from articles",
+      "todos keep their strikethrough through indent and outdent",
+      "inline code colors and backgrounds stay consistent across theme switches and reloads",
+    ],
+  },
+  {
     version: "1.2.3",
     date: "2026-05-02",
     notes: [
