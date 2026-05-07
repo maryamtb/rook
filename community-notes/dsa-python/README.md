@@ -1,7 +1,3 @@
-<!-- ROOK:HEADER -->
-> Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
-<!-- /ROOK:HEADER -->
-
 # DSA Patterns (Python)
 
 Visual cheatsheet of the core patterns that keep showing up in leetcode and interview prep. Each pattern has example problems, complexity notes, and Python snippets you can paste in.

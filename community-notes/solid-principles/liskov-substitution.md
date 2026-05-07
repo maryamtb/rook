@@ -1,7 +1,3 @@
-<!-- ROOK:HEADER -->
-> Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
-<!-- /ROOK:HEADER -->
-
 ## Liskov Substitution Principle (LSP)
 
 If you have a function that works with a `Bird`, it should also work with a `Sparrow` or a `Penguin`. If the `Penguin` forces the function to crash or act weirdly because it can't fly, you’ve broken the principle.

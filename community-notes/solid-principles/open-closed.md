@@ -1,7 +1,3 @@
-<!-- ROOK:HEADER -->
-> Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
-<!-- /ROOK:HEADER -->
-
 ## Open / Closed Principle (OCP)
 
 Software entities (classes, modules, functions) should be **open for extension**, but **closed for modification**. You should be able to add new functionality by adding new code, not by rewriting old code that already works.

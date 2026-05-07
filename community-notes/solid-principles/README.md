@@ -1,7 +1,3 @@
-<!-- ROOK:HEADER -->
-> Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
-<!-- /ROOK:HEADER -->
-
 # SOLID Principles
 
 SOLID is five principles for object-oriented programming design. Each letter prevents a specific kind of design debt.

@@ -1,7 +1,3 @@
-<!-- ROOK:HEADER -->
-> Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
-<!-- /ROOK:HEADER -->
-
 # Binary search
 
 Repeatedly halve the search range until you find the answer or the range collapses.
