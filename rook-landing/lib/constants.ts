@@ -1,4 +1,4 @@
-export const APP_VERSION = "1.2.3";
+export const APP_VERSION = "1.2.4";
 export const DMG_URL = `https://lfubd2pcrenetvqi.public.blob.vercel-storage.com/releases/Rook-${APP_VERSION}.dmg`;
 
 export const PRODUCT_HUNT_URL =

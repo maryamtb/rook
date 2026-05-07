@@ -22,7 +22,7 @@ const entries: Entry[] = [
     notes: [
       "more accurate syntax highlighting across more languages",
       "much longer code blocks paste and edit responsively",
-      "multi-select notes and notebooks: shift-click to add rows to the selection, then delete or right-click to act on the group",
+      "bulk delete notes and notebooks: shift-click to select multiple, then delete",
       "smarter paste from web pages: headings, bold, and italic come through from articles",
       "todos keep their strikethrough through indent and outdent",
       "inline code colors and backgrounds stay consistent across theme switches and reloads",
