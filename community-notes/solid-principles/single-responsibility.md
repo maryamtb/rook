@@ -1,7 +1,3 @@
-<!-- ROOK:HEADER -->
-> Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
-<!-- /ROOK:HEADER -->
-
 ## Single Responsibility Principle (SRP)
 
 The **Single Responsibility Principle** states that a class should have one, and only one, reason to change. If a class does too much, it becomes "brittle"—changing the way you calculate taxes shouldn't accidentally break the way you send emails.

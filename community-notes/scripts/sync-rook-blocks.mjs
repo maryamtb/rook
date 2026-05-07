@@ -54,6 +54,13 @@ function siblingsFor(filePath) {
 }
 
 function replaceBlock(content, name, replacement) {
+	if (replacement.trim() === "") {
+		const stripRe = new RegExp(
+			`<!-- ROOK:${name} -->[\\s\\S]*?<!-- /ROOK:${name} -->\\n*`,
+		);
+		if (!stripRe.test(content)) return { content, replaced: false };
+		return { content: content.replace(stripRe, ""), replaced: true };
+	}
 	const re = new RegExp(
 		`<!-- ROOK:${name} -->[\\s\\S]*?<!-- /ROOK:${name} -->`,
 	);
@@ -96,7 +103,9 @@ for (const f of files) {
 	updated = r.content;
 	flags.footer = r.replaced;
 
-	const expected = ["header", "footer"];
+	const expected = [];
+	if (HEADER) expected.push("header");
+	if (FOOTER) expected.push("footer");
 	if (flags.series === false) expected.push("series");
 	const missingHere = expected.filter((k) => !flags[k]);
 	if (missingHere.length) missing.push({ rel, missingHere });

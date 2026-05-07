@@ -1,7 +1,3 @@
-<!-- ROOK:HEADER -->
-> Part of [Rook](https://userook.app), a notes app made for code. Download free at [userook.app](https://userook.app).
-<!-- /ROOK:HEADER -->
-
 # DFS pattern
 
 Depth-first search explores one path fully before backtracking; use it when problems ask for traversal, connected components, or cycle checks.
