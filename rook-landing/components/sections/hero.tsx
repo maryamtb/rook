@@ -85,15 +85,6 @@ export function Hero() {
         <DownloadCta source="hero" />
 
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.36 }}
-          className="hidden sm:block mt-4 text-[12px] font-bold font-mono text-muted-foreground/70"
-        >
-          Notarized by Apple
-        </motion.p>
-
-        <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}

@@ -6,7 +6,7 @@ import { Download } from "lucide-react";
 import { BrandButton } from "@/components/brand-button";
 import { NotifyForm, WaitlistClosedNotice } from "@/components/notify-form";
 import { FooterNewsletter } from "@/components/footer-newsletter";
-import { APP_VERSION, DMG_URL, SHOW_DISCOUNT_COUNTER } from "@/lib/constants";
+import { DMG_URL, MAS_URL, MAS_BADGE_URL, SHOW_DISCOUNT_COUNTER } from "@/lib/constants";
 import { sectionHeading } from "@/lib/motion";
 import { captureEvent } from "@/lib/posthog-safe";
 import { EVENT } from "@/lib/events";
@@ -37,20 +37,31 @@ export function Cta({ capReached, signupMeta }: CtaProps) {
           Free, local, for macOS
         </p>
 
-        <div className="mt-8 hidden sm:block">
+        <div className="mt-8 hidden sm:flex sm:items-center sm:justify-center sm:gap-3">
           <BrandButton size="lg" asChild>
             <a href={DMG_URL} download onClick={() => captureEvent(EVENT.InstallClick, { source: "footer_cta" })}>
               <Download className="size-4" />
-              Download v{APP_VERSION} for macOS
+              Download for Mac
             </a>
           </BrandButton>
+          <a
+            href={MAS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => captureEvent(EVENT.InstallClickMas, { source: "footer_cta" })}
+            aria-label="Download on the Mac App Store"
+            className="inline-flex transition-opacity hover:opacity-80"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={MAS_BADGE_URL}
+              alt="Download on the App Store"
+              className="h-[50px] w-full"
+            />
+          </a>
         </div>
 
-        <p className="mt-3 text-[12px] font-mono text-muted-foreground/70 hidden sm:block">
-          Notarized by Apple
-        </p>
-
-        <p className="mt-2 text-xs text-muted-foreground/40 hidden sm:block">
+        <p className="mt-3 text-xs text-muted-foreground/40 hidden sm:block">
           macOS 14+. Apple Silicon &amp; Intel.
         </p>
 
