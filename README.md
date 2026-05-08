@@ -11,6 +11,15 @@
     <a href="https://userook.app"><strong>Download free for macOS</strong></a>
   </p>
 
+  <p>
+    <a href="https://apps.apple.com/us/app/rook-code-notes/id6766067055?mt=12&itscg=30200&itsct=apps_box_badge&mttnsubad=6766067055">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="rook-landing/public/download-on-the-app-store-en-us/white.svg" />
+        <img src="rook-landing/public/download-on-the-app-store-en-us/black.svg" alt="Download on the Mac App Store" height="50" />
+      </picture>
+    </a>
+  </p>
+
   <p align="center">
     <img alt="macOS" src="https://img.shields.io/badge/macOS-14+-000000?logo=apple&logoColor=white" />
     <img alt="Swift" src="https://img.shields.io/badge/Swift-6-F05138?logo=swift&logoColor=white" />
