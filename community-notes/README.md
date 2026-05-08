@@ -6,6 +6,7 @@ Cheatsheets you can paste into Rook in markdown.
 
 - [bash](bash.md). Navigation, file ops, text processing, pipes, processes.
 - [kubectl](kubectl.md). Commands for contexts, pods, deployments, debugging.
+- [k9s](k9s.md). Terminal UI for Kubernetes: browse, filter, debug resources without typing kubectl.
 - [Docker](docker.md). Images, containers, logs, networking, volumes, Compose, cleanup.
 - [AWS CLI](aws-cli.md). AWS cli basics for installation, auth, profiles.
 - [Git](git.md). Commands for branches, undoing, rebase, remote, log.
