@@ -9,6 +9,8 @@ const SHORTCUTS = [
   { keys: ["⌘", "F"], action: "Search" },
   { keys: ["⌘", "⇧", "↵"], action: "Code block" },
   { keys: ["⌘", ","], action: "Settings" },
+  { keys: ["⌘", "\\"], action: "Toggle sidebar" },
+  { keys: ["⌘", "/"], action: "Keyboard shortcuts" },
   { keys: ["⌥", "Click"], action: "Multi-cursor" },
   { keys: ["⌘", "⇧", "⌫"], action: "Delete note" },
 ];
