@@ -6,6 +6,7 @@ import { Download } from "lucide-react";
 import { BrandButton } from "@/components/brand-button";
 import { NotifyForm, WaitlistClosedNotice } from "@/components/notify-form";
 import { FooterNewsletter } from "@/components/footer-newsletter";
+import { PlatformWaitlist } from "@/components/platform-waitlist";
 import { DMG_URL, MAS_URL, MAS_BADGE_URL, SHOW_DISCOUNT_COUNTER } from "@/lib/constants";
 import { sectionHeading } from "@/lib/motion";
 import { captureEvent } from "@/lib/posthog-safe";
@@ -62,7 +63,8 @@ export function Cta({ capReached, signupMeta }: CtaProps) {
         </div>
 
         <p className="mt-3 text-xs text-muted-foreground/40 hidden sm:block">
-          macOS 14+. Apple Silicon &amp; Intel.
+          macOS 14+. Apple Silicon &amp; Intel.{" "}
+          <PlatformWaitlist source="footer_cta" variant="link" />
         </p>
 
         <div className="mt-10 pt-8 border-t border-border/30">

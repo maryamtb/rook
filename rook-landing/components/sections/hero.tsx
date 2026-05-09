@@ -9,6 +9,7 @@ import { captureEvent } from "@/lib/posthog-safe";
 import { EVENT } from "@/lib/events";
 import { DownloadCta } from "./download-cta";
 import { WhatsNewPill } from "./whats-new-pill";
+import { PlatformWaitlist } from "@/components/platform-waitlist";
 
 const HERO_THEME_IDX = 3;
 const HERO_THEME = themes[HERO_THEME_IDX];
@@ -104,9 +105,10 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="hidden sm:flex mt-4 items-center justify-center gap-3 font-mono text-[11px] tracking-wide text-muted-foreground/55"
+          className="hidden sm:flex mt-4 items-center justify-center gap-1 font-mono text-[11px] tracking-wide text-muted-foreground/55"
         >
           <span>Free. macOS 14+. Apple Silicon &amp; Intel</span>
+          <PlatformWaitlist source="hero_spec" className="ml-1" />
         </motion.div>
 
         <motion.a

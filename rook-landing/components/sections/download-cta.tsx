@@ -6,6 +6,7 @@ import { BrandButton } from "@/components/brand-button";
 import { DMG_URL, MAS_URL, MAS_BADGE_URL } from "@/lib/constants";
 import { captureEvent } from "@/lib/posthog-safe";
 import { EVENT } from "@/lib/events";
+import { PlatformWaitlist } from "@/components/platform-waitlist";
 
 export function DownloadCta({ source }: { source: string; }) {
   return (
@@ -38,9 +39,12 @@ export function DownloadCta({ source }: { source: string; }) {
           />
         </a>
       </div>
-      <p className="sm:hidden text-[15px] font-semibold text-foreground">
-        Make your first move on a Mac!
-      </p>
+      <div className="sm:hidden flex flex-col items-center gap-3">
+        <p className="text-[15px] font-semibold text-foreground">
+          Make your first move on a Mac!
+        </p>
+        <PlatformWaitlist source={`${source}_mobile`} />
+      </div>
     </motion.div>
   );
 }
