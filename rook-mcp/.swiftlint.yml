@@ -1,0 +1,41 @@
+excluded:
+  - .build
+  - .swiftpm
+  - DerivedData
+
+opt_in_rules:
+  - empty_count
+  - empty_string
+  - explicit_init
+  - explicit_type_interface     
+  - force_unwrapping
+  - implicit_optional_initialization
+  - unneeded_parentheses_in_closure_argument
+
+disabled_rules:
+  - line_length  
+  - todo
+
+identifier_name:
+  excluded:
+    - fd
+    - st
+    - id
+    - ts
+
+explicit_type_interface:
+  excluded:
+    - local  
+
+cyclomatic_complexity:
+  warning: 15
+
+function_body_length:
+  warning: 80
+
+custom_rules:
+  no_string_any:
+    name: "Avoid [String: Any]"
+    regex: '\[\s*String\s*:\s*Any\s*\]'
+    message: "Use a Codable struct (e.g. JSONRPCRequest, ToolsCallParams) instead of [String: Any]"
+    severity: warning

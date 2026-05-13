@@ -1,0 +1,12 @@
+* text=auto eol=lf
+
+*.swift   text diff=swift
+*.md      text
+*.json    text
+*.yml     text
+*.yaml    text
+*.entitlements text
+
+*.png     binary
+*.jpg     binary
+*.icns    binary
