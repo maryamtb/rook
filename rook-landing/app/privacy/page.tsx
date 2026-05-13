@@ -29,7 +29,7 @@ export default function PrivacyPage() {
             Privacy
           </h1>
           <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed">
-            Last updated: April 27, 2026
+            Last updated: May 13, 2026
           </p>
         </header>
 
@@ -54,7 +54,7 @@ export default function PrivacyPage() {
               </strong>
             </p>
             <p className="mb-3">
-              Starting with version 1.2, the app sends two kinds of anonymous
+              Starting with version 1.2, the app collects two types of anonymous
               data:
             </p>
             <ul className="space-y-2 mb-3 ml-4">
@@ -85,6 +85,47 @@ export default function PrivacyPage() {
               The app also checks a public URL on each launch to see if a
               new version is available (auto-update). That check is
               read-only. No data is sent.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-[18px] font-semibold tracking-tight mb-3 text-foreground">
+              The MCP helper
+            </h2>
+            <p className="mb-3">
+              In version 1.3.0, we added a local helper that lets Claude,
+              Cursor, and Gemini save notes to Rook. It&apos;s off by
+              default. You can turn it on or pause it in Settings → MCP.
+            </p>
+            <p className="mb-3">
+              When it&apos;s on, connected AI tools can save notes to your
+              Rook inbox. Rook only receives the final saved note. It
+              doesn&apos;t receive chat history, prompts, or conversation
+              context.
+            </p>
+            <p className="mb-3">
+              All saves stay on your Mac. We don&apos;t sync or transmit
+              them anywhere.
+            </p>
+            <p className="mb-3">
+              The helper is sandboxed by macOS: it runs offline, only
+              accesses Rook&apos;s shared folder, and can&apos;t read your
+              existing notes. It only writes new ones.
+            </p>
+            <p className="mb-3">
+              You can view recent saves inside Rook, including which AI
+              sent them, when, the title, and a short preview. Turning MCP
+              off blocks new saves. Past saves stay in your inbox.
+            </p>
+            <p>
+              The helper&apos;s source code is{" "}
+              <a
+                href="https://github.com/maryamtb/rook/tree/main/rook-mcp"
+                className="underline decoration-muted-foreground/40 underline-offset-4 hover:text-foreground transition-colors"
+              >
+                on GitHub
+              </a>
+              .
             </p>
           </section>
 
@@ -210,7 +251,7 @@ export default function PrivacyPage() {
                 <span>
                   App telemetry: retained per Aptabase and Sentry defaults
                   (typically 30 to 90 days). Since events are anonymous, we
-                  can&apos;t delete a specific user&apos;s events on request,
+                  can&apos;t reliably identify or isolate individual events,
                   but we can purge the entire dataset.
                 </span>
               </li>
