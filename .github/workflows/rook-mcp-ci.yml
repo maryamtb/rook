@@ -1,0 +1,30 @@
+name: rook-mcp CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "rook-mcp/**"
+      - ".github/workflows/rook-mcp-ci.yml"
+  pull_request:
+    paths:
+      - "rook-mcp/**"
+      - ".github/workflows/rook-mcp-ci.yml"
+
+jobs:
+  build-and-test:
+    runs-on: macos-14
+    defaults:
+      run:
+        working-directory: rook-mcp
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show Swift version
+        run: swift --version
+
+      - name: Build
+        run: swift build -c release
+
+      - name: Test
+        run: swift test
