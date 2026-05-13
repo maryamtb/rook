@@ -1,5 +1,8 @@
-# Swift app (lives in a separate private repo; keep out of this public one)
+# Internal - Swift app
 /rook/
+
+# Internal
+/rook-pro/
 
 # Xcode
 DerivedData/
