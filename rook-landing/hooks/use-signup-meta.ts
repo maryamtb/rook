@@ -5,7 +5,7 @@ import { SHOW_DISCOUNT_COUNTER } from "@/lib/constants";
 
 export type SignupMeta = { count: number; cap: number; capReached: boolean; };
 
-const FALLBACK: SignupMeta = { count: 0, cap: 105, capReached: false };
+const FALLBACK: SignupMeta = { count: 0, cap: 102, capReached: false };
 
 export function useSignupMeta() {
   const [meta, setMeta] = useState<SignupMeta | null>(

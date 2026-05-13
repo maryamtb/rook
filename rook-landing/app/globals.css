@@ -48,12 +48,16 @@
   --radius-4xl: calc(var(--radius) + 16px);
   --color-rook: var(--rook);
   --color-rook-hover: var(--rook-hover);
+  --color-ph-orange: var(--ph-orange);
+  --color-ph-orange-hover: var(--ph-orange-hover);
 }
 
 :root {
   --radius: 0.625rem;
   --rook: #E8962E;
   --rook-hover: #d4841e;
+  --ph-orange: #FF6154;
+  --ph-orange-hover: #e5564a;
   --background: #ffffff;
   --foreground: #09090b;
   --card: #ffffff;
@@ -128,6 +132,11 @@
   body {
     @apply bg-background text-foreground;
   }
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  a[href]:not(:disabled) {
+    cursor: pointer;
+  }
 }
 
 .theme-morph,
@@ -159,7 +168,7 @@
   background: conic-gradient(
     from var(--pill-shine-angle),
     transparent 0deg 230deg,
-    var(--rook) 290deg,
+    var(--pill-shine-color, rgba(140, 200, 192, 1)) 290deg,
     transparent 360deg
   );
   -webkit-mask:
@@ -172,12 +181,51 @@
 }
 
 .pill-glow {
-  background: radial-gradient(closest-side, color-mix(in oklab, var(--rook) 40%, transparent), transparent 75%);
+  background: radial-gradient(closest-side, var(--pill-glow-color, rgba(140, 200, 192, 0.4)), transparent 75%);
   filter: blur(10px);
   pointer-events: none;
   opacity: 0.55;
 }
 
+@keyframes mcp-text-shine {
+  0% { background-position: 100% 0; }
+  100% { background-position: 0% 0; }
+}
+
+@keyframes mcp-color-pulse {
+  0%, 25% { color: rgb(140, 200, 192); }
+  50% { color: rgb(220, 250, 245); }
+  75%, 100% { color: rgb(140, 200, 192); }
+}
+
+.mcp-shine {
+  background-image: linear-gradient(
+    100deg,
+    rgb(140, 200, 192) 0%,
+    rgb(140, 200, 192) 40%,
+    rgb(245, 255, 252) 50%,
+    rgb(140, 200, 192) 60%,
+    rgb(140, 200, 192) 100%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: mcp-text-shine 2.6s linear infinite;
+}
+
+.mcp-shine-halo {
+  animation: mcp-color-pulse 2.6s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pill-shine { animation: none; opacity: 0; }
+  .mcp-shine {
+    animation: none;
+    background-position: 0 0;
+    color: rgb(140, 200, 192);
+  }
+  .mcp-shine-halo { animation: none; }
 }

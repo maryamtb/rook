@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { BrandButton } from "@/components/brand-button";
 import { Mail } from "lucide-react";
 import { useEmailForm } from "@/hooks/use-email-form";
-import { SHOW_DISCOUNT_COUNTER, SIGNUPS_DISABLED } from "@/lib/constants";
+import { useLaunchState } from "@/hooks/use-launch-state";
+import { FooterNewsletter } from "@/components/footer-newsletter";
+import { PRODUCT_HUNT_URL, SIGNUPS_DISABLED } from "@/lib/constants";
 import { EVENT } from "@/lib/events";
 import { captureEvent, identifyEmail } from "@/lib/posthog-safe";
 import { TOAST_STYLE } from "@/lib/toast";
@@ -71,9 +72,28 @@ export function NotifyForm({ meta }: { meta: SignupMeta | null }) {
 
   if (submitted) {
     return (
-      <p className="text-[15px] text-muted-foreground">
-        You&apos;re on the list! More soon ✏️
-      </p>
+      <div className="max-w-sm mx-auto flex flex-col items-center gap-3">
+        <p className="text-[15px] font-semibold text-foreground">
+          You&apos;re in! Support our launch on PH today:
+        </p>
+        <a
+          href={PRODUCT_HUNT_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Upvote Rook on Product Hunt"
+          onClick={() => captureEvent(EVENT.ProductHuntClick, { source: "post_claim" })}
+          className="inline-block transition-opacity hover:opacity-90"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            alt="Upvote Rook on Product Hunt"
+            width={250}
+            height={54}
+            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1130811&theme=light&t=1778598985994"
+            className="h-12 w-auto"
+          />
+        </a>
+      </div>
     );
   }
 
@@ -97,7 +117,7 @@ export function NotifyForm({ meta }: { meta: SignupMeta | null }) {
         <BrandButton
           type="submit"
           disabled={SIGNUPS_DISABLED || loading || !meta}
-          className="h-10 sm:shrink-0 cursor-pointer"
+          className="h-10 sm:shrink-0 cursor-pointer bg-ph-orange hover:bg-ph-orange-hover text-white"
         >
           <Mail className="size-4" />
           {SIGNUPS_DISABLED ? "Unavailable" : loading ? "Sending..." : "Claim discount"}
@@ -110,7 +130,8 @@ export function NotifyForm({ meta }: { meta: SignupMeta | null }) {
 const DISPLAY_CAP = 100;
 
 function CountPill({ meta }: { meta: SignupMeta | null }) {
-  if (!SHOW_DISCOUNT_COUNTER) return null;
+  const { showDiscount } = useLaunchState();
+  if (!showDiscount) return null;
   if (!meta) return <p className="mb-3 h-[20px]" aria-hidden />;
   if (meta.capReached) return null;
 
@@ -126,15 +147,11 @@ function CountPill({ meta }: { meta: SignupMeta | null }) {
 
 export function WaitlistClosedNotice() {
   return (
-    <div className="max-w-sm mx-auto text-sm sm:text-[14px] text-muted-foreground space-y-2">
-      <p>The Pro discount waitlist is full. We&apos;ll reopen it closer to launch.</p>
-      <p>
-        Want release notes in the meantime?{" "}
-        <Link href="#download" className="underline decoration-muted-foreground/40 underline-offset-2 hover:text-foreground transition-colors">
-          Subscribe here
-        </Link>
-        .
+    <div className="max-w-sm mx-auto space-y-3 text-center">
+      <p className="text-sm sm:text-[14px] text-muted-foreground">
+        The first 100 spots are claimed. Pro is shipping soon, subscribe for updates:
       </p>
+      <FooterNewsletter source="waitlist_closed" />
     </div>
   );
 }

@@ -7,18 +7,20 @@ import { BrandButton } from "@/components/brand-button";
 import { NotifyForm, WaitlistClosedNotice } from "@/components/notify-form";
 import { FooterNewsletter } from "@/components/footer-newsletter";
 import { PlatformWaitlist } from "@/components/platform-waitlist";
-import { DMG_URL, MAS_URL, MAS_BADGE_URL, SHOW_DISCOUNT_COUNTER } from "@/lib/constants";
+import { DMG_URL, MAS_URL, MAS_BADGE_URL } from "@/lib/constants";
 import { sectionHeading } from "@/lib/motion";
 import { captureEvent } from "@/lib/posthog-safe";
 import { EVENT } from "@/lib/events";
+import { useLaunchState } from "@/hooks/use-launch-state";
 import type { SignupMeta } from "@/hooks/use-signup-meta";
 
 type CtaProps = {
-  capReached: boolean;
   signupMeta: SignupMeta | null;
 };
 
-export function Cta({ capReached, signupMeta }: CtaProps) {
+export function Cta({ signupMeta }: CtaProps) {
+  const { showDiscount } = useLaunchState();
+  const capReached = showDiscount && (signupMeta?.capReached ?? false);
   return (
     <section id="download" className="py-28 md:py-36">
       <motion.div {...sectionHeading} className="max-w-[480px] mx-auto px-6 text-center">
@@ -68,7 +70,7 @@ export function Cta({ capReached, signupMeta }: CtaProps) {
         </p>
 
         <div className="mt-10 pt-8 border-t border-border/30">
-          {SHOW_DISCOUNT_COUNTER ? (
+          {showDiscount ? (
             capReached ? (
               <WaitlistClosedNotice />
             ) : (
