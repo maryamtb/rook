@@ -7,6 +7,8 @@
 
   <p>For the code you write, paste, and keep around. Rich text and code blocks, syntax highlighting, and various themes.</p>
 
+  <p><img src="media/mcp-mark.svg" width="18" height="18" alt="" /> <strong><a href="https://userook.app/mcp">Rook MCP (beta)</strong> now available:</a> Claude Code, Cursor, Claude Desktop, and Gemini CLI can save content directly to your Rook inbox.</p>
+
   <p>
     <a href="https://userook.app"><strong>Download free for macOS</strong></a>
   </p>
