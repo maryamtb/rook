@@ -5,11 +5,14 @@ import { motion } from "framer-motion";
 import { InteractiveRook, MobileMockup, type MobileNote } from "@/components/rook-preview";
 import { themes } from "@/lib/themes";
 import { PRODUCT_HUNT_URL } from "@/lib/constants";
+import { useLaunchState } from "@/hooks/use-launch-state";
 import { captureEvent } from "@/lib/posthog-safe";
 import { EVENT } from "@/lib/events";
 import { DownloadCta } from "./download-cta";
 import { WhatsNewPill } from "./whats-new-pill";
+import { HeroMcpLinkMobile, HeroMcpLinkDesktop } from "./hero-mcp-link";
 import { PlatformWaitlist } from "@/components/platform-waitlist";
+import type { SignupMeta } from "@/hooks/use-signup-meta";
 
 const HERO_THEME_IDX = 3;
 const HERO_THEME = themes[HERO_THEME_IDX];
@@ -43,7 +46,8 @@ const CLAUDE_FIRST_API_NOTE: MobileNote = {
   ),
 };
 
-export function Hero() {
+export function Hero({ signupMeta }: { signupMeta: SignupMeta | null }) {
+  const { showDiscount } = useLaunchState();
 
   return (
     <section className="pt-[140px] md:pt-[176px]">
@@ -81,25 +85,27 @@ export function Hero() {
           A native Mac notes app for the code you write, paste, and keep around
         </motion.p>
 
-        <WhatsNewPill source="hero" />
+        <WhatsNewPill source="hero" signupMeta={signupMeta} />
 
         <DownloadCta source="hero" />
 
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}
-          className="mt-4 text-[13px] font-mono text-rook/90"
-        >
-          Pro is on the way.{" "}
-          <a
-            href="#download"
-            className="underline decoration-rook/40 underline-offset-4 hover:decoration-rook/80 transition-colors"
-            onClick={() => captureEvent(EVENT.SubscribeClick, { source: "hero" })}
+        {!showDiscount && (
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}
+            className="mt-4 text-[13px] font-mono text-rook/90"
           >
-            Subscribe for updates
-          </a>
-        </motion.p>
+            Pro is on the way.{" "}
+            <a
+              href="#download"
+              className="underline decoration-rook/40 underline-offset-4 hover:decoration-rook/80 transition-colors"
+              onClick={() => captureEvent(EVENT.SubscribeClick, { source: "hero" })}
+            >
+              Subscribe for updates
+            </a>
+          </motion.p>
+        )}
 
         <motion.div
           initial={{ opacity: 0 }}
@@ -111,25 +117,27 @@ export function Hero() {
           <PlatformWaitlist source="hero_spec" className="ml-1" />
         </motion.div>
 
-        <motion.a
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          href={PRODUCT_HUNT_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-5 sm:hidden inline-block transition-opacity hover:opacity-80"
-          aria-label="Rook on Product Hunt"
-          onClick={() => captureEvent(EVENT.ProductHuntClick, { source: "hero" })}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            alt="Rook on Product Hunt"
-            width={210}
-            height={45}
-            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1130811&theme=dark&t=1776961478535"
-          />
-        </motion.a>
+        {!showDiscount && (
+          <motion.a
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            href={PRODUCT_HUNT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 sm:hidden inline-block transition-opacity hover:opacity-80"
+            aria-label="Rook on Product Hunt"
+            onClick={() => captureEvent(EVENT.ProductHuntClick, { source: "hero" })}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              alt="Rook on Product Hunt"
+              width={210}
+              height={45}
+              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1130811&theme=dark&t=1778598985994"
+            />
+          </motion.a>
+        )}
       </div>
 
       <motion.div
@@ -138,9 +146,31 @@ export function Hero() {
         transition={{ duration: 0.9, ease: "easeOut", delay: 0.4 }}
         className="mt-16 md:mt-20 max-w-[1080px] mx-auto px-4 sm:px-6 relative"
       >
+        <HeroMcpLinkMobile />
+
         <div className="hidden sm:block">
           <InteractiveRook theme={themes[HERO_THEME_IDX]} />
         </div>
+
+        <HeroMcpLinkDesktop />
+
+        <motion.div
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.95 }}
+          className="hidden lg:block absolute pointer-events-none select-none"
+          style={{ top: -78, right: 190, width: 75, height: 75 }}
+          aria-hidden="true"
+        >
+          <Image
+            src="/arrow.svg"
+            width={75}
+            height={75}
+            alt=""
+            className="w-full h-full opacity-70"
+          />
+        </motion.div>
+
         <div className="sm:hidden">
           <MobileMockup theme={HERO_THEME} note={CLAUDE_FIRST_API_NOTE} />
         </div>

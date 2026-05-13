@@ -7,14 +7,15 @@ export function Footer() {
     <footer className="pt-12 pb-10 bg-muted/20 border-t border-border/40">
       <div className="max-w-[1200px] mx-auto px-6">
         <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3" aria-label="Rook home">
             <Image src="/icon-128.png" alt="" width={40} height={40} className="rounded-[9px] shrink-0" />
             <div className="flex flex-col leading-[1.35]">
               <span className="text-[15px] font-mono font-semibold text-foreground">Rook</span>
               <span className="text-[12.5px] font-mono text-muted-foreground/80">Notes that speak code</span>
             </div>
-          </div>
+          </Link>
           <div className="flex flex-wrap items-center justify-start gap-x-4 gap-y-2 text-xs text-muted-foreground/80 sm:justify-end sm:gap-5">
+            <Link href="/mcp" className="hover:text-foreground transition-colors">Rook MCP</Link>
             <Link href="/changelog" className="hover:text-foreground transition-colors">Changelog</Link>
             <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
             <a href="https://dev.to/mimobenjo/why-i-stopped-using-apple-notes-for-my-code-notes-110p" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Blog</a>

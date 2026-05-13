@@ -12,10 +12,24 @@ type Entry = {
   version: string;
   date: string;
   title?: string;
-  notes: string[];
+  notes: React.ReactNode[];
 };
 
 const entries: Entry[] = [
+  {
+    version: "1.3.0",
+    date: "2026-05-13",
+    notes: [
+      <>
+        Rook MCP beta: Claude Code, Claude Desktop, Cursor, and Gemini CLI can save notes to Rook through a sandboxed helper that runs locally. Each AI gets its own inbox, with saves grouped into one note per day. Disabled by default; enable in Settings → MCP.{" "}
+        <Link href="/mcp" className="inline-block text-rook hover:opacity-80 underline decoration-rook/40 underline-offset-4 transition-colors">
+          Set it up →
+        </Link>
+      </>,
+      "SnippetsLab import: pick your folder import preferences, either all as one collection, or one collection per SnippetsLab folder",
+      "Bulk move and delete for notes and notebooks on shift hold",
+    ],
+  },
   {
     version: "1.2.4",
     date: "2026-05-07",

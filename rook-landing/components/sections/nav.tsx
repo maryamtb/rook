@@ -11,40 +11,78 @@ import { DMG_URL, PRODUCT_HUNT_URL, SIGNUPS_DISABLED } from "@/lib/constants";
 import { captureEvent } from "@/lib/posthog-safe";
 import { EVENT } from "@/lib/events";
 import { SignupOutageBanner } from "./signup-outage-banner";
+import { useStars, useLaunchState } from "@/hooks";
+import { MCP_ACCENT } from "@/components/mcp-mark";
+import Link from "next/link";
 
-export function Nav({ stars }: { stars: number | null; }) {
+export function Nav() {
+  const stars = useStars();
+  const { showDiscount } = useLaunchState();
   return (
     <div className="fixed top-0 inset-x-0 z-50">
       {SIGNUPS_DISABLED && <SignupOutageBanner />}
       <nav className="bg-background/60 backdrop-blur-xl">
         <div className="max-w-[1200px] mx-auto flex sm:grid sm:grid-cols-[1fr_auto_1fr] items-center justify-between h-14 px-4 sm:px-6">
-          <a href="#" className="flex items-center gap-2 sm:justify-self-start">
+          <Link href="/" className="flex items-center gap-2 sm:justify-self-start">
             <Image src="/icon-64.png" alt="" width={22} height={22} className="rounded-[5px]" />
             <span className="text-[15px] font-mono font-semibold tracking-tight text-foreground">Rook</span>
-          </a>
+          </Link>
 
           <div className="hidden sm:flex items-center gap-7 text-[13px] font-mono text-muted-foreground">
-            <a href="#features" className="hover:text-foreground transition-colors">Features</a>
-            <a href="#themes" className="hover:text-foreground transition-colors">Themes</a>
-            <a href="#shortcuts" className="hover:text-foreground transition-colors">Shortcuts</a>
+            <Link href="/#features" className="hover:text-foreground transition-colors">Features</Link>
+            <Link href="/#themes" className="hover:text-foreground transition-colors">Themes</Link>
+            <Link href="/#shortcuts" className="hover:text-foreground transition-colors">Shortcuts</Link>
+            <Link
+              href="/mcp"
+              className="inline-flex items-center gap-1.5 transition-colors hover:opacity-90"
+              style={{ color: MCP_ACCENT }}
+            >
+              Rook MCP
+              <span
+                className="text-[9px] font-semibold tracking-[0.06em] px-1 py-[1px] rounded-full"
+                style={{ backgroundColor: "rgba(140, 200, 192, 0.12)" }}
+              >
+                BETA
+              </span>
+            </Link>
           </div>
 
           <div className="flex items-center gap-2 justify-self-end">
-            <a
-              href={PRODUCT_HUNT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Rook on Product Hunt"
-              className="hidden sm:inline-block transition-opacity hover:opacity-80"
-              onClick={() => captureEvent(EVENT.ProductHuntClick, { source: "nav" })}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                alt="Rook on Product Hunt"
-                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1130811&theme=light&t=1776961478535"
-                className="h-8 w-auto"
-              />
-            </a>
+            {showDiscount ? (
+              <a
+                href={PRODUCT_HUNT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Rook on Product Hunt"
+                className="inline-block transition-opacity hover:opacity-80"
+                onClick={() => captureEvent(EVENT.ProductHuntClick, { source: "nav" })}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  alt="Rook - A native mac notes app, made for code | Product Hunt"
+                  width={250}
+                  height={54}
+                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1130811&theme=light&t=1778598985994"
+                  className="h-7 lg:h-8 w-auto"
+                />
+              </a>
+            ) : (
+              <a
+                href={PRODUCT_HUNT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Rook on Product Hunt"
+                className="hidden lg:inline-block transition-opacity hover:opacity-80"
+                onClick={() => captureEvent(EVENT.ProductHuntClick, { source: "nav" })}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  alt="Rook on Product Hunt"
+                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1130811&theme=light&t=1778598985994"
+                  className="h-8 w-auto"
+                />
+              </a>
+            )}
             <div className="hidden sm:flex items-center -space-x-1">
               <Button variant="ghost" size="icon" asChild>
                 <a href="https://x.com/userookapp" target="_blank" rel="noopener noreferrer" aria-label="X">
@@ -69,7 +107,11 @@ export function Nav({ stars }: { stars: number | null; }) {
               </Button>
             </div>
             <BrandButton asChild className="hidden sm:inline-flex">
-              <a href={DMG_URL} download onClick={() => captureEvent(EVENT.InstallClick, { source: "nav" })}>
+              <a
+                href={DMG_URL}
+                download
+                onClick={() => captureEvent(EVENT.InstallClickDmg, { source: "nav" })}
+              >
                 <Download className="size-4" />
                 Download
               </a>
@@ -86,13 +128,28 @@ export function Nav({ stars }: { stars: number | null; }) {
                 <SheetDescription className="sr-only">Site navigation links</SheetDescription>
                 <nav className="flex flex-col gap-6 px-6 pt-10 text-[15px] font-mono">
                   <SheetClose asChild>
-                    <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</a>
+                    <Link href="/#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</Link>
                   </SheetClose>
                   <SheetClose asChild>
-                    <a href="#themes" className="text-muted-foreground hover:text-foreground transition-colors">Themes</a>
+                    <Link href="/#themes" className="text-muted-foreground hover:text-foreground transition-colors">Themes</Link>
                   </SheetClose>
                   <SheetClose asChild>
-                    <a href="#shortcuts" className="text-muted-foreground hover:text-foreground transition-colors">Shortcuts</a>
+                    <Link href="/#shortcuts" className="text-muted-foreground hover:text-foreground transition-colors">Shortcuts</Link>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <Link
+                      href="/mcp"
+                      className="inline-flex items-center gap-1.5 transition-colors hover:opacity-90"
+                      style={{ color: MCP_ACCENT }}
+                    >
+                      Rook MCP
+                      <span
+                        className="text-[10px] font-semibold tracking-[0.06em] px-1.5 py-[1px] rounded-full"
+                        style={{ backgroundColor: "rgba(140, 200, 192, 0.12)" }}
+                      >
+                        BETA
+                      </span>
+                    </Link>
                   </SheetClose>
                   <Separator className="my-1" />
                   <SheetClose asChild>
@@ -120,13 +177,13 @@ export function Nav({ stars }: { stars: number | null; }) {
                   </SheetClose>
                   <SheetClose asChild>
                     <BrandButton size="lg" asChild className="mt-2 w-full">
-                      <a
-                        href="#download"
+                      <Link
+                        href="/#download"
                         onClick={() => captureEvent(EVENT.InstallClickMobileRedirect, { source: "nav_mobile" })}
                       >
                         <Mail className="size-4" />
                         Subscribe for updates
-                      </a>
+                      </Link>
                     </BrandButton>
                   </SheetClose>
                 </nav>
