@@ -46,6 +46,7 @@ export function InteractiveRook({ theme: t }: { theme: ThemeColors }) {
           toggleHinted={!touched.toggle}
           newNoteHinted={!touched.newnote}
           sidebarCollapsed={sidebarCollapsed}
+          showMcp
         />
 
         <div className="relative flex" style={{ minHeight: LAYOUT.mockupMinHeight }}>

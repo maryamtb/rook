@@ -19,7 +19,7 @@ export const MAX_UNTITLED = 3;
 export const COLLECTIONS: Collection[] = [
   {
     id: "from-claude",
-    label: "From Claude",
+    label: "Infinity 2.0",
     color: "#eab308",
     defaultActive: "claude-first",
     defaultExpanded: "claude",

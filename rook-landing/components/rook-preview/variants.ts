@@ -113,7 +113,7 @@ export const MOCKUP_VARIANTS: Record<MockupVariant, VariantData> = {
     ],
   },
   claude: {
-    collection: "from claude",
+    collection: "Infinity 2.0",
     active: {
       label: "Claude API",
       count: 4,
