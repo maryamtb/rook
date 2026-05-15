@@ -11,6 +11,9 @@ on:
       - "rook-mcp/**"
       - ".github/workflows/rook-mcp-ci.yml"
 
+permissions:
+  contents: read
+
 jobs:
   build-and-test:
     runs-on: macos-14
