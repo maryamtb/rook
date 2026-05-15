@@ -25,16 +25,16 @@ enum AppendToInboxHandler {
         Server.log("tools/list requested")
         let appendToInbox: ToolDescriptor = ToolDescriptor(
             name: "append_to_inbox",
-            description: "Save text to the user's Rook notes app. Use this whenever the user asks to save, capture, remember, jot down, note, log, add, or stash something in Rook (or simply 'in my notes' / 'in my inbox' when Rook is the active notes app). Pass the content verbatim. The optional title becomes a short heading shown above the content. Examples: 'save this to Rook', 'add this to my Rook inbox', 'remember this in Rook', 'put a note in Rook with these steps', 'jot this down in my notes'.",
+            description: "Save text to the user's Rook notes app. Use this whenever the user asks to save, capture, remember, jot down, note, log, add, or stash something in Rook (or simply 'in my notes' / 'in my inbox' when Rook is the active notes app). Examples: 'save this to Rook', 'add this to my Rook inbox', 'remember this in Rook'.\n\nContent is rendered as markdown. Use ``` fenced code blocks (with a language hint like ```swift) for multi-line code. Use single backticks for inline code references like `foo()`. Headings: # through ######. Emphasis: **bold**, *italic*, ~~strikethrough~~. Lists: -, *, +, or 1.. Task lists: - [ ] and - [x] for todos. Links: [label](url).",
             inputSchema: InputSchema(
                 properties: [
                     "content": SchemaProperty(
                         type: "string",
-                        description: "The text to save. Up to 100,000 characters. Pass it verbatim without summarizing or rephrasing unless the user asked for that."
+                        description: "The text to save, written in markdown. Up to 100,000 characters. Use ``` fenced code blocks with a language hint for code, ## for section headings, **bold** for emphasis, - or 1. for lists. Pass the user-provided text verbatim without summarizing or rephrasing unless they asked for that."
                     ),
                     "title": SchemaProperty(
                         type: "string",
-                        description: "Optional short heading shown above the saved content. Up to 200 characters. Skip this unless the user named the snippet."
+                        description: "Short heading shown above the saved content. Up to 200 characters. Provide one when the snippet has a natural name (a file path, a function name, a topic). When omitted, the first line of content becomes the heading, so do NOT start content with a markdown heading marker if you're omitting this field."
                     )
                 ],
                 required: ["content"]
@@ -44,7 +44,7 @@ enum AppendToInboxHandler {
                 readOnlyHint: false,
                 destructiveHint: false,
                 idempotentHint: false,
-                openWorldHint: true
+                openWorldHint: false
             )
         )
         Server.writeResult(id: id, result: ToolsListResult(tools: [appendToInbox]))
