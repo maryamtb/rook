@@ -17,6 +17,17 @@ type Entry = {
 
 const entries: Entry[] = [
   {
+    version: "1.3.1",
+    date: "2026-05-17",
+    notes: [
+      "Rook menu bar: capture quick notes, look up recent ones, and view MCP AI activity without opening the app",
+      "Refreshed editor look: code blocks, fonts, inline code chips, and more",
+      "Notes saved by Claude Code, Claude Desktop, Cursor, and Gemini now render as styled markdown: headings, fenced code blocks, lists, todos, and inline code",
+      'Paste markdown as rich text with Option+Cmd+V, or right-click "Paste as Markdown"',
+      "Notifications when AI saves to your inbox",
+    ],
+  },
+  {
     version: "1.3.0",
     date: "2026-05-13",
     notes: [
