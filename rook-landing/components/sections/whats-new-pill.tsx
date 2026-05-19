@@ -9,7 +9,7 @@ import { useLaunchState } from "@/hooks";
 import type { SignupMeta } from "@/hooks/use-signup-meta";
 
 export function WhatsNewPill({ source, signupMeta }: { source: string; signupMeta?: SignupMeta | null }) {
-  const { showDiscount } = useLaunchState();
+  const { showDiscount } = useLaunchState(signupMeta ?? null);
   // Display caps at 100 to match the public "first 100" promise; the real DB cap (102) is just a buffer.
   const remaining = signupMeta ? Math.max(0, 100 - signupMeta.count) : null;
   const scarcityLabel =

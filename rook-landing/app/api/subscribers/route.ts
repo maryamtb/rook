@@ -4,7 +4,7 @@ import { getSupabaseAdmin } from "@/lib/supabase";
 import { getPostHogClient } from "@/lib/posthog-server";
 import { isSameOrigin } from "@/lib/csrf";
 import { escapeHtml } from "@/lib/utils";
-import { SIGNUPS_DISABLED } from "@/lib/constants";
+import { MAS_URL, SIGNUPS_DISABLED } from "@/lib/constants";
 import { renderEmailShell } from "@/lib/email-template";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -22,8 +22,7 @@ export async function POST(request: Request) {
   }
 
   const notifyEmail = process.env.NOTIFY_EMAIL;
-  const segmentId = process.env.RESEND_SEGMENT_ID;
-  if (!notifyEmail || !segmentId) {
+  if (!notifyEmail) {
     return NextResponse.json(
       { error: "Something went wrong. Please try again in a few moments." },
       { status: 500 }
@@ -59,21 +58,17 @@ export async function POST(request: Request) {
       );
     }
 
-    const { data: existing } = await resend.contacts.get({ email: normalizedEmail });
-    if (existing) {
-      return NextResponse.json(
-        { error: "You're already on the list!" },
-        { status: 409 }
-      );
-    }
+    const { error: insertError } = await getSupabaseAdmin()
+      .from("subscribers")
+      .insert({ email: normalizedEmail });
 
-    const { error } = await resend.contacts.create({
-      email: normalizedEmail,
-      segments: [{ id: segmentId }],
-      unsubscribed: false,
-    });
-
-    if (error) {
+    if (insertError) {
+      if (insertError.code === "23505") {
+        return NextResponse.json(
+          { error: "You're already on the list!" },
+          { status: 409 }
+        );
+      }
       return NextResponse.json(
         { error: "Something went wrong. Please try again in a few moments." },
         { status: 500 }
@@ -105,29 +100,32 @@ export async function POST(request: Request) {
           preheader: "Quick hello from the developer.",
           unsubscribeReason: "You are receiving this email because you opted in via our site.",
           bodyHtml: `<p style="margin: 0 0 16px">
-									Welcome to Rook updates 🧡 You're joining 100+ early
-									supporters.
+									Welcome to Rook updates 🧡
 								</p>
 								<p style="margin: 0 0 16px">
-									If you haven't already, you can download the free version of
-									Rook for Mac at
+									If you haven't already, you can download Rook for Mac at
 									<a
 										href="https://userook.app?utm_source=email&amp;utm_medium=welcome&amp;utm_campaign=signup"
 										style="color: #e8962e; text-decoration: underline"
 										>userook.app</a
+									>
+									or get it on the
+									<a
+										href="${MAS_URL}"
+										style="color: #e8962e; text-decoration: underline"
+										>Mac App Store</a
 									>.
 								</p>
 								<p style="margin: 0 0 16px">
 									What's next: Pro is under development, you'll get early
-									access when it launches.
+									access as soon as it's ready.
 								</p>
 								<p style="margin: 0 0 16px">
 									Got feedback or a feature request? I'd love to hear it. Just
 									reply to this email.
 								</p>
 								<p style="margin: 0 0 16px">
-									Curious about how Rook came to be? I wrote the origin story
-									here:
+									Curious about Rook's origin story? I wrote about it here:
 									<a
 										href="https://dev.to/mimobenjo/why-i-stopped-using-apple-notes-for-my-code-notes-110p"
 										style="color: #e8962e; text-decoration: underline"

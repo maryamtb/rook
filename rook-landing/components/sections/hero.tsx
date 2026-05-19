@@ -47,7 +47,7 @@ const CLAUDE_FIRST_API_NOTE: MobileNote = {
 };
 
 export function Hero({ signupMeta }: { signupMeta: SignupMeta | null }) {
-  const { showDiscount } = useLaunchState();
+  const { showDiscount } = useLaunchState(signupMeta);
 
   return (
     <section className="pt-[140px] md:pt-[176px]">

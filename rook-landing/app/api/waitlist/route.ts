@@ -3,8 +3,8 @@ import { createHash } from "node:crypto";
 import { Resend } from "resend";
 import { getSupabase, getSupabaseAdmin } from "@/lib/supabase";
 import { getPostHogClient } from "@/lib/posthog-server";
-import { DISCOUNT_CAP, DISCOUNT_ROUND_START, getDiscountCount } from "@/lib/signups";
-import { PRODUCT_HUNT_URL, SHOW_DISCOUNT_COUNTER, SIGNUPS_DISABLED } from "@/lib/constants";
+import { DISCOUNT_ROUND_START, computeSignupState, getDiscountCount } from "@/lib/signups";
+import { PRODUCT_HUNT_URL, SIGNUPS_DISABLED } from "@/lib/constants";
 import { isSameOrigin } from "@/lib/csrf";
 import { escapeHtml } from "@/lib/utils";
 import { renderEmailShell } from "@/lib/email-template";
@@ -27,13 +27,6 @@ export async function POST(request: Request) {
     return NextResponse.json(
       { error: "Signups are temporarily unavailable. Email hello@userook.app to be added manually." },
       { status: 503 }
-    );
-  }
-
-  if (!SHOW_DISCOUNT_COUNTER) {
-    return NextResponse.json(
-      { error: "The discount is not currently available." },
-      { status: 410 }
     );
   }
 
@@ -62,9 +55,23 @@ export async function POST(request: Request) {
     const normalizedEmail = email.toLowerCase().trim();
     const ipHash = hashClientIp(request);
 
-    if ((await getDiscountCount()) >= DISCOUNT_CAP) {
+    const currentCount = await getDiscountCount();
+    const state = computeSignupState(currentCount);
+    if (state === "prelaunch") {
+      return NextResponse.json(
+        { error: "The discount is not open yet." },
+        { status: 410 }
+      );
+    }
+    if (state === "closed") {
       return NextResponse.json(
         { error: "The first 100 spots are filled." },
+        { status: 410 }
+      );
+    }
+    if (state !== "discount") {
+      return NextResponse.json(
+        { error: "The discount is not currently available." },
         { status: 410 }
       );
     }
@@ -147,7 +154,7 @@ export async function POST(request: Request) {
 									>
 								</p>
 								<p style="margin: 0 0 16px">
-									I built Rook because I wanted a dedicated place for code notes that was fast, beautiful, and that could sit on the side of my screen. It came from a problem I ran into while building, and I hope it feels useful to you too. If you're curious about the origin story, I wrote about it
+									If you're curious about the origin story, I wrote about it
 									<a
 										href="https://dev.to/mimobenjo/why-i-stopped-using-apple-notes-for-my-code-notes-110p"
 										style="color: #e8962e; text-decoration: underline"

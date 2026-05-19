@@ -12,12 +12,13 @@ import { captureEvent } from "@/lib/posthog-safe";
 import { EVENT } from "@/lib/events";
 import { SignupOutageBanner } from "./signup-outage-banner";
 import { useStars, useLaunchState } from "@/hooks";
+import type { SignupMeta } from "@/hooks/use-signup-meta";
 import { MCP_ACCENT } from "@/components/mcp-mark";
 import Link from "next/link";
 
-export function Nav() {
+export function Nav({ signupMeta = null }: { signupMeta?: SignupMeta | null } = {}) {
   const stars = useStars();
-  const { showDiscount } = useLaunchState();
+  const { showDiscount } = useLaunchState(signupMeta);
   return (
     <div className="fixed top-0 inset-x-0 z-50">
       {SIGNUPS_DISABLED && <SignupOutageBanner />}

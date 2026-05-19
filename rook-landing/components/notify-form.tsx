@@ -130,10 +130,10 @@ export function NotifyForm({ meta }: { meta: SignupMeta | null }) {
 const DISPLAY_CAP = 100;
 
 function CountPill({ meta }: { meta: SignupMeta | null }) {
-  const { showDiscount } = useLaunchState();
+  const { showDiscount } = useLaunchState(meta);
   if (!showDiscount) return null;
   if (!meta) return <p className="mb-3 h-[20px]" aria-hidden />;
-  if (meta.capReached) return null;
+  if (meta.state === "closed") return null;
 
   const shown = Math.min(meta.count, DISPLAY_CAP);
 

@@ -1,21 +1,27 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SHOW_DISCOUNT_COUNTER } from "@/lib/constants";
+import {
+  DISCOUNT_CAP,
+  DISCOUNT_ROUND_START_MS,
+  type SignupState,
+} from "@/lib/signups";
+import { SIGNUPS_DISABLED } from "@/lib/constants";
 
-export type SignupMeta = { count: number; cap: number; capReached: boolean; };
+export type SignupMeta = { count: number; cap: number; state: SignupState };
 
-const FALLBACK: SignupMeta = { count: 0, cap: 102, capReached: false };
+function initialFallback(): SignupMeta {
+  if (SIGNUPS_DISABLED) return { count: 0, cap: DISCOUNT_CAP, state: "disabled" };
+  if (Date.now() < DISCOUNT_ROUND_START_MS) return { count: 0, cap: DISCOUNT_CAP, state: "prelaunch" };
+  return { count: 0, cap: DISCOUNT_CAP, state: "discount" };
+}
 
 export function useSignupMeta() {
-  const [meta, setMeta] = useState<SignupMeta | null>(
-    SHOW_DISCOUNT_COUNTER ? null : FALLBACK,
-  );
+  const [meta, setMeta] = useState<SignupMeta | null>(() => initialFallback());
 
   useEffect(() => {
-    if (!SHOW_DISCOUNT_COUNTER) return;
-
     let cancelled = false;
+
     fetch("/api/signups/count")
       .then(async (r) => {
         if (!r.ok) throw new Error(String(r.status));
@@ -24,9 +30,7 @@ export function useSignupMeta() {
       .then((d) => {
         if (!cancelled) setMeta(d);
       })
-      .catch(() => {
-        if (!cancelled) setMeta(FALLBACK);
-      });
+      .catch(() => {});
     return () => {
       cancelled = true;
     };

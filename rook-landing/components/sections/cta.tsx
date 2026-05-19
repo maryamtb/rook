@@ -19,8 +19,8 @@ type CtaProps = {
 };
 
 export function Cta({ signupMeta }: CtaProps) {
-  const { showDiscount } = useLaunchState();
-  const capReached = showDiscount && (signupMeta?.capReached ?? false);
+  const { showDiscount } = useLaunchState(signupMeta);
+  const capReached = signupMeta?.state === "closed";
   return (
     <section id="download" className="py-28 md:py-36">
       <motion.div {...sectionHeading} className="max-w-[480px] mx-auto px-6 text-center">
