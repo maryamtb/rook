@@ -1,4 +1,4 @@
-export const APP_VERSION = "1.3.1";
+export const APP_VERSION = "1.3.2";
 export const APP_ITEM_ID = "6766067055";
 export const DMG_URL = `https://lfubd2pcrenetvqi.public.blob.vercel-storage.com/releases/Rook-${APP_VERSION}.dmg`;
 // Official Apple "Embed Badge" snippet — link uses apps_box_badge attribution,

@@ -17,6 +17,17 @@ type Entry = {
 
 const entries: Entry[] = [
   {
+    version: "1.3.2",
+    date: "2026-05-19",
+    notes: [
+      "Polished menu bar: quick capture, recent notes, and the latest AI saves are one click away",
+      "Snappier animations app-wide",
+      "Code blocks paint their backgrounds and headers more smoothly",
+      "Search opens with the cursor ready",
+      "Editor and toolbar polish for macOS Tahoe",
+    ],
+  },
+  {
     version: "1.3.1",
     date: "2026-05-17",
     notes: [
