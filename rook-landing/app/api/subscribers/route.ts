@@ -118,9 +118,8 @@ export async function POST(request: Request) {
 									>.
 								</p>
 								<p style="margin: 0 0 16px">
-									What's next: Rook is launching on Product Hunt on
-									<strong style="color: #ffffff">May 19</strong>. I'll send a
-									reminder before launch.
+									What's next: Pro is under development, you'll get early
+									access when it launches.
 								</p>
 								<p style="margin: 0 0 16px">
 									Got feedback or a feature request? I'd love to hear it. Just

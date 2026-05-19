@@ -127,17 +127,17 @@ export async function POST(request: Request) {
           "List-Unsubscribe": "<mailto:hello@userook.app?subject=unsubscribe>",
         },
         html: renderEmailShell({
-          preheader: "You're in the first 100.",
+          preheader: "Hello from the developer.",
           unsubscribeReason: "You are receiving this email because you opted in via our site.",
           bodyHtml: `<p style="margin: 0 0 16px">Hey,</p>
 								<p style="margin: 0 0 16px">
-									You're in the first 100 to sign up for Rook. That means
+									You've claimed your
 									<strong style="color: #ffffff"
-										>a lifetime discount on Rook Pro</strong
-									> when it ships.
+										>lifetime discount for Rook Pro</strong
+									>! Pro is under development. If you have any specific feature requests, don't hesitate to send them over.
 								</p>
 								<p style="margin: 0 0 16px">
-									Rook is live on Product Hunt right now. If you have 2 seconds, an upvote means a lot:
+									This discount celebrates Rook's Product Hunt launch, happening right now! An upvote would make my day 🙌
 								</p>
 								<p style="margin: 0 0 20px">
 									<a
@@ -147,18 +147,18 @@ export async function POST(request: Request) {
 									>
 								</p>
 								<p style="margin: 0 0 16px">
-									Curious about Rook's origin story? I wrote about it here:
+									I built Rook because I wanted a dedicated place for code notes that was fast, beautiful, and that could sit on the side of my screen. It came from a problem I ran into while building, and I hope it feels useful to you too. If you're curious about the origin story, I wrote about it
 									<a
 										href="https://dev.to/mimobenjo/why-i-stopped-using-apple-notes-for-my-code-notes-110p"
 										style="color: #e8962e; text-decoration: underline"
-										>Dev.to</a
+										>on Dev.to</a
 									>.
 								</p>
 								<p style="margin: 0 0 16px">
-									Feedback and feature requests very welcome, just reply to this email.
+									Feel free to reach me by just replying to this email. Any feedback, questions, and hellos welcome.
 								</p>
 								<p style="margin: 0">
-									Happy note-taking,<br />Maryam<br /><a
+									Happy note-taking,<br />Maryam TB<br /><a
 										href="https://x.com/mimobenjo"
 										style="color: #e8962e; text-decoration: none"
 										>@mimobenjo</a
