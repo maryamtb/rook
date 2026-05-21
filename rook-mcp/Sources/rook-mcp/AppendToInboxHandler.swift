@@ -70,6 +70,16 @@ enum AppendToInboxHandler {
     }
 
     private static func handleAppendToInbox(id: JSONRPCID?, arguments: JSONValue?) {
+        // Kill switch check runs first — before rate limiting, before any
+        // argument parsing. A disabled MCP refuses everything outright.
+        // Distinct error code (-32006) so the agent can disambiguate from
+        // pause (-32003).
+        if DisabledFlag.isDisabled() {
+            Server.log("disabled: MCP is disabled in Rook, refusing tool call")
+            Server.writeError(id: id, code: -32006, message: "disabled: MCP is disabled in Rook (Settings → MCP → Enable)")
+            return
+        }
+
         if !RateLimiter.check() {
             Server.log("rate_limited: 100 writes/minute exceeded")
             Server.writeError(id: id, code: -32002, message: "rate_limited: 100 writes per minute exceeded")
