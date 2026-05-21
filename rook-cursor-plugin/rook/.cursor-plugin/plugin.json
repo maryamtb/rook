@@ -1,0 +1,23 @@
+{
+  "name": "rook",
+  "displayName": "Rook",
+  "version": "1.3.2",
+  "description": "Save text, code, and snippets from Cursor to Rook, a native macOS notes app, without leaving the chat.",
+  "author": {
+    "name": "Maryam TB",
+    "email": "hello@userook.app"
+  },
+  "license": "MIT",
+  "keywords": [
+    "notes",
+    "macos",
+    "mcp",
+    "inbox",
+    "rook",
+    "capture",
+    "snippets"
+  ],
+  "logo": "assets/logo.png",
+  "homepage": "https://userook.app",
+  "repository": "https://github.com/maryamtb/rook/tree/main/rook-cursor-plugin"
+}
