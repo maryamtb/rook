@@ -1,7 +1,0 @@
-{
-  "mcpServers": {
-    "rook": {
-      "command": "/Applications/Rook.app/Contents/Helpers/rook-mcp.app/Contents/MacOS/rook-mcp"
-    }
-  }
-}
