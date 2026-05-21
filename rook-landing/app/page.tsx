@@ -23,7 +23,7 @@ export default function Home() {
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
       <PageGradients />
 
-      <Nav signupMeta={signupMeta} />
+      <Nav />
       <Hero signupMeta={signupMeta} />
       <Features />
       <Separator className="max-w-[1080px] mx-auto opacity-50" />

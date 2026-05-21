@@ -7,18 +7,16 @@ import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetDescription, SheetClose } from "@/components/ui/sheet";
 import { BrandButton } from "@/components/brand-button";
 import { GitHubIcon, XIcon } from "@/components/icons";
-import { DMG_URL, PRODUCT_HUNT_URL, SIGNUPS_DISABLED } from "@/lib/constants";
+import { DMG_URL, SIGNUPS_DISABLED } from "@/lib/constants";
 import { captureEvent } from "@/lib/posthog-safe";
 import { EVENT } from "@/lib/events";
 import { SignupOutageBanner } from "./signup-outage-banner";
-import { useStars, useLaunchState } from "@/hooks";
-import type { SignupMeta } from "@/hooks/use-signup-meta";
+import { useStars } from "@/hooks";
 import { MCP_ACCENT } from "@/components/mcp-mark";
 import Link from "next/link";
 
-export function Nav({ signupMeta = null }: { signupMeta?: SignupMeta | null } = {}) {
+export function Nav() {
   const stars = useStars();
-  const { showDiscount } = useLaunchState(signupMeta);
   return (
     <div className="fixed top-0 inset-x-0 z-50">
       {SIGNUPS_DISABLED && <SignupOutageBanner />}
@@ -49,41 +47,6 @@ export function Nav({ signupMeta = null }: { signupMeta?: SignupMeta | null } = 
           </div>
 
           <div className="flex items-center gap-2 justify-self-end">
-            {showDiscount ? (
-              <a
-                href={PRODUCT_HUNT_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Rook on Product Hunt"
-                className="inline-block transition-opacity hover:opacity-80"
-                onClick={() => captureEvent(EVENT.ProductHuntClick, { source: "nav" })}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  alt="Rook - A native mac notes app, made for code | Product Hunt"
-                  width={250}
-                  height={54}
-                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1130811&theme=light&t=1778598985994"
-                  className="h-7 lg:h-8 w-auto"
-                />
-              </a>
-            ) : (
-              <a
-                href={PRODUCT_HUNT_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Rook on Product Hunt"
-                className="hidden lg:inline-block transition-opacity hover:opacity-80"
-                onClick={() => captureEvent(EVENT.ProductHuntClick, { source: "nav" })}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  alt="Rook on Product Hunt"
-                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1130811&theme=light&t=1778598985994"
-                  className="h-8 w-auto"
-                />
-              </a>
-            )}
             <div className="hidden sm:flex items-center -space-x-1">
               <Button variant="ghost" size="icon" asChild>
                 <a href="https://x.com/userookapp" target="_blank" rel="noopener noreferrer" aria-label="X">

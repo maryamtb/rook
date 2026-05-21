@@ -4,7 +4,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { InteractiveRook, MobileMockup, type MobileNote } from "@/components/rook-preview";
 import { themes } from "@/lib/themes";
-import { PRODUCT_HUNT_URL } from "@/lib/constants";
 import { useLaunchState } from "@/hooks/use-launch-state";
 import { captureEvent } from "@/lib/posthog-safe";
 import { EVENT } from "@/lib/events";
@@ -117,27 +116,6 @@ export function Hero({ signupMeta }: { signupMeta: SignupMeta | null }) {
           <PlatformWaitlist source="hero_spec" className="ml-1" />
         </motion.div>
 
-        {!showDiscount && (
-          <motion.a
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            href={PRODUCT_HUNT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-5 sm:hidden inline-block transition-opacity hover:opacity-80"
-            aria-label="Rook on Product Hunt"
-            onClick={() => captureEvent(EVENT.ProductHuntClick, { source: "hero" })}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              alt="Rook on Product Hunt"
-              width={210}
-              height={45}
-              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1130811&theme=dark&t=1778598985994"
-            />
-          </motion.a>
-        )}
       </div>
 
       <motion.div

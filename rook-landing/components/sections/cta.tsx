@@ -76,7 +76,7 @@ export function Cta({ signupMeta }: CtaProps) {
             ) : (
               <>
                 <p className="text-sm sm:text-[13px] text-muted-foreground mb-3">
-                  <span className="text-foreground font-medium">First 100 signups</span> get a lifetime discount on Pro.
+                  Get a lifetime discount on Pro as an <span className="text-foreground font-medium">early supporter</span>
                 </p>
                 <NotifyForm meta={signupMeta} />
               </>

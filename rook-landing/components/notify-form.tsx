@@ -8,7 +8,7 @@ import { Mail } from "lucide-react";
 import { useEmailForm } from "@/hooks/use-email-form";
 import { useLaunchState } from "@/hooks/use-launch-state";
 import { FooterNewsletter } from "@/components/footer-newsletter";
-import { PRODUCT_HUNT_URL, SIGNUPS_DISABLED } from "@/lib/constants";
+import { SIGNUPS_DISABLED, DISCOUNT_COUNT_VISIBLE_THRESHOLD } from "@/lib/constants";
 import { EVENT } from "@/lib/events";
 import { captureEvent, identifyEmail } from "@/lib/posthog-safe";
 import { TOAST_STYLE } from "@/lib/toast";
@@ -72,27 +72,10 @@ export function NotifyForm({ meta }: { meta: SignupMeta | null }) {
 
   if (submitted) {
     return (
-      <div className="max-w-sm mx-auto flex flex-col items-center gap-3">
+      <div className="max-w-sm mx-auto text-center">
         <p className="text-[15px] font-semibold text-foreground">
-          You&apos;re in! Support our launch on PH today:
+          You&apos;re in. We&apos;ll email you when Pro is ready.
         </p>
-        <a
-          href={PRODUCT_HUNT_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Upvote Rook on Product Hunt"
-          onClick={() => captureEvent(EVENT.ProductHuntClick, { source: "post_claim" })}
-          className="inline-block transition-opacity hover:opacity-90"
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            alt="Upvote Rook on Product Hunt"
-            width={250}
-            height={54}
-            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1130811&theme=light&t=1778598985994"
-            className="h-12 w-auto"
-          />
-        </a>
       </div>
     );
   }
@@ -132,8 +115,9 @@ const DISPLAY_CAP = 100;
 function CountPill({ meta }: { meta: SignupMeta | null }) {
   const { showDiscount } = useLaunchState(meta);
   if (!showDiscount) return null;
-  if (!meta) return <p className="mb-3 h-[20px]" aria-hidden />;
+  if (!meta) return null;
   if (meta.state === "closed") return null;
+  if (meta.count < DISCOUNT_COUNT_VISIBLE_THRESHOLD) return null;
 
   const shown = Math.min(meta.count, DISPLAY_CAP);
 

@@ -10,12 +10,10 @@ import type { SignupMeta } from "@/hooks/use-signup-meta";
 
 export function WhatsNewPill({ source, signupMeta }: { source: string; signupMeta?: SignupMeta | null }) {
   const { showDiscount } = useLaunchState(signupMeta ?? null);
-  // Display caps at 100 to match the public "first 100" promise; the real DB cap (102) is just a buffer.
-  const remaining = signupMeta ? Math.max(0, 100 - signupMeta.count) : null;
-  const scarcityLabel =
-    remaining === null ? "first 100" :
-    remaining === 0 ? "spots filled" :
-    `${remaining} remaining`;
+  const capFilled = signupMeta != null && signupMeta.state === "closed";
+  const pillCopy = capFilled
+    ? "Lifetime Pro Discount · Spots Filled"
+    : "Early Supporters · Lifetime Discount on Pro";
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
@@ -38,7 +36,7 @@ export function WhatsNewPill({ source, signupMeta }: { source: string; signupMet
         {showDiscount ? (
           <a
             href="#download"
-            className="relative inline-flex items-center gap-2 pl-1 pr-3 py-1 rounded-full border backdrop-blur-md text-[12px] text-foreground/85 hover:text-foreground transition-colors"
+            className="relative inline-flex items-center gap-2 px-3 py-1 rounded-full border backdrop-blur-md text-[12px] text-foreground/85 hover:text-foreground transition-colors"
             style={{
               backgroundColor: "rgba(255, 97, 84, 0.08)",
               borderColor: "rgba(255, 97, 84, 0.35)",
@@ -46,13 +44,7 @@ export function WhatsNewPill({ source, signupMeta }: { source: string; signupMet
             onClick={() => captureEvent(EVENT.ProDiscountHeroClick, { source })}
           >
             <span aria-hidden className="pill-shine absolute inset-0 rounded-full p-[1px]" />
-            <span
-              className="relative inline-flex items-center px-2 py-[2px] rounded-full font-mono text-[10.5px] tracking-tight font-semibold"
-              style={{ backgroundColor: "rgba(255, 97, 84, 0.18)", color: "#FF6154" }}
-            >
-              PH
-            </span>
-            <span className="relative tabular-nums">lifetime pro discount · {scarcityLabel}</span>
+            <span className="relative">{pillCopy}</span>
             <span aria-hidden className="relative text-foreground/40 transition-all duration-300 ease-out group-hover:translate-x-0.5 group-hover:text-foreground/70">→</span>
           </a>
         ) : (

@@ -4,7 +4,7 @@ import { Resend } from "resend";
 import { getSupabase, getSupabaseAdmin } from "@/lib/supabase";
 import { getPostHogClient } from "@/lib/posthog-server";
 import { DISCOUNT_ROUND_START, computeSignupState, getDiscountCount } from "@/lib/signups";
-import { PRODUCT_HUNT_URL, SIGNUPS_DISABLED } from "@/lib/constants";
+import { SIGNUPS_DISABLED } from "@/lib/constants";
 import { isSameOrigin } from "@/lib/csrf";
 import { escapeHtml } from "@/lib/utils";
 import { renderEmailShell } from "@/lib/email-template";
@@ -142,16 +142,6 @@ export async function POST(request: Request) {
 									<strong style="color: #ffffff"
 										>lifetime discount for Rook Pro</strong
 									>! Pro is under development. If you have any specific feature requests, don't hesitate to send them over.
-								</p>
-								<p style="margin: 0 0 16px">
-									This discount celebrates Rook's Product Hunt launch, happening right now! An upvote would make my day 🙌
-								</p>
-								<p style="margin: 0 0 20px">
-									<a
-										href="${PRODUCT_HUNT_URL}"
-										style="display: inline-block; padding: 10px 18px; background: #FF6154; color: #ffffff; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 14px"
-										>Upvote on Product Hunt →</a
-									>
 								</p>
 								<p style="margin: 0 0 16px">
 									If you're curious about the origin story, I wrote about it
