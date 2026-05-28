@@ -94,8 +94,8 @@ export default function PrivacyPage() {
             </h2>
             <p className="mb-3">
               In version 1.3.0, we added a local helper that lets Claude,
-              Cursor, and Gemini save notes to Rook. It&apos;s off by
-              default. You can turn it on or pause it in Settings → MCP.
+              Codex, Cursor, and Gemini save notes to Rook. It&apos;s off
+              by default. You can turn it on or pause it in Settings → MCP.
             </p>
             <p className="mb-3">
               When it&apos;s on, connected AI tools can save notes to your

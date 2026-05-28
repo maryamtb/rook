@@ -1,7 +1,7 @@
 export function ArchitectureDiagram() {
   return (
     <svg
-      viewBox="0 0 720 150"
+      viewBox="0 0 720 165"
       className="w-full h-auto p-5"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
@@ -32,8 +32,9 @@ export function ArchitectureDiagram() {
               fill="none" stroke="currentColor" strokeOpacity="0.3" />
         <text x="70" y="46" textAnchor="middle" fontSize="13" fill="currentColor">AI tool</text>
         <text x="70" y="64" textAnchor="middle" fontSize="11" fill="currentColor" opacity="0.55">client</text>
-        <text x="70" y="105" textAnchor="middle" fontSize="10" fill="currentColor" opacity="0.55">Claude Code, Cursor,</text>
-        <text x="70" y="120" textAnchor="middle" fontSize="10" fill="currentColor" opacity="0.55">Gemini, Claude Desktop</text>
+        <text x="70" y="105" textAnchor="middle" fontSize="10" fill="currentColor" opacity="0.55">Claude Code, Codex,</text>
+        <text x="70" y="120" textAnchor="middle" fontSize="10" fill="currentColor" opacity="0.55">Gemini, Cursor,</text>
+        <text x="70" y="135" textAnchor="middle" fontSize="10" fill="currentColor" opacity="0.55">Claude Desktop</text>
 
         {/* stdio arrow (bidirectional) */}
         <line x1="146" y1="50" x2="184" y2="50"

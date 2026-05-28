@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import { Nav, Footer } from "@/components/sections";
 import { PageGradients } from "@/components/page-gradients";
 import { DMG_URL } from "@/lib/constants";
-import { Toc, CopyBlock, CursorInstallButton, ExpandableImage, type TocItem } from "./client";
+import { Toc, CopyBlock, ConfigAccordion, CursorInstallButton, ExpandableImage, type ConfigItem, type TocItem } from "./client";
 import { ArchitectureDiagram } from "./architecture-diagram";
 
 export const metadata: Metadata = {
   title: "Rook MCP · Save AI notes to Rook",
   description:
-    "Rook 1.3.0 adds the Model Context Protocol. Ask Claude Code, Claude Desktop, Cursor, or Gemini CLI to save notes to Rook. Each tool gets its own inbox.",
+    "Rook 1.3.0 adds the Model Context Protocol. Ask Claude Code, Claude Desktop, Codex, Cursor, or Gemini CLI to save notes to Rook. Each tool gets its own inbox.",
 };
 
 const SAGE = "rgb(140, 200, 192)";
@@ -19,6 +19,9 @@ const ROOK_MCP_BIN =
 
 const CLAUDE_CODE_CMD = `claude mcp add rook --scope user -- ${ROOK_MCP_BIN}`;
 const CLAUDE_CODE_CMD_LOCAL = `claude mcp add rook --scope local -- ${ROOK_MCP_BIN}`;
+const CODEX_CMD = `codex mcp add rook -- ${ROOK_MCP_BIN}`;
+const CODEX_TOML = `[mcp_servers.rook]
+command = "${ROOK_MCP_BIN}"`;
 const GEMINI_CMD = `gemini mcp add -s user rook -- ${ROOK_MCP_BIN}`;
 const CLAUDE_DESKTOP_JSON = `{
   "mcpServers": {
@@ -38,9 +41,10 @@ const TOC_ITEMS: TocItem[] = [
     label: "Configuration",
     children: [
       { id: "claude-code", label: "Claude Code" },
+      { id: "codex", label: "Codex" },
       { id: "gemini-cli", label: "Gemini CLI" },
-      { id: "claude-desktop", label: "Claude Desktop" },
       { id: "cursor", label: "Cursor" },
+      { id: "claude-desktop", label: "Claude Desktop" },
     ],
   },
   { id: "how-it-works", label: "How it works" },
@@ -52,9 +56,144 @@ const h2 = "text-[24px] font-semibold tracking-tight mt-16 mb-5 scroll-mt-20";
 const h3 = "text-[17px] font-semibold tracking-tight mt-10 mb-3 scroll-mt-20";
 const h4 = "text-[15px] font-semibold tracking-tight mt-8 mb-2 text-foreground";
 const p = "text-[15px] text-foreground/85 leading-[1.75] my-4";
+const pTight = "text-[15px] text-foreground/85 leading-[1.75] mb-4 first:mt-0";
 const figure = "rounded-xl overflow-hidden border border-border/60 bg-foreground/[0.02] my-6";
 const codeInline =
   "font-mono text-[13px] bg-foreground/[0.06] px-1.5 py-0.5 rounded";
+
+const CONFIG_ITEMS: ConfigItem[] = [
+  {
+    id: "claude-code",
+    label: "Claude Code",
+    content: (
+      <>
+        <p className={pTight}>
+          Add the Rook MCP server to Claude Code with either flag,
+          user-scoped or local-scoped:
+        </p>
+        <CopyBlock text={CLAUDE_CODE_CMD} label="Claude Code (user scope)" />
+        <p className={p}>
+          User scope sets the Rook MCP server in every Claude Code
+          session, regardless of directory.
+        </p>
+        <CopyBlock text={CLAUDE_CODE_CMD_LOCAL} label="Claude Code (local scope)" />
+        <p className={p}>Local scope sets it for the current repo only.</p>
+        <p className={p}>Then, in a new Claude Code session:</p>
+        <CopyBlock text={`save "hello from claude code" to Rook`} label="example save" />
+        <p className={p}>
+          You&apos;ll see a &ldquo;Saved to Rook inbox&rdquo; confirmation,
+          and a Claude Inbox appears in Rook with the note inside.
+        </p>
+        <p className={p}>
+          Type <code className={codeInline}>/mcp</code> inside a Claude
+          Code session to see configured servers.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "codex",
+    label: "Codex",
+    content: (
+      <>
+        <p className={pTight}>Add the Rook MCP server to Codex with:</p>
+        <CopyBlock text={CODEX_CMD} label="Codex command" />
+        <p className={p}>
+          Or add it manually to{" "}
+          <code className={codeInline}>~/.codex/config.toml</code>:
+        </p>
+        <CopyBlock text={CODEX_TOML} label="Codex config" />
+        <p className={p}>
+          Then, in a new Codex session,{" "}
+          <code className={codeInline}>save &quot;hello from Codex&quot; to Rook</code>{" "}
+          works.
+        </p>
+        <p className={p}>
+          Type <code className={codeInline}>/mcp</code> inside a Codex
+          session to see configured servers.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "gemini-cli",
+    label: "Gemini CLI",
+    content: (
+      <>
+        <CopyBlock text={GEMINI_CMD} label="Gemini CLI command" />
+        <p className={p}>
+          Gemini needs per-folder trust before it will use MCP servers. In
+          the folder where you want Gemini to access Rook, run{" "}
+          <code className={codeInline}>/permissions trust</code> inside a
+          Gemini session, then quit Gemini (Ctrl+C twice) and reopen it in
+          the same folder. After that,{" "}
+          <code className={codeInline}>save &quot;hello from Gemini&quot; to Rook</code>{" "}
+          works.
+        </p>
+        <p className={p}>
+          The trust step is per-folder. Repeat it in any new project where
+          you use Gemini.
+        </p>
+        <p className={p}>
+          Run <code className={codeInline}>gemini mcp list</code> to see
+          configured servers.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "cursor",
+    label: "Cursor",
+    content: (
+      <>
+        <p className={pTight}>Cursor supports installing MCP servers via deeplink:</p>
+        <CursorInstallButton deeplink={CURSOR_DEEPLINK} />
+        <p className={p}>
+          Clicking &ldquo;Add to Cursor&rdquo; opens Cursor with a
+          confirmation dialog. Click Install, then restart Cursor. After
+          that,{" "}
+          <code className={codeInline}>save &quot;hello from Cursor&quot; to Rook</code>{" "}
+          works.
+        </p>
+        <p className={p}>
+          Configured servers appear in Settings → Tools &amp; MCPs.
+        </p>
+        <figure className={figure}>
+          <ExpandableImage
+            src="/cursor-setup.png"
+            alt="rook installed in Cursor's Tools and MCPs panel"
+            description="rook installed in Cursor's Tools and MCPs panel"
+            width={1440}
+            height={900}
+            loading="eager"
+          />
+        </figure>
+      </>
+    ),
+  },
+  {
+    id: "claude-desktop",
+    label: "Claude Desktop",
+    content: (
+      <>
+        <p className={pTight}>
+          In Claude Desktop, open Settings → Developer → Edit Config. The
+          config file opens in your default text editor. Add the{" "}
+          <code className={codeInline}>rook</code> entry below. If you
+          already have other MCP servers configured, merge it into the
+          existing <code className={codeInline}>mcpServers</code> block:
+        </p>
+        <CopyBlock text={CLAUDE_DESKTOP_JSON} label="Claude Desktop config" />
+        <p className={p}>
+          After saving and reopening Claude Desktop,{" "}
+          <code className={codeInline}>save &quot;hello from Claude Desktop&quot; to Rook</code>{" "}
+          works.
+        </p>
+        <p className={p}>Configured servers appear in Settings → Developer.</p>
+      </>
+    ),
+  },
+];
 
 export default function MCPPage() {
   return (
@@ -90,9 +229,9 @@ export default function MCPPage() {
                 <p className="text-[16px] text-foreground/85 leading-[1.7] mb-4">
                   Rook 1.3.0 adds support for the Model Context Protocol (MCP),
                   the open protocol AI tools use to talk to programs and data
-                  sources. Claude Code, Claude Desktop, Cursor, and Gemini CLI
-                  can save notes to Rook over MCP. Saves appear in Rook
-                  immediately.
+                  sources. Claude Code, Claude Desktop, Codex, Cursor, and
+                  Gemini CLI can save notes to Rook over MCP. Saves appear in
+                  Rook immediately.
                 </p>
                 <p className="text-[15px] text-foreground/75 leading-[1.7]">
                   Useful when you&apos;d otherwise be copy-pasting AI output
@@ -124,110 +263,12 @@ export default function MCPPage() {
               <section id="configuration" className="scroll-mt-20">
                 <h2 className={h2}>Configuration</h2>
                 <p className={p}>
-                  This section walks through setting up Rook MCP with 4 local
-                  clients: Claude Code, Claude Desktop, Gemini CLI, and Cursor.
+                  This section walks through setting up Rook MCP with 5 local
+                  clients: Claude Code, Codex, Gemini CLI, Cursor, and Claude
+                  Desktop.
                 </p>
 
-                <h3 id="claude-code" className={h3}>
-                  Claude Code
-                </h3>
-                <p className={p}>
-                  Add the Rook MCP server to Claude Code with either flag,
-                  user-scoped or local-scoped:
-                </p>
-                <CopyBlock text={CLAUDE_CODE_CMD} label="Claude Code (user scope)" />
-                <p className={p}>
-                  User scope sets the Rook MCP server in every Claude Code
-                  session, regardless of directory.
-                </p>
-                <CopyBlock text={CLAUDE_CODE_CMD_LOCAL} label="Claude Code (local scope)" />
-                <p className={p}>
-                  Local scope sets it for the current repo only.
-                </p>
-                <p className={p}>Then, in a new Claude Code session:</p>
-                <CopyBlock text={`save "hello from claude code" to Rook`} label="example save" />
-                <p className={p}>
-                  You&apos;ll see a &ldquo;Saved to Rook inbox&rdquo;
-                  confirmation, and a Claude Inbox appears in Rook with the
-                  note inside.
-                </p>
-                <p className={p}>
-                  Run <code className={codeInline}>claude mcp list</code> to
-                  see configured servers.
-                </p>
-
-                <h3 id="gemini-cli" className={h3}>
-                  Gemini CLI
-                </h3>
-                <CopyBlock text={GEMINI_CMD} label="Gemini CLI command" />
-                <p className={p}>
-                  Gemini needs per-folder trust before it will use MCP
-                  servers. In the folder where you want Gemini to access Rook,
-                  run{" "}
-                  <code className={codeInline}>/permissions trust</code>{" "}
-                  inside a Gemini session, then quit Gemini (Ctrl+C twice)
-                  and reopen it in the same folder. After that,{" "}
-                  <code className={codeInline}>save &quot;hello from Gemini&quot; to Rook</code>{" "}
-                  works.
-                </p>
-                <p className={p}>
-                  The trust step is per-folder. Repeat it in any new project
-                  where you use Gemini.
-                </p>
-                <p className={p}>
-                  Run <code className={codeInline}>gemini mcp list</code> to
-                  see configured servers.
-                </p>
-
-                <h3 id="claude-desktop" className={h3}>
-                  Claude Desktop
-                </h3>
-                <p className={p}>
-                  In Claude Desktop, open Settings → Developer → Edit Config.
-                  The config file opens in your default text editor. Add the{" "}
-                  <code className={codeInline}>rook</code> entry below. If you
-                  already have other MCP servers configured, merge it into the
-                  existing{" "}
-                  <code className={codeInline}>mcpServers</code> block:
-                </p>
-                <CopyBlock text={CLAUDE_DESKTOP_JSON} label="Claude Desktop config" />
-                <p className={p}>
-                  After saving and reopening Claude Desktop,{" "}
-                  <code className={codeInline}>save &quot;hello from Claude Desktop&quot; to Rook</code>{" "}
-                  works.
-                </p>
-                <p className={p}>
-                  Configured servers appear in Settings → Developer.
-                </p>
-
-                <h3 id="cursor" className={h3}>
-                  Cursor
-                </h3>
-                <p className={p}>
-                  Cursor supports installing MCP servers via deeplink:
-                </p>
-                <CursorInstallButton deeplink={CURSOR_DEEPLINK} />
-                <p className={p}>
-                  Clicking &ldquo;Add to Cursor&rdquo; opens Cursor with a
-                  confirmation dialog. Click Install, then restart Cursor.
-                  After that,{" "}
-                  <code className={codeInline}>save &quot;hello from Cursor&quot; to Rook</code>{" "}
-                  works.
-                </p>
-                <p className={p}>
-                  Configured servers appear in Settings → Tools &amp; MCPs.
-                </p>
-
-                <figure className={figure}>
-                  <ExpandableImage
-                    src="/cursor-setup.png"
-                    alt="rook installed in Cursor's Tools and MCPs panel"
-                    description="rook installed in Cursor's Tools and MCPs panel"
-                    width={1440}
-                    height={900}
-                    loading="eager"
-                  />
-                </figure>
+                <ConfigAccordion initial={["claude-code"]} items={CONFIG_ITEMS} />
               </section>
 
               <section id="how-it-works" className="scroll-mt-20">
@@ -383,8 +424,8 @@ export default function MCPPage() {
                 <h4 className={h4}>Where do saves go?</h4>
                 <p className={p}>
                   Each AI gets its own collection in Rook: Claude Inbox,
-                  Cursor Inbox, Gemini Inbox. Saves from the same client
-                  within a day are grouped into a single note.
+                  Codex Inbox, Cursor Inbox, Gemini Inbox. Saves from the same
+                  client within a day are grouped into a single note.
                 </p>
 
                 <h4 className={h4}>How can it be turned off?</h4>
@@ -402,13 +443,16 @@ export default function MCPPage() {
                     Claude Code: <code className={codeInline}>claude mcp remove rook</code>
                   </li>
                   <li>
+                    Codex: <code className={codeInline}>codex mcp remove rook</code>
+                  </li>
+                  <li>
                     Gemini CLI: <code className={codeInline}>gemini mcp remove rook</code>
                   </li>
                   <li>
-                    Claude Desktop: remove the <code className={codeInline}>rook</code> block from Settings → Developer → Edit Config
+                    Cursor: remove <code className={codeInline}>rook</code> from the User MCP Servers list in Settings → Tools &amp; MCPs
                   </li>
                   <li>
-                    Cursor: remove <code className={codeInline}>rook</code> from the User MCP Servers list in Settings → Tools &amp; MCPs
+                    Claude Desktop: remove the <code className={codeInline}>rook</code> block from Settings → Developer → Edit Config
                   </li>
                 </ul>
 

@@ -25,7 +25,7 @@ export function HeroMcpLinkMobile() {
         </span>
       </span>
       <span className="text-center">
-        Save notes to Rook from Claude, Cursor, and Gemini{" "}
+        Save notes to Rook from Claude, Codex, Cursor, and Gemini{" "}
         <span className="text-foreground/50 hidden min-[415px]:inline">→</span>
       </span>
     </motion.a>
@@ -54,7 +54,7 @@ export function HeroMcpLinkDesktop() {
       </span>
       <div className="text-[15px] text-foreground leading-[1.4] font-normal transition-opacity group-hover:opacity-80">
         <div>Save to Rook from Claude,</div>
-        <div>Cursor, and Gemini</div>
+        <div>Codex, Cursor, and Gemini</div>
       </div>
     </motion.a>
   );
