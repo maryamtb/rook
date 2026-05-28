@@ -5,6 +5,10 @@ import Darwin
 /// names in sync.
 struct InboxRow: Encodable {
     let ts: String
+    /// Per-append unique id. `ts` is second-precision, so concurrent appends in
+    /// the same wall-clock second collide; the drain's replay-dedup keys on this
+    /// instead so distinct rows in a burst are never mistaken for replays.
+    let rowId: String
     let tool: String = "appendToInbox"
     let content: String
     let title: String?
@@ -42,6 +46,7 @@ enum AppendToInboxWriter {
         let timestamp: String = isoFormatter.string(from: Date())
         let row: InboxRow = InboxRow(
             ts: timestamp,
+            rowId: UUID().uuidString,
             content: content,
             title: title,
             clientName: clientName,
