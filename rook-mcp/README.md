@@ -2,7 +2,7 @@
 
 A Model Context Protocol server that saves text into the [Rook](https://userook.app) notes app on macOS. Speaks stdio JSON-RPC 2.0, exposes one tool: `append_to_inbox`.
 
-When an MCP client (Claude Desktop, Cursor, Claude Code, Gemini CLI, etc.) calls `append_to_inbox`, this server writes a JSON line to a shared macOS app-group container. Rook drains that container and turns each line into a note in your inbox.
+When an MCP client (Claude Desktop, Cursor, Claude Code, Codex, Gemini CLI, etc.) calls `append_to_inbox`, this server writes a JSON line to a shared macOS app-group container. Rook drains that container and turns each line into a note in your inbox.
 
 ## Install
 
@@ -46,6 +46,19 @@ Install with user scope so the server is available from any directory:
 
 ```
 claude mcp add rook -s user /Applications/Rook.app/Contents/Helpers/rook-mcp.app/Contents/MacOS/rook-mcp
+```
+
+### Codex
+
+```
+codex mcp add rook -- /Applications/Rook.app/Contents/Helpers/rook-mcp.app/Contents/MacOS/rook-mcp
+```
+
+Or add it manually to `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.rook]
+command = "/Applications/Rook.app/Contents/Helpers/rook-mcp.app/Contents/MacOS/rook-mcp"
 ```
 
 ### Gemini CLI

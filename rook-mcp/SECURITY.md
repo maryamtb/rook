@@ -2,7 +2,7 @@
 
 ## Trust Boundary
 
-`rook-mcp` runs as a child process of an MCP client (Claude Desktop, Cursor, Claude Code, Gemini CLI, etc.). The client invokes `tools/call` with content the agent generated. The server treats that content as untrusted input: sanitize, bound, rate-limit, audit.
+`rook-mcp` runs as a child process of an MCP client (Claude Desktop, Cursor, Claude Code, Codex, Gemini CLI, etc.). The client invokes `tools/call` with content the agent generated. The server treats that content as untrusted input: sanitize, bound, rate-limit, audit.
 
 ## Inbox Flow
 
