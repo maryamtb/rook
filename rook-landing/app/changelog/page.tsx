@@ -17,6 +17,21 @@ type Entry = {
 
 const entries: Entry[] = [
   {
+    version: "1.3.3",
+    date: "2026-05-28",
+    notes: [
+      "MCP support for Codex. Saves reach its AI inbox in Rook.",
+      "AI saves formatting: activity popover and menu bar format input as rich text",
+      "Menu bar: support for light mode appearance",
+      "Support for batch MCP saves",
+      "Added Cisco syntax highlighting",
+      "Quieter byline (time, vendor, id) for AI inbox saves",
+      "Inline code styling included in the slash menu",
+      "TypeScript and JS syntax highlighting enhanced",
+      "Performance improvements throughout",
+    ],
+  },
+  {
     version: "1.3.2",
     date: "2026-05-19",
     notes: [
