@@ -138,23 +138,30 @@ export function Themes({ activeTheme, onSelect }: ThemesProps) {
           ))}
         </div>
 
-        <motion.div
-          {...sectionContent}
-          className="max-w-[960px] mx-auto relative"
-        >
-          <motion.div
-            className="absolute -inset-12 rounded-3xl pointer-events-none blur-3xl opacity-20"
-            animate={{ backgroundColor: themes[activeTheme].accent }}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
-          />
+        <div className="max-w-[960px] mx-auto relative">
+          {themes.map((t, i) => (
+            <div
+              key={t.name}
+              aria-hidden
+              className="absolute -inset-12 rounded-3xl pointer-events-none blur-3xl"
+              style={{
+                backgroundColor: t.accent,
+                opacity: activeTheme === i ? 0.2 : 0,
+                transform: "translateZ(0)",
+                transition: "opacity 1.2s ease-in-out",
+              }}
+            />
+          ))}
 
-          <div className="relative theme-morph hidden sm:block">
-            <AppMockup theme={themes[activeTheme]} variant="dsa" />
-          </div>
-          <div className="relative theme-morph sm:hidden">
-            <MobileMockup theme={themes[activeTheme]} note={binarySearchNote(themes[activeTheme])} />
-          </div>
-        </motion.div>
+          <motion.div {...sectionContent} className="relative">
+            <div className="relative theme-morph hidden sm:block">
+              <AppMockup theme={themes[activeTheme]} variant="dsa" />
+            </div>
+            <div className="relative theme-morph sm:hidden">
+              <MobileMockup theme={themes[activeTheme]} note={binarySearchNote(themes[activeTheme])} />
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
