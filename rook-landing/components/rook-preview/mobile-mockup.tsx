@@ -1,5 +1,6 @@
 import type { ThemeColors } from "@/lib/themes";
 import { SidebarToggleIcon } from "./sidebar-toggle-icon";
+import { McpMark } from "@/components/mcp-mark";
 
 export type MobileNote = {
   title: string;
@@ -28,17 +29,8 @@ export function MobileMockup({ theme: t, note }: { theme: ThemeColors; note: Mob
           <SidebarToggleIcon color={t.subtext} collapsed />
         </div>
         <div className="flex-1" />
-        <div
-          className="flex items-center gap-1 px-2 mr-1.5 rounded-full"
-          style={{ height: 18, backgroundColor: "rgba(140, 200, 192, 0.1)" }}
-        >
-          <svg width="9" height="9" viewBox="0 0 180 180" fill="none" style={{ color: "rgb(140, 200, 192)", opacity: 0.9 }} aria-hidden="true">
-            <path d="M18 84.85L85.88 16.97c9.37-9.37 24.57-9.37 33.94 0 9.37 9.37 9.37 24.57 0 33.94L68.56 102.18" stroke="currentColor" strokeWidth={16} strokeLinecap="round" />
-            <path d="M69.27 101.47L119.82 50.91c9.37-9.37 24.57-9.37 33.94 0l.36.35c9.37 9.37 9.37 24.57 0 33.94L92.72 146.6c-3.12 3.12-3.12 8.19 0 11.31l12.61 12.61" stroke="currentColor" strokeWidth={16} strokeLinecap="round" />
-            <path d="M102.85 33.94L52.65 84.15c-9.37 9.37-9.37 24.57 0 33.94 9.37 9.37 24.57 9.37 33.94 0l50.21-50.2" stroke="currentColor" strokeWidth={16} strokeLinecap="round" />
-          </svg>
-          <span className="text-[8.5px] font-medium" style={{ color: t.text }}>MCP</span>
-          <span className="text-[7.5px] font-semibold tracking-[0.04em]" style={{ color: "rgb(140, 200, 192)" }}>BETA</span>
+        <div className="flex items-center mr-2">
+          <McpMark size={14} />
         </div>
         <div
           className="flex items-center gap-1 px-2 py-0.5 rounded-full transition-colors duration-500"

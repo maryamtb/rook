@@ -17,6 +17,23 @@ type Entry = {
 
 const entries: Entry[] = [
   {
+    version: "1.3.4",
+    date: "2026-06-03",
+    notes: [
+      "Major redesign across the app: sidebar and header, search, editor and slash menus, MCP badge, and a menu bar with search and an improved layout",
+      "Appearance settings: show or hide the MCP badge and sidebar button in the toolbar, plus a font size selector for the sidebar",
+      "Refined editor experience: moving the selection around, backspacing into a code block",
+      "Nested notebooks: three nesting levels (excluding AI notebooks), with drag to move and carets. On notebook preview, formatted inline code and code blocks render",
+      "Notes get a last-updated timestamp in the view, and get info on right-click",
+      "Added wikilinks feature: link to another Rook note with search, and create, edit, or remove the link from the menu",
+      "Added inline images feature, with right-click to Quick Look, open in Preview, or resize (sm, md, lg)",
+      "Added support for highlighted text",
+      "Fixed multi-cursor, now behaves like VS Code",
+      "Added syntax highlighting for Go, Dockerfile, and C#",
+      "Fixed pasting from web AI chats: full answers no longer collapse into a single code block, and short snippets keep their language instead of falling to plain text",
+    ],
+  },
+  {
     version: "1.3.3",
     date: "2026-05-28",
     notes: [

@@ -137,7 +137,7 @@ export function Hero({ signupMeta }: { signupMeta: SignupMeta | null }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.95 }}
           className="hidden lg:block absolute pointer-events-none select-none"
-          style={{ top: -78, right: 190, width: 75, height: 75 }}
+          style={{ top: -78, right: 170, width: 75, height: 75 }}
           aria-hidden="true"
         >
           <Image

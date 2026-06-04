@@ -16,10 +16,16 @@ export function NewNoteItem({ t, active }: { t: ThemeColors; active?: boolean })
         strokeWidth={1.5}
       />
       <span
-        className="text-[11px] font-mono truncate"
+        className="text-[11px] font-mono truncate flex-1 min-w-0"
         style={{ color: active ? t.text : `${t.subtext}cc` }}
       >
         New note
+      </span>
+      <span
+        className="text-[9px] font-mono shrink-0 tabular-nums"
+        style={{ color: active ? t.accent : `${t.subtext}99` }}
+      >
+        now
       </span>
     </div>
   );

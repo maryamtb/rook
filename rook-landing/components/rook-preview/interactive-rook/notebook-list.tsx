@@ -73,6 +73,7 @@ export function NotebookList({
                         label={n.label}
                         active={!!n.opensAs && activeNote === n.opensAs}
                         opensable={!!n.opensAs}
+                        time={n.time}
                         onClick={() => onNoteClick(n.opensAs)}
                       />
                     ))}

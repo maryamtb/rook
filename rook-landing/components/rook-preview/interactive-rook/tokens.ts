@@ -17,5 +17,5 @@ export const LAYOUT = {
 
 export const SIDEBAR_BG = {
   outer: "#efedeb",
-  inner: "#f2f0ee",
+  inner: "#efedeb",
 } as const;

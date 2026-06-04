@@ -12,18 +12,10 @@ export function Sidebar({ t, variant }: { t: ThemeColors; variant: MockupVariant
   return (
     <div
       className="w-[210px] shrink-0 hidden sm:flex sm:flex-col h-full rounded-lg overflow-hidden transition-colors duration-500"
-      style={{
-        backgroundColor: `${t.panel}b3`,
-        backdropFilter: "blur(14px) saturate(140%)",
-        WebkitBackdropFilter: "blur(14px) saturate(140%)",
-      }}
+      style={{ backgroundColor: t.panel }}
     >
       <div
-        style={{
-          backgroundColor: t.surface,
-          backdropFilter: "blur(84px) saturate(140%)",
-          WebkitBackdropFilter: "blur(14px) saturate(140%)",
-        }}
+        style={{ backgroundColor: t.panel }}
         className="flex-1 flex flex-col"
       >
         <div className="px-2 pt-4 pb-1">
@@ -38,7 +30,7 @@ export function Sidebar({ t, variant }: { t: ThemeColors; variant: MockupVariant
           <NotebookHeader t={t} label={data.active.label} count={data.active.count} active />
           <div className="ml-4 space-y-0.5">
             {data.active.notes?.map((note) => (
-              <NoteItem key={note.label} t={t} label={note.label} active={note.active} />
+              <NoteItem key={note.label} t={t} label={note.label} active={note.active} time={note.time} />
             ))}
           </div>
 
@@ -48,7 +40,7 @@ export function Sidebar({ t, variant }: { t: ThemeColors; variant: MockupVariant
               {nb.expanded && nb.notes && (
                 <div className="ml-4 space-y-0.5">
                   {nb.notes.map((note) => (
-                    <NoteItem key={note.label} t={t} label={note.label} active={note.active} />
+                    <NoteItem key={note.label} t={t} label={note.label} active={note.active} time={note.time} />
                   ))}
                 </div>
               )}

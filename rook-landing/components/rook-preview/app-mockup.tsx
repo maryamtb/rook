@@ -40,7 +40,7 @@ export function AppMockup({ theme: t, variant = "auth" }: { theme: ThemeColors; 
           filter: isLight ? "brightness(0.82)" : undefined,
         }}
       >
-        <TitleBar t={t} />
+        <TitleBar t={t} showMcp />
 
         <div className="relative min-h-[540px]">
           <AnimatePresence initial={false}>
@@ -55,12 +55,17 @@ export function AppMockup({ theme: t, variant = "auth" }: { theme: ThemeColors; 
               <div className="pb-2 pl-[7px] pr-[7px] shrink-0">
                 <Sidebar t={t} variant={variant} />
               </div>
-              <div
-                className="flex-1 flex flex-col min-w-0 relative overflow-hidden rounded-tl-lg transition-colors duration-500"
-                style={{ backgroundColor: t.bg }}
-              >
-                <div className="flex-1 overflow-hidden transition-colors duration-500" style={{ backgroundColor: t.bg }}>
-                  <VariantEditor variant={variant} t={t} />
+              <div className="flex-1 min-w-0 flex flex-col pt-3.5 pr-3.5 pb-3.5">
+                <div
+                  className="flex-1 flex flex-col min-w-0 relative overflow-hidden rounded-[14px] transition-colors duration-500"
+                  style={{
+                    backgroundColor: t.bg,
+                    boxShadow: isLight ? "0 3px 12px rgba(0,0,0,0.08)" : "0 4px 16px rgba(0,0,0,0.28)",
+                  }}
+                >
+                  <div className="flex-1 overflow-hidden transition-colors duration-500" style={{ backgroundColor: t.bg }}>
+                    <VariantEditor variant={variant} t={t} />
+                  </div>
                 </div>
               </div>
             </motion.div>

@@ -4,12 +4,13 @@ import { File } from "lucide-react";
 import type { ThemeColors } from "@/lib/themes";
 
 export function NoteItem({
-  t, label, active, opensable, onClick,
+  t, label, active, opensable, time, onClick,
 }: {
   t: ThemeColors;
   label: string;
   active?: boolean;
   opensable?: boolean;
+  time?: string;
   onClick?: () => void;
 }) {
   const inner = (
@@ -21,18 +22,25 @@ export function NoteItem({
         strokeWidth={1.5}
       />
       <span
-        className="text-[11px] font-mono truncate transition-colors duration-300"
+        className="text-[11px] font-mono truncate flex-1 min-w-0 transition-colors duration-300"
         style={{ color: active ? t.text : `${t.subtext}cc` }}
       >
         {label}
       </span>
-      {opensable && !active && (
+      {time ? (
+        <span
+          className="text-[9px] font-mono shrink-0 tabular-nums transition-colors duration-300"
+          style={{ color: active ? t.accent : `${t.subtext}99` }}
+        >
+          {time}
+        </span>
+      ) : opensable && !active ? (
         <span
           aria-hidden
           className="w-[5px] h-[5px] rounded-full shrink-0"
           style={{ backgroundColor: `${t.accent}80` }}
         />
-      )}
+      ) : null}
     </>
   );
 

@@ -22,11 +22,10 @@ export function HeroMcpLinkMobile() {
           style={{ color: MCP_ACCENT, backgroundColor: "rgba(140, 200, 192, 0.12)" }}
         >
           BETA
-        </span>
+        </span> →
       </span>
       <span className="text-center">
         Save notes to Rook from Claude, Codex, Cursor, and Gemini{" "}
-        <span className="text-foreground/50 hidden min-[415px]:inline">→</span>
       </span>
     </motion.a>
   );
@@ -40,7 +39,7 @@ export function HeroMcpLinkDesktop() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut", delay: 0.9 }}
       className="group hidden lg:block absolute select-none whitespace-nowrap text-center"
-      style={{ top: -150, right: 102 }}
+      style={{ top: -150, right: 62 }}
     >
       <span
         className="mcp-shine-halo inline-flex items-center justify-center gap-1.5 mb-1 transition-opacity group-hover:opacity-80"

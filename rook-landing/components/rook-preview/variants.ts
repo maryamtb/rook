@@ -1,6 +1,6 @@
 export type MockupVariant = "auth" | "dsa" | "aws" | "git" | "debug" | "claude";
 
-export type VariantNote = { label: string; active?: boolean; };
+export type VariantNote = { label: string; active?: boolean; time?: string; };
 export type VariantNotebook = {
   label: string;
   count: number;
@@ -27,9 +27,9 @@ export const MOCKUP_VARIANTS: Record<MockupVariant, VariantData> = {
       label: "CLI Quick Refs",
       count: 3,
       notes: [
-        { label: "kubectl quick ref", active: true },
-        { label: "Docker commands" },
-        { label: "Git workflows" },
+        { label: "kubectl quick ref", active: true, time: "now" },
+        { label: "Docker commands", time: "2d" },
+        { label: "Git workflows", time: "4d" },
       ],
     },
     secondary: DEFAULT_SECONDARY,
@@ -40,9 +40,9 @@ export const MOCKUP_VARIANTS: Record<MockupVariant, VariantData> = {
       label: "CLI Quick Refs",
       count: 3,
       notes: [
-        { label: "aws cli quick ref", active: true },
-        { label: "kubectl quick ref" },
-        { label: "Docker commands" },
+        { label: "aws cli quick ref", active: true, time: "now" },
+        { label: "kubectl quick ref", time: "2d" },
+        { label: "Docker commands", time: "5d" },
       ],
     },
     secondary: DEFAULT_SECONDARY,
@@ -53,9 +53,9 @@ export const MOCKUP_VARIANTS: Record<MockupVariant, VariantData> = {
       label: "DSA Practice",
       count: 3,
       notes: [
-        { label: "Binary Search", active: true },
-        { label: "Two Pointers" },
-        { label: "BFS / DFS" },
+        { label: "Binary Search", active: true, time: "now" },
+        { label: "Two Pointers", time: "1d" },
+        { label: "BFS / DFS", time: "2d" },
       ],
     },
     secondary: [
@@ -64,9 +64,9 @@ export const MOCKUP_VARIANTS: Record<MockupVariant, VariantData> = {
         count: 5,
         expanded: true,
         notes: [
-          { label: "Scalability" },
-          { label: "Availability" },
-          { label: "Consistency" },
+          { label: "Scalability", time: "3d" },
+          { label: "Availability", time: "4d" },
+          { label: "Consistency", time: "1w" },
         ],
       },
       { label: "Patterns", count: 8 },
@@ -80,10 +80,10 @@ export const MOCKUP_VARIANTS: Record<MockupVariant, VariantData> = {
       label: "Git Recipes",
       count: 4,
       notes: [
-        { label: "undo last commit", active: true },
-        { label: "rewrite a branch" },
-        { label: "rebase, simply" },
-        { label: "stash like a pro" },
+        { label: "undo last commit", active: true, time: "now" },
+        { label: "rewrite a branch", time: "1d" },
+        { label: "rebase, simply", time: "2d" },
+        { label: "stash like a pro", time: "5d" },
       ],
     },
     secondary: [
@@ -99,10 +99,10 @@ export const MOCKUP_VARIANTS: Record<MockupVariant, VariantData> = {
       label: "Debugging",
       count: 4,
       notes: [
-        { label: "next.js fetch fails in prod", active: true },
-        { label: "redirect loop on /login" },
-        { label: "stripe webhook 401" },
-        { label: "state not updating" },
+        { label: "next.js fetch fails in prod", active: true, time: "now" },
+        { label: "redirect loop on /login", time: "2h" },
+        { label: "stripe webhook 401", time: "1d" },
+        { label: "state not updating", time: "3d" },
       ],
     },
     secondary: [
@@ -118,10 +118,10 @@ export const MOCKUP_VARIANTS: Record<MockupVariant, VariantData> = {
       label: "Claude API",
       count: 4,
       notes: [
-        { label: "my first API call", active: true },
-        { label: "streaming completions" },
-        { label: "tool use round-trip" },
-        { label: "vision / image input" },
+        { label: "my first API call", active: true, time: "now" },
+        { label: "streaming completions", time: "1h" },
+        { label: "tool use round-trip", time: "3h" },
+        { label: "vision / image input", time: "2d" },
       ],
     },
     secondary: [
