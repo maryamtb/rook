@@ -60,6 +60,36 @@ final class MCPSanitizerTests: XCTestCase {
         XCTAssertEqual(MCPSanitizer.sanitizeContent(atCap)?.count, 100_000)
     }
 
+    // MARK: checkContent verdicts
+
+    func testCheckContentClassifiesEmpty() {
+        XCTAssertEqual(MCPSanitizer.checkContent(""), .empty)
+        XCTAssertEqual(MCPSanitizer.checkContent("\u{0000}"), .empty)
+    }
+
+    func testCheckContentClassifiesTooLongWithCount() {
+        let big = String(repeating: "a", count: 100_001)
+        XCTAssertEqual(MCPSanitizer.checkContent(big), .tooLong(count: 100_001))
+    }
+
+    func testCheckContentAcceptsAtCap() {
+        let atCap = String(repeating: "a", count: 100_000)
+        XCTAssertEqual(MCPSanitizer.checkContent(atCap), .ok(atCap))
+    }
+
+    /// The oversize refusal is an agent-facing contract: it must tell the
+    /// client to split into verbatim parts and forbid summarizing. A bare
+    /// refusal here caused a client to silently summarize a user's chat.
+    func testTooLongMessageInstructsSplittingAndForbidsSummarizing() {
+        let message = MCPSanitizer.tooLongMessage(count: 123_456)
+        XCTAssertTrue(message.contains("content_too_long"))
+        XCTAssertTrue(message.contains("123456") || message.contains("123,456"))
+        XCTAssertTrue(message.lowercased().contains("split"))
+        XCTAssertTrue(message.lowercased().contains("verbatim"))
+        XCTAssertTrue(message.lowercased().contains("do not summarize"))
+        XCTAssertTrue(message.lowercased().contains("multiple append_to_inbox calls"))
+    }
+
     func testSanitizeContentCountsGraphemes() {
         // ZWJ family emoji is one grapheme even though it spans multiple code points.
         let emoji = "👨‍👩‍👧"

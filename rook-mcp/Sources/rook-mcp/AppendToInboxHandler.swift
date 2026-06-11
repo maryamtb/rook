@@ -30,7 +30,7 @@ enum AppendToInboxHandler {
                 properties: [
                     "content": SchemaProperty(
                         type: "string",
-                        description: "The text to save, written in markdown. Up to 100,000 characters. Use ``` fenced code blocks with a language hint for code, ## for section headings, **bold** for emphasis, - or 1. for lists. Pass the user-provided text verbatim without summarizing or rephrasing unless they asked for that."
+                        description: "The text to save, written in markdown. Up to 100,000 characters. Use ``` fenced code blocks with a language hint for code, ## for section headings, **bold** for emphasis, - or 1. for lists. Pass the user-provided text verbatim without summarizing or rephrasing unless they asked for that. If the text exceeds 100,000 characters, split it into multiple append_to_inbox calls in order, each part verbatim — never summarize or omit content to fit the limit."
                     ),
                     "title": SchemaProperty(
                         type: "string",
@@ -93,9 +93,19 @@ enum AppendToInboxHandler {
             return
         }
 
-        guard let cleanedContent: String = MCPSanitizer.sanitizeContent(args.content) else {
-            Server.log("input_invalid: content empty or > 100k graphemes (raw len: \(args.content.count))")
-            Server.writeError(id: id, code: -32004, message: "input_invalid: content empty or exceeds 100,000 graphemes")
+        let cleanedContent: String
+        switch MCPSanitizer.checkContent(args.content) {
+        case .ok(let cleaned):
+            cleanedContent = cleaned
+        case .empty:
+            Server.log("input_invalid: content empty after sanitize")
+            Server.writeError(id: id, code: -32004, message: "input_invalid: content is empty")
+            return
+        case .tooLong(let count):
+            // Distinct code + recovery instruction. Agents act on error
+            // text; a bare refusal here makes clients summarize to fit.
+            Server.log("content_too_long: \(count) graphemes (cap \(MCPSanitizer.contentCap))")
+            Server.writeError(id: id, code: -32005, message: MCPSanitizer.tooLongMessage(count: count))
             return
         }
 
