@@ -30,7 +30,7 @@ enum AppendToInboxHandler {
                 properties: [
                     "content": SchemaProperty(
                         type: "string",
-                        description: "The text to save, written in markdown. Up to 100,000 characters. Use ``` fenced code blocks with a language hint for code, ## for section headings, **bold** for emphasis, - or 1. for lists. Pass the user-provided text verbatim without summarizing or rephrasing unless they asked for that. If the text exceeds 100,000 characters, split it into multiple append_to_inbox calls in order, each part verbatim — never summarize or omit content to fit the limit."
+                        description: "The text to save, written in markdown. Up to 100,000 characters. Use ``` fenced code blocks with a language hint for code, ## for section headings, **bold** for emphasis, - or 1. for lists. Pass the user-provided text verbatim unless they asked for changes. If the text exceeds 100,000 characters, split it into multiple append_to_inbox calls in order, each part verbatim, so the complete text is saved."
                     ),
                     "title": SchemaProperty(
                         type: "string",
