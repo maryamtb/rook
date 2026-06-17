@@ -144,12 +144,16 @@ enum AppendToInboxHandler {
         switch result {
         case .success(let timestamp):
             Server.log("appended \(cleanedContent.count) chars (title: \(cleanedTitle ?? "none"), client: \(clientName))")
-            let dayLabel: String = String(timestamp.prefix(10))
+            _ = timestamp
+            // Layout-neutral: Rook decides how saves are materialized (grouped
+            // by day or one note per save) from a user setting the helper can't
+            // see, so the response must not imply a particular layout (e.g. a
+            // date that suggests day-grouping).
             let summary: String
             if let title: String = cleanedTitle {
-                summary = "Saved to Rook inbox \(dayLabel) under \"\(title)\"."
+                summary = "Saved to Rook inbox under \"\(title)\"."
             } else {
-                summary = "Saved to Rook inbox \(dayLabel)."
+                summary = "Saved to Rook inbox."
             }
             Server.writeResult(id: id, result: ToolsCallResult(content: [TextContent(text: summary)]))
         case .failure(let code, let message):
