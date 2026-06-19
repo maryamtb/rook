@@ -1,4 +1,4 @@
-export const APP_VERSION = "1.3.4";
+export const APP_VERSION = "1.3.5";
 export const APP_ITEM_ID = "6766067055";
 export const DMG_URL = `https://lfubd2pcrenetvqi.public.blob.vercel-storage.com/releases/Rook-${APP_VERSION}.dmg`;
 export const MAS_URL = `https://apps.apple.com/us/app/rook-code-notes/id${APP_ITEM_ID}?mt=12&itscg=30200&itsct=apps_box_badge&mttnsubad=${APP_ITEM_ID}`;

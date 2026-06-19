@@ -17,6 +17,22 @@ type Entry = {
 
 const entries: Entry[] = [
   {
+    version: "1.3.5",
+    date: "2026-06-19",
+    notes: [
+      "Markdown: import files as notes by dragging them in or from File → Import with images rendered, improved paste from web AI chats, copy and paste between notes keeps formatting intact, and paste an image with cmd+V to drop it inline or cmd+opt+V as a Markdown image link",
+      "Option added for the append_to_inbox MCP tool to create a new note on each save or group by day",
+      "Cleaner labels for additional AI MCP clients",
+      "Duplicate a note, or create a new note from a notebook's right-click menu",
+      "Trash groups by collection with full paths, with restore from the menu",
+      "Connect an Obsidian vault: files with a tag you choose (frontmatter, inline, or both) appear as read-only views, full note or code block, with a link back to the source. Setup in Settings → Connections",
+      "Editor fixes: list editing, inline code chips that wrap cleanly, Japanese line height, and selection",
+      "Fix for removing a link from the right-click menu, which previously left it in place",
+      "Smoother sidebar toggle and resize, added scroll bar on long notes",
+      "Performance improvements and fixes for large notes",
+    ],
+  },
+  {
     version: "1.3.4",
     date: "2026-06-03",
     notes: [
