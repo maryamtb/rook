@@ -118,7 +118,7 @@ Dijkstra (with heap)       O((V + E) log V)
 ```
 
 <!-- ROOK:SERIES -->
-*More in this series: [Binary search](binary-search.md) · [DFS pattern](dfs-pattern.md) · [Sliding window](sliding-window.md) · [Two pointers](two-pointers.md).*
+*More in this series: [Backtracking](backtracking.md) · [BFS pattern](bfs-pattern.md) · [Binary search](binary-search.md) · [DFS pattern](dfs-pattern.md) · [1D dynamic programming](dp-1d.md) · [Sliding window](sliding-window.md) · [Trees pattern](trees-pattern.md) · [Two pointers](two-pointers.md).*
 <!-- /ROOK:SERIES -->
 
 <!-- ROOK:FOOTER -->

@@ -120,7 +120,7 @@ Same traversal idea, different control flow: LIFO stack gives depth-first behavi
 | Validate Binary Search Tree (LC 98) | Medium | Depth traversal with constraints |
 
 <!-- ROOK:SERIES -->
-*More in this series: [Big-O quick reference](big-o.md) · [Binary search](binary-search.md) · [Sliding window](sliding-window.md) · [Two pointers](two-pointers.md).*
+*More in this series: [Backtracking](backtracking.md) · [BFS pattern](bfs-pattern.md) · [Big-O quick reference](big-o.md) · [Binary search](binary-search.md) · [1D dynamic programming](dp-1d.md) · [Sliding window](sliding-window.md) · [Trees pattern](trees-pattern.md) · [Two pointers](two-pointers.md).*
 <!-- /ROOK:SERIES -->
 
 <!-- ROOK:FOOTER -->

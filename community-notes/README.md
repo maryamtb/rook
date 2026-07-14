@@ -9,7 +9,9 @@ Cheatsheets you can paste into Rook in markdown.
 - [k9s](k9s.md). Terminal UI for Kubernetes: browse, filter, debug resources without typing kubectl.
 - [Docker](docker.md). Images, containers, logs, networking, volumes, Compose, cleanup.
 - [AWS CLI](aws-cli.md). AWS cli basics for installation, auth, profiles.
+- [AWS IAM](aws-iam.md). Users, groups, roles, policies, least privilege.
 - [Git](git.md). Commands for branches, undoing, rebase, remote, log.
+- [SQL](sql.md). Tables, joins, aggregation, indexes, PostgreSQL extras.
 - [FastAPI](fastapi.md). Install, app structure, routes, validation, and testing.
 - [DSA (Python)](dsa-python/). Algorithm patterns and complexity reference.
 - [SOLID Principles](solid-principles/). Five OOP design principles, with Pythonic implementations.

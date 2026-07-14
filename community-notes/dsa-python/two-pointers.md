@@ -79,7 +79,7 @@ Think of `slow` as "where the next unique value should go." `fast` scans ahead a
 | Happy Number (LC 202) | Easy | Fast / slow |
 
 <!-- ROOK:SERIES -->
-*More in this series: [Big-O quick reference](big-o.md) · [Binary search](binary-search.md) · [DFS pattern](dfs-pattern.md) · [Sliding window](sliding-window.md).*
+*More in this series: [Backtracking](backtracking.md) · [BFS pattern](bfs-pattern.md) · [Big-O quick reference](big-o.md) · [Binary search](binary-search.md) · [DFS pattern](dfs-pattern.md) · [1D dynamic programming](dp-1d.md) · [Sliding window](sliding-window.md) · [Trees pattern](trees-pattern.md).*
 <!-- /ROOK:SERIES -->
 
 <!-- ROOK:FOOTER -->
