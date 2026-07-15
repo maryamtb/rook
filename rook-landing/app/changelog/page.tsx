@@ -17,6 +17,22 @@ type Entry = {
 
 const entries: Entry[] = [
   {
+    version: "1.3.6",
+    date: "2026-07-14",
+    notes: [
+      "Redesigned collections browser: a grid of notebooks with previews, drag to move a notebook, and color swatches",
+      "Added support for tables: insert one from the slash menu, move between cells with Tab, add or remove rows and columns. Pasted tables come in as real tables",
+      "Lists and to-dos rebuilt: bullets, numbers, and checkboxes indent with Tab, renumber on their own, and hold their shape through copy, paste, and export",
+      "Headings from H1 to H6, with typed Markdown hashes converting as you go",
+      "Export a note as Markdown or JSON from the File menu",
+      "Import notes from JSON (Note: app-specific imports in roadmap)",
+      "Note-scoped search with Cmd+F, global-scoped search with Cmd+K",
+      "Notes at the root of collections",
+      "Menu bar recents now include AI inbox notes",
+      "Performance and speed improvements"
+    ],
+  },
+  {
     version: "1.3.5",
     date: "2026-06-19",
     notes: [
