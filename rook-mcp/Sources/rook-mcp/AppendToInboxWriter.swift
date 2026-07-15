@@ -59,23 +59,41 @@ enum AppendToInboxWriter {
         }
         let line: Data = rowData + Data([0x0a])
 
-        // O_EXLOCK locks the file in the same step that opens it. As two separate
-        // steps (open, then lock), Rook could rename inbox-pending.jsonl to
-        // inbox-processing.jsonl in between. Our write would target the renamed
-        // file and be lost when Rook deletes it.
-        let fd: Int32 = open(pendingPath, O_WRONLY | O_APPEND | O_CREAT | O_NOFOLLOW | O_EXLOCK, 0o600)
-        if fd < 0 {
-            return .failure(code: -32005, message: "store_write_failed: open: \(errnoMsg())")
+        // O_EXLOCK locks the file in the same step that opens it — but that
+        // atomicity does NOT cover a QUEUED open: the path resolves to the
+        // inode before blocking on the lock, so if Rook rotates
+        // inbox-pending → inbox-processing while we wait, we wake holding a
+        // lock on the RENAMED file and our row is deleted with it. After
+        // acquiring the lock, confirm the path still names our inode;
+        // otherwise retry against the fresh pending file.
+        var fd: Int32 = -1
+        var st: stat = stat()
+        var attempts = 0
+        while true {
+            fd = open(pendingPath, O_WRONLY | O_APPEND | O_CREAT | O_NOFOLLOW | O_EXLOCK, 0o600)
+            if fd < 0 {
+                return .failure(code: -32005, message: "store_write_failed: open: \(errnoMsg())")
+            }
+            if fstat(fd, &st) != 0 {
+                close(fd)
+                return .failure(code: -32005, message: "store_write_failed: fstat: \(errnoMsg())")
+            }
+            guard (st.st_mode & S_IFMT) == S_IFREG else {
+                close(fd)
+                return .failure(code: -32005, message: "store_write_failed: not a regular file")
+            }
+            var pathSt: stat = stat()
+            if stat(pendingPath, &pathSt) == 0, pathSt.st_ino == st.st_ino, pathSt.st_dev == st.st_dev {
+                break
+            }
+            flock(fd, LOCK_UN)
+            close(fd)
+            attempts += 1
+            if attempts >= 10 {
+                return .failure(code: -32005, message: "store_write_failed: rotation contention; retry this save verbatim")
+            }
         }
         defer { close(fd) }
-
-        var st: stat = stat()
-        if fstat(fd, &st) != 0 {
-            return .failure(code: -32005, message: "store_write_failed: fstat: \(errnoMsg())")
-        }
-        guard (st.st_mode & S_IFMT) == S_IFREG else {
-            return .failure(code: -32005, message: "store_write_failed: not a regular file")
-        }
         defer { flock(fd, LOCK_UN) }
 
         let written: Int = line.withUnsafeBytes { ptr -> Int in
