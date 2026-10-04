@@ -29,9 +29,7 @@ export default function Home() {
       <Separator className="max-w-[1080px] mx-auto opacity-50" />
       <Themes activeTheme={activeTheme} onSelect={selectTheme} />
       <Shortcuts />
-      <Separator className="max-w-[1080px] mx-auto opacity-50" />
       <CommunityNotes />
-      <Separator className="max-w-[1080px] mx-auto opacity-50" />
       <Cta signupMeta={signupMeta} />
       <TweetVibe />
       <Separator />

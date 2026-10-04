@@ -29,7 +29,10 @@ export function WhatsNewPill({ source, signupMeta }: { source: string; signupMet
                 "--pill-shine-color": "rgba(255, 97, 84, 1)",
                 "--pill-glow-color": "rgba(255, 97, 84, 0.45)",
               } as React.CSSProperties)
-            : undefined
+            : ({
+                "--pill-shine-color": "rgba(220, 220, 225, 0.8)",
+                "--pill-glow-color": "rgba(220, 220, 225, 0.12)",
+              } as React.CSSProperties)
         }
       >
         <span aria-hidden className="pill-glow absolute -inset-3 rounded-full" />
@@ -56,7 +59,7 @@ export function WhatsNewPill({ source, signupMeta }: { source: string; signupMet
             <span aria-hidden className="pill-shine absolute inset-0 rounded-full p-[1px]" />
             <span
               className="relative inline-flex items-center px-2 py-[2px] rounded-full font-mono text-[10.5px] tracking-tight tabular-nums"
-              style={{ backgroundColor: "rgba(140, 200, 192, 0.1)", color: "rgb(140, 200, 192)" }}
+              style={{ backgroundColor: "rgba(255, 255, 255, 0.07)", color: "rgb(240, 240, 242)" }}
             >
               v{APP_VERSION}
             </span>

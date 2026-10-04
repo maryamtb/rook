@@ -4,13 +4,9 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { InteractiveRook, MobileMockup, type MobileNote } from "@/components/rook-preview";
 import { themes } from "@/lib/themes";
-import { useLaunchState } from "@/hooks/use-launch-state";
-import { captureEvent } from "@/lib/posthog-safe";
-import { EVENT } from "@/lib/events";
 import { DownloadCta } from "./download-cta";
 import { WhatsNewPill } from "./whats-new-pill";
 import { HeroMcpLinkMobile, HeroMcpLinkDesktop } from "./hero-mcp-link";
-import { PlatformWaitlist } from "@/components/platform-waitlist";
 import type { SignupMeta } from "@/hooks/use-signup-meta";
 
 const HERO_THEME_IDX = 3;
@@ -46,7 +42,6 @@ const CLAUDE_FIRST_API_NOTE: MobileNote = {
 };
 
 export function Hero({ signupMeta }: { signupMeta: SignupMeta | null }) {
-  const { showDiscount } = useLaunchState(signupMeta);
 
   return (
     <section className="pt-[140px] md:pt-[176px]">
@@ -72,7 +67,7 @@ export function Hero({ signupMeta }: { signupMeta: SignupMeta | null }) {
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.08 }}
           className="whitespace-nowrap text-[clamp(22px,6.5vw,52px)] font-mono font-bold tracking-[-0.03em] leading-[1.12] text-foreground"
         >
-          Notes that speak <span className="text-rook shimmer">code</span>
+          Notes that speak <span className="hero-code-shimmer">code</span>
         </motion.h1>
 
         <motion.p
@@ -88,32 +83,13 @@ export function Hero({ signupMeta }: { signupMeta: SignupMeta | null }) {
 
         <DownloadCta source="hero" />
 
-        {!showDiscount && (
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}
-            className="mt-4 text-[13px] font-mono text-rook/90"
-          >
-            Pro is on the way.{" "}
-            <a
-              href="#download"
-              className="underline decoration-rook/40 underline-offset-4 hover:decoration-rook/80 transition-colors"
-              onClick={() => captureEvent(EVENT.SubscribeClick, { source: "hero" })}
-            >
-              Subscribe for updates
-            </a>
-          </motion.p>
-        )}
-
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
           className="hidden sm:flex mt-4 items-center justify-center gap-1 font-mono text-[11px] tracking-wide text-muted-foreground/55"
         >
-          <span>Free. macOS 14+. Apple Silicon &amp; Intel</span>
-          <PlatformWaitlist source="hero_spec" className="ml-1" />
+          <span>macOS 14+ · Apple Silicon &amp; Intel</span>
         </motion.div>
 
       </div>

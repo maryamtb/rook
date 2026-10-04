@@ -1,3 +1,4 @@
+import { DISCORD_URL } from "@/lib/constants";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { getSupabaseAdmin } from "@/lib/supabase";
@@ -139,7 +140,7 @@ export async function POST(request: Request) {
 										>@mimobenjo</a
 									>
 								</p>`,
-          extraBlurbHtml: `<p style="margin: 0">
+          extraBlurbHtml: `<p style="margin: 0 0 12px">Join the <a href="${DISCORD_URL}" style="color: #e8962e; text-decoration: underline">Rook Discord</a> to share feedback, ask questions, and chat with other Rook users.</p><p style="margin: 0">
 									We have
 									<a
 										href="https://github.com/maryamtb/rook/tree/main/community-notes"

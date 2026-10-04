@@ -1,18 +1,15 @@
 import type { Metadata } from "next";
 import { Nav, Footer } from "@/components/sections";
 import { PageGradients } from "@/components/page-gradients";
+import { ArchitectureDiagram } from "./architecture-diagram";
 import { DMG_URL } from "@/lib/constants";
 import { Toc, CopyBlock, ConfigAccordion, CursorInstallButton, ExpandableImage, type ConfigItem, type TocItem } from "./client";
-import { ArchitectureDiagram } from "./architecture-diagram";
 
 export const metadata: Metadata = {
   title: "Rook MCP · Save AI notes to Rook",
   description:
-    "Rook 1.3.0 adds the Model Context Protocol. Ask Claude Code, Claude Desktop, Codex, Cursor, or Gemini CLI to save notes to Rook. Each tool gets its own inbox.",
+    "Save anything while you code with AI, directly to Rook.",
 };
-
-const SAGE = "rgb(140, 200, 192)";
-const SAGE_BG = "rgba(140, 200, 192, 0.1)";
 
 const ROOK_MCP_BIN =
   "/Applications/Rook.app/Contents/Helpers/rook-mcp.app/Contents/MacOS/rook-mcp";
@@ -36,20 +33,10 @@ const CURSOR_DEEPLINK =
 
 const TOC_ITEMS: TocItem[] = [
   { id: "overview", label: "Rook MCP" },
-  {
-    id: "configuration",
-    label: "Configuration",
-    children: [
-      { id: "claude-code", label: "Claude Code" },
-      { id: "codex", label: "Codex" },
-      { id: "gemini-cli", label: "Gemini CLI" },
-      { id: "cursor", label: "Cursor" },
-      { id: "claude-desktop", label: "Claude Desktop" },
-    ],
-  },
+  { id: "configuration", label: "Configuration" },
   { id: "how-it-works", label: "How it works" },
-  { id: "tools", label: "Tools" },
-  { id: "common-questions", label: "Common questions" },
+  { id: "questions", label: "Common questions" },
+  { id: "reference", label: "Technical reference" },
 ];
 
 const h2 = "text-[24px] font-semibold tracking-tight mt-16 mb-5 scroll-mt-20";
@@ -68,22 +55,15 @@ const CONFIG_ITEMS: ConfigItem[] = [
     content: (
       <>
         <p className={pTight}>
-          Add the Rook MCP server to Claude Code with either flag,
-          user-scoped or local-scoped:
+          Register the Rook MCP server at user scope to make it available across projects:
         </p>
         <CopyBlock text={CLAUDE_CODE_CMD} label="Claude Code (user scope)" />
-        <p className={p}>
-          User scope sets the Rook MCP server in every Claude Code
-          session, regardless of directory.
-        </p>
-        <CopyBlock text={CLAUDE_CODE_CMD_LOCAL} label="Claude Code (local scope)" />
-        <p className={p}>Local scope sets it for the current repo only.</p>
-        <p className={p}>Then, in a new Claude Code session:</p>
-        <CopyBlock text={`save "hello from claude code" to Rook`} label="example save" />
-        <p className={p}>
-          You&apos;ll see a &ldquo;Saved to Rook inbox&rdquo; confirmation,
-          and a Claude Inbox appears in Rook with the note inside.
-        </p>
+        <details className="my-4">
+          <summary className="cursor-pointer text-[13px] text-muted-foreground hover:text-foreground">Project-specific configuration</summary>
+          <CopyBlock text={CLAUDE_CODE_CMD_LOCAL} label="Claude Code (local scope)" />
+          <p className={p}>Run this command from the project directory instead of registering at user scope.</p>
+        </details>
+        <p className={p}>Start a new Claude Code session after registration.</p>
         <p className={p}>
           Type <code className={codeInline}>/mcp</code> inside a Claude
           Code session to see configured servers.
@@ -98,16 +78,12 @@ const CONFIG_ITEMS: ConfigItem[] = [
       <>
         <p className={pTight}>Add the Rook MCP server to Codex with:</p>
         <CopyBlock text={CODEX_CMD} label="Codex command" />
-        <p className={p}>
-          Or add it manually to{" "}
-          <code className={codeInline}>~/.codex/config.toml</code>:
-        </p>
-        <CopyBlock text={CODEX_TOML} label="Codex config" />
-        <p className={p}>
-          Then, in a new Codex session,{" "}
-          <code className={codeInline}>save &quot;hello from Codex&quot; to Rook</code>{" "}
-          works.
-        </p>
+        <details className="my-4">
+          <summary className="cursor-pointer text-[13px] text-muted-foreground hover:text-foreground">Manual configuration</summary>
+          <p className={p}>Add the following entry to <code className={codeInline}>~/.codex/config.toml</code>:</p>
+          <CopyBlock text={CODEX_TOML} label="Codex config" />
+        </details>
+        <p className={p}>Start a new Codex session after registration.</p>
         <p className={p}>
           Type <code className={codeInline}>/mcp</code> inside a Codex
           session to see configured servers.
@@ -126,9 +102,7 @@ const CONFIG_ITEMS: ConfigItem[] = [
           the folder where you want Gemini to access Rook, run{" "}
           <code className={codeInline}>/permissions trust</code> inside a
           Gemini session, then quit Gemini (Ctrl+C twice) and reopen it in
-          the same folder. After that,{" "}
-          <code className={codeInline}>save &quot;hello from Gemini&quot; to Rook</code>{" "}
-          works.
+          the same folder.
         </p>
         <p className={p}>
           The trust step is per-folder. Repeat it in any new project where
@@ -146,27 +120,17 @@ const CONFIG_ITEMS: ConfigItem[] = [
     label: "Cursor",
     content: (
       <>
-        <p className={pTight}>Cursor supports installing MCP servers via deeplink:</p>
+        <p className={pTight}>Use the installation link below to register Rook in Cursor:</p>
         <CursorInstallButton deeplink={CURSOR_DEEPLINK} />
         <p className={p}>
           Clicking &ldquo;Add to Cursor&rdquo; opens Cursor with a
-          confirmation dialog. Click Install, then restart Cursor. After
-          that,{" "}
-          <code className={codeInline}>save &quot;hello from Cursor&quot; to Rook</code>{" "}
-          works.
+          confirmation dialog. Click Install, then restart Cursor.
         </p>
         <p className={p}>
           Configured servers appear in Settings → Tools &amp; MCPs.
         </p>
         <figure className={figure}>
-          <ExpandableImage
-            src="/cursor-setup.png"
-            alt="rook installed in Cursor's Tools and MCPs panel"
-            description="rook installed in Cursor's Tools and MCPs panel"
-            width={1440}
-            height={900}
-            loading="eager"
-          />
+          <ExpandableImage src="/cursor-setup.png" alt="Rook MCP installation in Cursor" description="Cursor shows the Rook helper command and the append_to_inbox tool in Tools and MCPs." width={2048} height={1160} loading="lazy" />
         </figure>
       </>
     ),
@@ -185,11 +149,20 @@ const CONFIG_ITEMS: ConfigItem[] = [
         </p>
         <CopyBlock text={CLAUDE_DESKTOP_JSON} label="Claude Desktop config" />
         <p className={p}>
-          After saving and reopening Claude Desktop,{" "}
-          <code className={codeInline}>save &quot;hello from Claude Desktop&quot; to Rook</code>{" "}
-          works.
+          Save the file and reopen Claude Desktop.
         </p>
         <p className={p}>Configured servers appear in Settings → Developer.</p>
+      </>
+    ),
+  },
+  {
+    id: "other-clients",
+    label: "Other MCP clients",
+    content: (
+      <>
+        <p className={pTight}>For OpenCode or another client that supports local MCP servers, add a server named <code className={codeInline}>rook</code> using the stdio transport. Set its executable to the following path, with no arguments.</p>
+        <CopyBlock text={ROOK_MCP_BIN} label="Rook MCP executable path" />
+        <p className={p}>Use your client&apos;s configuration format. The client launches the helper directly; no server URL or port is required.</p>
       </>
     ),
   },
@@ -200,46 +173,24 @@ export default function MCPPage() {
     <main className="min-h-screen bg-background text-foreground overflow-x-clip relative">
       <PageGradients />
       <Nav />
-
-      <div className="pt-32 pb-16 px-6">
-        <div className="max-w-[1100px] mx-auto">
-          <div className="lg:grid lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-16">
-            <aside className="hidden lg:block">
-              <div className="sticky top-24">
-                <p className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground/80 mb-4 font-medium">
-                  On this page
-                </p>
-                <Toc items={TOC_ITEMS} />
-              </div>
-            </aside>
-
-            <article className="max-w-[720px]">
-              <header id="overview" className="mb-10 scroll-mt-20">
-                <div className="flex items-center gap-3 mb-5 flex-wrap">
-                  <h1 className="text-[clamp(30px,4vw,40px)] font-mono font-bold tracking-[-0.03em] leading-[1.05]">
-                    Rook MCP
-                  </h1>
-                  <span
-                    className="inline-flex items-center px-2 py-[3px] rounded-full text-[10.5px] font-semibold tracking-[0.06em]"
-                    style={{ backgroundColor: SAGE_BG, color: SAGE }}
-                  >
-                    BETA
-                  </span>
-                </div>
-                <p className="text-[16px] text-foreground/85 leading-[1.7] mb-4">
-                  Rook 1.3.0 adds support for the Model Context Protocol (MCP),
-                  the open protocol AI tools use to talk to programs and data
-                  sources. Claude Code, Claude Desktop, Codex, Cursor, and
-                  Gemini CLI can save notes to Rook over MCP. Saves appear in
-                  Rook immediately.
-                </p>
-                <p className="text-[15px] text-foreground/75 leading-[1.7]">
-                  Useful when you&apos;d otherwise be copy-pasting AI output
-                  by hand: a code snippet from a chat, a debugging session
-                  summary, action items from a long thread, or the text to prompt the next AI session. Each connected AI
-                  saves to Rook. 
-                </p>
-                <div className="mt-6 inline-flex items-center gap-2 rounded-md border border-border/60 bg-foreground/[0.02] px-3 py-1.5 text-[13px]">
+      <div className="px-6 pb-16 pt-32">
+        <div className="mx-auto max-w-[1100px] lg:grid lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-16">
+          <aside className="hidden lg:block">
+            <div className="sticky top-24">
+              <p className="mb-4 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">On this page</p>
+              <Toc items={TOC_ITEMS} />
+            </div>
+          </aside>
+          <article className="min-w-0 max-w-[720px]">
+            <header id="overview" className="scroll-mt-24">
+              <h1 className="font-mono text-[clamp(30px,4vw,40px)] font-bold tracking-[-0.03em]">Rook MCP</h1>
+              <p className="mt-4 text-[18px] leading-relaxed text-foreground/90">Save anything while you code with AI, directly to Rook.</p>
+              <p className={p}>
+                Rook supports the{" "}
+                <a href="https://www.anthropic.com/news/model-context-protocol" target="_blank" rel="noopener noreferrer" className="text-rook underline underline-offset-4">Model Context Protocol (MCP)</a>,
+                the open protocol AI tools use to talk to programs and data sources. Connect any tool that supports local MCP servers, including OpenCode, Claude, Codex, Cursor and Gemini. Each tool saves to its own inbox in Rook.
+              </p>
+                <div className="mt-6 inline-flex flex-wrap items-center gap-2 rounded-md border border-border/60 bg-foreground/[0.02] px-3 py-1.5 text-[13px]">
                   <span className="text-muted-foreground">Requires Rook 1.3.0 or later.</span>
                   <a
                     href={DMG_URL}
@@ -258,74 +209,115 @@ export default function MCPPage() {
                     Source code
                   </a>
                 </div>
-              </header>
+            </header>
 
-              <section id="configuration" className="scroll-mt-20">
-                <h2 className={h2}>Configuration</h2>
+            <section id="configuration" className="scroll-mt-24">
+              <h2 className={h2}>Configuration</h2>
+              <h3 className={h3}>1. Enable MCP in Rook</h3>
+              <p className={p}>Install Rook in /Applications, then open Settings → MCP and select Enable.</p>
+              <h3 className={h3}>2. Configure your MCP client</h3>
+              <p className={p}>Select your client below and follow its configuration instructions.</p>
+              <ConfigAccordion items={CONFIG_ITEMS} />
+              <h3 className={h3}>3. Verify the connection</h3>
+              <p className={p}>Start a new session in your configured client and send the following request.</p>
+              <CopyBlock text='Save "hello from my AI tool" to Rook' label="example save" />
+              <p className={p}>Verify that the saved text appears in the client&apos;s inbox in Rook. By default, saves from the same client are grouped into one note per day. To create a separate note for each save, change Save style in Settings → MCP. This setting applies to new saves only.</p>
+              <figure className={figure}>
+                <ExpandableImage src="/mcp-inboxes.png" alt="Separate AI inboxes in Rook" description="Rook groups saves into an inbox for each connected AI tool." width={1440} height={900} loading="lazy" />
+                <figcaption className="px-4 py-3 text-[12px] text-muted-foreground">Separate inboxes for each connected MCP client.</figcaption>
+              </figure>
+            </section>
+
+            <section id="how-it-works" className="scroll-mt-24">
+              <h2 className={h2}>How it works</h2>
+              <p className={p}>The MCP client launches the helper bundled with Rook and communicates with it over standard input and output (stdio). The helper writes to a shared local inbox, which Rook reads to import saved content.</p>
+              <figure className={figure}>
+                <ArchitectureDiagram />
+              </figure>
+              <p className={p}>The helper runs in the macOS app sandbox without network access. It exposes one tool for appending content to the inbox, with no operations to read, modify or delete existing notes. This allows AI tools to save content to Rook without access to your existing notes.</p>
+            </section>
+
+            <section id="questions" className="scroll-mt-24">
+              <h2 className={h2}>Common questions</h2>
+              <details className="border-b border-border/60 py-4">
+                <summary className="cursor-pointer text-[15px] font-medium">Can I save multiple items or long content?</summary>
+                <p className={p}>Yes. A client can save multiple items through consecutive append_to_inbox requests. Each request accepts one content value and an optional title.</p>
+                <p className={p}>For content over 100,000 characters, the helper instructs the client to split the text into consecutive requests, preserving each part verbatim and in order. The client performs the split; the helper does not split oversized requests automatically. Each request counts toward the rate limit and follows your Save style setting.</p>
+              </details>
+              <details className="border-b border-border/60 py-4">
+                <summary className="cursor-pointer text-[15px] font-medium">Does saved content support Markdown?</summary>
+                <p className={p}>Rook renders saved Markdown as formatted notes, including headings, fenced code blocks, lists, task lists, links and text emphasis. Include a language identifier on fenced code blocks for syntax highlighting.</p>
+              </details>
+                <details className="border-b border-border/60 py-4">
+<summary className="cursor-pointer text-[15px] font-medium">How do I disable or pause MCP?</summary>
+
                 <p className={p}>
-                  This section walks through setting up Rook MCP with 5 local
-                  clients: Claude Code, Codex, Gemini CLI, Cursor, and Claude
-                  Desktop.
+                  In Settings → MCP, clear Enable to disable the integration. Select Pause new saves to suspend writes without removing the client configuration.
+                </p></details>
+
+
+                <details className="border-b border-border/60 py-4">
+<summary className="cursor-pointer text-[15px] font-medium">How do I remove the integration entirely?</summary>
+
+                <p className={p}>
+                  Run the matching remove command for each client:
+                </p>
+                <ul className="text-[15px] text-foreground/85 leading-[1.75] my-4 pl-5 list-disc space-y-1.5">
+                  <li>
+                    Claude Code: <code className={codeInline}>claude mcp remove rook</code>
+                  </li>
+                  <li>
+                    Codex: <code className={codeInline}>codex mcp remove rook</code>
+                  </li>
+                  <li>
+                    Gemini CLI: <code className={codeInline}>gemini mcp remove rook</code>
+                  </li>
+                  <li>
+                    Cursor: remove <code className={codeInline}>rook</code> from the User MCP Servers list in Settings → Tools &amp; MCPs
+                  </li>
+                  <li>
+                    Claude Desktop: remove the <code className={codeInline}>rook</code> block from Settings → Developer → Edit Config
+                  </li>
+                </ul></details>
+
+
+                <details className="border-b border-border/60 py-4">
+<summary className="cursor-pointer text-[15px] font-medium">Are there limits?</summary>
+
+                <p className={p}>
+                  Each Rook MCP helper process accepts up to 100 save requests in a rolling 60-second window. Requests that fail validation or are paused also count toward this limit. Each request supports up to 100,000 characters of content.
+                </p></details>
+
+
+                <details className="border-b border-border/60 py-4">
+<summary className="cursor-pointer text-[15px] font-medium">Can a client save while Rook is not running?</summary>
+
+                <p className={p}>
+                  Yes. The helper writes the content to disk. Rook imports it the next time it reads the inbox.
+                </p></details>
+
+
+                <details className="border-b border-border/60 py-4">
+<summary className="cursor-pointer text-[15px] font-medium">How do I inspect save activity?</summary>
+
+                <p className={p}>
+                  Click the MCP indicator in Rook&apos;s toolbar to inspect recent inbox activity. Use the server logs below to diagnose requests rejected before they reach the inbox.
                 </p>
 
-                <ConfigAccordion initial={["claude-code"]} items={CONFIG_ITEMS} />
-              </section>
+</details>
 
-              <section id="how-it-works" className="scroll-mt-20">
-                <h2 className={h2}>How it works</h2>
-                <p className={p}>
-                  Rook 1.3.0 includes the MCP helper, a separate binary
-                  installed alongside Rook. When an AI tool connects to Rook,
-                  it launches the helper as a child process and communicates
-                  with it over stdio. The helper writes saves to a shared
-                  inbox folder, an app group container that macOS lets both
-                  the helper and Rook access. Rook reads from that folder.
-                </p>
+              <details className="border-b border-border/60 py-4">
+                <summary className="cursor-pointer text-[15px] font-medium">How do I inspect server logs?</summary>
+                <p className={p}>Run the following command in Terminal to stream helper logs, then submit a save request from your MCP client.</p>
+                <CopyBlock text={"/usr/bin/log stream --level info --predicate 'subsystem == \"com.userook.rook.mcp\"'"} label="live MCP logs" />
+                <p className={p}>The helper also writes to stderr, which your AI client may capture.</p>
+              </details>
+            </section>
 
-                <figure className={figure}>
-                  <ArchitectureDiagram />
-                </figure>
-
-                <p className={p}>
-                  The helper exposes one tool: append a note. An AI tool
-                  connected through MCP can add new notes, but cannot read,
-                  modify, or remove existing ones.
-                </p>
-                <p className={p}>
-                  The helper runs inside macOS&apos;s app sandbox. Its
-                  entitlements allow two operations: receiving messages from
-                  the AI tool that spawned it, and appending to Rook&apos;s
-                  shared inbox.
-                </p>
-                <p className={p}>
-                  The AI tool and helper communicate over local IPC
-                  (inter-process communication) only. The helper has no
-                  network access and exits when its parent AI tool quits.
-                </p>
-                <figure className={figure}>
-                  <ExpandableImage
-                    src="/rook-mcp.png"
-                    alt="Rook MCP and Claude code"
-                    description="Rook MCP and Claude code"
-                    width={1440}
-                    height={900}
-                    loading={"eager"}
-                  />
-                </figure>
-                <figure className={figure}>
-                  <ExpandableImage
-                    src="/mcp-popover.png"
-                    alt="MCP activity popover with recent saves"
-                    description="MCP activity popover with recent saves"
-                    width={1440}
-                    height={900}
-                    loading="eager"
-                  />
-                </figure>
-              </section>
-
-              <section id="tools" className="scroll-mt-20">
-                <h2 className={h2}>Tools</h2>
+            <section id="reference" className="scroll-mt-24">
+              <h2 className={h2}>Technical reference</h2>
+              <details className="rounded-lg border border-border/60 px-4 py-4 sm:px-5">
+                <summary className="cursor-pointer text-[15px] font-medium">append_to_inbox · parameters, responses and errors</summary>
                 <p className={p}>
                   rook-mcp implements MCP protocol 2024-11-05 over stdio. The
                   server exposes one tool.
@@ -354,13 +346,13 @@ export default function MCPPage() {
                         <td className="px-3 py-2.5 align-top"><code className="font-mono text-[13px]">content</code></td>
                         <td className="px-3 py-2.5 align-top text-muted-foreground">string</td>
                         <td className="px-3 py-2.5 align-top text-muted-foreground">yes</td>
-                        <td className="px-3 py-2.5 align-top">The text to save, up to 100,000 characters.</td>
+                        <td className="px-3 py-2.5 align-top">Markdown content to save, up to 100,000 characters per request.</td>
                       </tr>
                       <tr className="border-t border-border/60">
                         <td className="px-3 py-2.5 align-top"><code className="font-mono text-[13px]">title</code></td>
                         <td className="px-3 py-2.5 align-top text-muted-foreground">string</td>
                         <td className="px-3 py-2.5 align-top text-muted-foreground">no</td>
-                        <td className="px-3 py-2.5 align-top">Short heading shown above the content. Up to 200 characters.</td>
+                        <td className="px-3 py-2.5 align-top">Optional heading. Titles longer than 200 characters are truncated after sanitization.</td>
                       </tr>
                     </tbody>
                   </table>
@@ -368,13 +360,14 @@ export default function MCPPage() {
 
                 <h4 className={h4}>Returns</h4>
                 <p className={p}>
-                  A confirmation string. Without a title:{" "}
-                  <code className={codeInline}>Saved to Rook inbox 2026-05-12.</code>{" "}
+                  A tool result containing a text confirmation. Without a title:{" "}
+                  <code className={codeInline}>Saved to Rook inbox.</code>{" "}
                   With a title:{" "}
-                  <code className={codeInline}>Saved to Rook inbox 2026-05-12 under &quot;my title&quot;.</code>
+                  <code className={codeInline}>Saved to Rook inbox under &quot;my title&quot;.</code>
                 </p>
 
                 <h4 className={h4}>Errors</h4>
+                <p className={p}>The current helper uses -32005 for both oversized content and write failures. Inspect the error message to distinguish them.</p>
                 <div className="my-4 overflow-x-auto rounded-lg border border-border/60">
                   <table className="w-full text-[14px]">
                     <thead className="bg-foreground/[0.03]">
@@ -386,112 +379,63 @@ export default function MCPPage() {
                     </thead>
                     <tbody className="text-foreground/85">
                       <tr className="border-t border-border/60">
+                        <td className="px-3 py-2.5 align-top font-mono text-[13px] text-muted-foreground">-32700</td>
+                        <td className="px-3 py-2.5 align-top"><code className="font-mono text-[13px]">parse error</code></td>
+                        <td className="px-3 py-2.5 align-top">The request could not be decoded as a JSON-RPC request.</td>
+                      </tr>
+                      <tr className="border-t border-border/60">
+                        <td className="px-3 py-2.5 align-top font-mono text-[13px] text-muted-foreground">-32600</td>
+                        <td className="px-3 py-2.5 align-top"><code className="font-mono text-[13px]">invalid request</code></td>
+                        <td className="px-3 py-2.5 align-top">The jsonrpc version is missing or invalid, or the method was called before initialization.</td>
+                      </tr>
+                      <tr className="border-t border-border/60">
+                        <td className="px-3 py-2.5 align-top font-mono text-[13px] text-muted-foreground">-32601</td>
+                        <td className="px-3 py-2.5 align-top"><code className="font-mono text-[13px]">method not found / tool not found</code></td>
+                        <td className="px-3 py-2.5 align-top">The requested method or tool is not supported.</td>
+                      </tr>
+                      <tr className="border-t border-border/60">
+                        <td className="px-3 py-2.5 align-top font-mono text-[13px] text-muted-foreground">-32001</td>
+                        <td className="px-3 py-2.5 align-top"><code className="font-mono text-[13px]">entitlement_unavailable</code></td>
+                        <td className="px-3 py-2.5 align-top">The helper cannot access the shared app-group container.</td>
+                      </tr>
+                      <tr className="border-t border-border/60">
                         <td className="px-3 py-2.5 align-top font-mono text-[13px] text-muted-foreground">-32002</td>
                         <td className="px-3 py-2.5 align-top"><code className="font-mono text-[13px]">rate_limited</code></td>
-                        <td className="px-3 py-2.5 align-top">More than 100 saves in 60 seconds. Each client process has its own budget.</td>
+                        <td className="px-3 py-2.5 align-top">The helper process has reached 100 save requests in a rolling 60-second window.</td>
                       </tr>
                       <tr className="border-t border-border/60">
                         <td className="px-3 py-2.5 align-top font-mono text-[13px] text-muted-foreground">-32003</td>
                         <td className="px-3 py-2.5 align-top"><code className="font-mono text-[13px]">paused</code></td>
-                        <td className="px-3 py-2.5 align-top">MCP is paused in Rook (Settings → MCP → Resume).</td>
+                        <td className="px-3 py-2.5 align-top">MCP is paused in Rook. Clear Pause new saves in Settings → MCP.</td>
                       </tr>
                       <tr className="border-t border-border/60">
                         <td className="px-3 py-2.5 align-top font-mono text-[13px] text-muted-foreground">-32004</td>
                         <td className="px-3 py-2.5 align-top"><code className="font-mono text-[13px]">input_invalid</code></td>
-                        <td className="px-3 py-2.5 align-top">Content is empty, exceeds 100,000 characters, or title is empty after sanitization.</td>
+                        <td className="px-3 py-2.5 align-top">Request parameters are invalid, or content or title is empty after sanitization.</td>
+                      </tr>
+                      <tr className="border-t border-border/60">
+                        <td className="px-3 py-2.5 align-top font-mono text-[13px] text-muted-foreground">-32005</td>
+                        <td className="px-3 py-2.5 align-top"><code className="font-mono text-[13px]">content_too_long</code></td>
+                        <td className="px-3 py-2.5 align-top">Content exceeds 100,000 characters. Split it into consecutive requests without summarizing or omitting text.</td>
+                      </tr>
+                      <tr className="border-t border-border/60">
+                        <td className="px-3 py-2.5 align-top font-mono text-[13px] text-muted-foreground">-32005</td>
+                        <td className="px-3 py-2.5 align-top"><code className="font-mono text-[13px]">store_write_failed</code></td>
+                        <td className="px-3 py-2.5 align-top">The helper could not write the content to the inbox.</td>
+                      </tr>
+                      <tr className="border-t border-border/60">
+                        <td className="px-3 py-2.5 align-top font-mono text-[13px] text-muted-foreground">-32006</td>
+                        <td className="px-3 py-2.5 align-top"><code className="font-mono text-[13px]">disabled</code></td>
+                        <td className="px-3 py-2.5 align-top">MCP is disabled. Select Enable in Settings → MCP.</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-              </section>
-
-              <section id="common-questions" className="scroll-mt-20">
-                <h2 className={h2}>Common questions</h2>
-
-                <h4 className={h4}>Will my AI see existing Rook notes?</h4>
-                <p className={p}>
-                  No. The helper exposes no read or list operations. A
-                  connected AI can add notes but cannot see existing ones.
-                </p>
-
-                <h4 className={h4}>Does Rook MCP send data off-device?</h4>
-                <p className={p}>
-                  No. Communication is stdio only, and the helper&apos;s
-                  sandbox blocks network access. Saves are written to a local
-                  folder that Rook reads from.
-                </p>
-
-                <h4 className={h4}>Where do saves go?</h4>
-                <p className={p}>
-                  Each AI gets its own collection in Rook: Claude Inbox,
-                  Codex Inbox, Cursor Inbox, Gemini Inbox. Saves from the same
-                  client within a day are grouped into a single note.
-                </p>
-
-                <h4 className={h4}>How can it be turned off?</h4>
-                <p className={p}>
-                  Settings → MCP has a master toggle. The Pause toggle blocks
-                  new saves without removing the client-side configuration.
-                </p>
-
-                <h4 className={h4}>How do I remove the integration entirely?</h4>
-                <p className={p}>
-                  Run the matching remove command for each client:
-                </p>
-                <ul className="text-[15px] text-foreground/85 leading-[1.75] my-4 pl-5 list-disc space-y-1.5">
-                  <li>
-                    Claude Code: <code className={codeInline}>claude mcp remove rook</code>
-                  </li>
-                  <li>
-                    Codex: <code className={codeInline}>codex mcp remove rook</code>
-                  </li>
-                  <li>
-                    Gemini CLI: <code className={codeInline}>gemini mcp remove rook</code>
-                  </li>
-                  <li>
-                    Cursor: remove <code className={codeInline}>rook</code> from the User MCP Servers list in Settings → Tools &amp; MCPs
-                  </li>
-                  <li>
-                    Claude Desktop: remove the <code className={codeInline}>rook</code> block from Settings → Developer → Edit Config
-                  </li>
-                </ul>
-
-                <h4 className={h4}>Are there limits?</h4>
-                <p className={p}>
-                  Up to 100 saves per minute per session, and up to 100,000
-                  characters per save.
-                </p>
-
-                <h4 className={h4}>What if Rook isn&apos;t running when an AI tries to save?</h4>
-                <p className={p}>
-                  The helper writes the save to disk regardless. Rook picks it
-                  up the next time it reads the inbox.
-                </p>
-
-                <h4 className={h4}>How can I see what&apos;s been saved?</h4>
-                <p className={p}>
-                  Click the MCP indicator in Rook&apos;s toolbar. The activity
-                  log shows every save attempt with the client name, content
-                  size, status, and time.
-                </p>
-
-                <figure className={figure}>
-                  <ExpandableImage
-                    src="/mcp-inboxes.png"
-                    alt="Per-tool inboxes in the Rook sidebar"
-                    description="Per-tool inboxes in the Rook sidebar"
-                    width={1440}
-                    height={900}
-                    loading="eager"
-                  />
-                </figure>
-              </section>
-
-            </article>
-          </div>
+              </details>
+            </section>
+          </article>
         </div>
       </div>
-
       <Footer />
     </main>
   );

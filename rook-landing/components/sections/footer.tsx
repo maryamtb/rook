@@ -1,3 +1,4 @@
+import { DISCORD_URL } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { GitHubIcon, XIcon } from "@/components/icons";
@@ -16,6 +17,8 @@ export function Footer() {
           </Link>
           <div className="flex flex-wrap items-center justify-start gap-x-4 gap-y-2 text-xs text-muted-foreground/80 sm:justify-end sm:gap-5">
             <Link href="/mcp" className="hover:text-foreground transition-colors">Rook MCP</Link>
+            <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Discord</a>
+            <a href="https://github.com/maryamtb/rook/tree/main/community-notes" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Cheatsheets</a>
             <Link href="/changelog" className="hover:text-foreground transition-colors">Changelog</Link>
             <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
             <a href="https://dev.to/mimobenjo/why-i-stopped-using-apple-notes-for-my-code-notes-110p" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Blog</a>

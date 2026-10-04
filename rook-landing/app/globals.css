@@ -229,3 +229,23 @@
   }
   .mcp-shine-halo { animation: none; }
 }
+
+.hero-code-shimmer {
+  display: inline-block;
+  background-image: linear-gradient(110deg, #92929e 0%, #92929e 38%, #ffffff 50%, #92929e 62%, #92929e 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: mcp-text-shine 2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-code-shimmer {
+    animation: none;
+    background: none;
+    color: #eeeef0;
+    -webkit-text-fill-color: currentColor;
+  }
+}

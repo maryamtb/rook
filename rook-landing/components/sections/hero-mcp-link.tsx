@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { McpMark, MCP_ACCENT } from "@/components/mcp-mark";
+import { McpMark } from "@/components/mcp-mark";
 
 export function HeroMcpLinkMobile() {
   return (
@@ -13,15 +13,9 @@ export function HeroMcpLinkMobile() {
       className="lg:hidden flex flex-wrap items-center justify-center gap-x-2 gap-y-1 mb-4 px-4 text-[13px] leading-snug text-foreground/80 hover:text-foreground transition-colors cursor-pointer"
     >
       <span className="inline-flex items-center gap-1.5">
-        <McpMark size={13} />
-        <span style={{ color: MCP_ACCENT }} className="font-semibold">
+        <McpMark size={13} color="currentColor" />
+        <span className="font-semibold text-foreground/80">
           Rook MCP
-        </span>
-        <span
-          className="text-[9.5px] font-semibold tracking-[0.08em] px-1.5 py-[1px] rounded-full"
-          style={{ color: MCP_ACCENT, backgroundColor: "rgba(140, 200, 192, 0.12)" }}
-        >
-          BETA
         </span> →
       </span>
       <span className="text-center">
@@ -42,16 +36,15 @@ export function HeroMcpLinkDesktop() {
       style={{ top: -150, right: 62 }}
     >
       <span
-        className="mcp-shine-halo inline-flex items-center justify-center gap-1.5 mb-1 transition-opacity group-hover:opacity-80"
-        style={{ color: MCP_ACCENT }}
+        className="text-foreground/80 inline-flex items-center justify-center gap-1.5 mb-1 transition-opacity group-hover:opacity-80"
       >
-        <McpMark />
-        <span className="mcp-shine font-semibold text-[14px]">Rook MCP</span>
+        <McpMark color="currentColor" />
+        <span className="font-semibold text-[14px]">Rook MCP</span>
         <span className="text-[12px] opacity-60 group-hover:translate-x-0.5 transition-transform">
           →
         </span>
       </span>
-      <div className="text-[15px] text-foreground leading-[1.4] font-normal transition-opacity group-hover:opacity-80">
+      <div className="text-[15px] text-muted-foreground leading-[1.4] font-normal transition-opacity group-hover:opacity-80">
         <div>Save to Rook from Claude,</div>
         <div>Codex, Cursor, and Gemini</div>
       </div>

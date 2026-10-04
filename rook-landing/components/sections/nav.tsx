@@ -6,13 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetDescription, SheetClose } from "@/components/ui/sheet";
 import { BrandButton } from "@/components/brand-button";
-import { GitHubIcon, XIcon } from "@/components/icons";
-import { DMG_URL, SIGNUPS_DISABLED } from "@/lib/constants";
+import { DiscordIcon, GitHubIcon, XIcon } from "@/components/icons";
+import { DISCORD_URL, DMG_URL, SIGNUPS_DISABLED } from "@/lib/constants";
 import { captureEvent } from "@/lib/posthog-safe";
 import { EVENT } from "@/lib/events";
 import { SignupOutageBanner } from "./signup-outage-banner";
 import { useStars } from "@/hooks";
-import { MCP_ACCENT } from "@/components/mcp-mark";
 import Link from "next/link";
 
 export function Nav() {
@@ -31,29 +30,28 @@ export function Nav() {
             <Link href="/#features" className="hover:text-foreground transition-colors">Features</Link>
             <Link href="/#themes" className="hover:text-foreground transition-colors">Themes</Link>
             <Link href="/#shortcuts" className="hover:text-foreground transition-colors">Shortcuts</Link>
+            <Link href="/#pro" className="hover:text-foreground transition-colors">Pro</Link>
             <Link
               href="/mcp"
-              className="inline-flex items-center gap-1.5 transition-colors hover:opacity-90"
-              style={{ color: MCP_ACCENT }}
+              className="hover:text-foreground transition-colors"
             >
-              Rook MCP
-              <span
-                className="text-[9px] font-semibold tracking-[0.06em] px-1 py-[1px] rounded-full"
-                style={{ backgroundColor: "rgba(140, 200, 192, 0.12)" }}
-              >
-                BETA
-              </span>
+              MCP
             </Link>
           </div>
 
           <div className="flex items-center gap-2 justify-self-end">
-            <div className="hidden sm:flex items-center -space-x-1">
+            <div className="flex items-center -space-x-1">
               <Button variant="ghost" size="icon" asChild>
+                <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" aria-label="Join Rook on Discord" title="Discord">
+                  <DiscordIcon className="w-5 h-4" />
+                </a>
+              </Button>
+              <Button variant="ghost" size="icon" asChild className="hidden sm:inline-flex">
                 <a href="https://x.com/userookapp" target="_blank" rel="noopener noreferrer" aria-label="X">
                   <XIcon className="size-4" />
                 </a>
               </Button>
-              <Button variant="ghost" size="sm" asChild className="gap-1.5 px-2">
+              <Button variant="ghost" size="sm" asChild className="hidden sm:inline-flex gap-1.5 px-2">
                 <a
                   href="https://github.com/maryamtb/rook"
                   target="_blank"
@@ -101,19 +99,18 @@ export function Nav() {
                     <Link href="/#shortcuts" className="text-muted-foreground hover:text-foreground transition-colors">Shortcuts</Link>
                   </SheetClose>
                   <SheetClose asChild>
+                    <Link href="/#pro" className="text-muted-foreground hover:text-foreground transition-colors">Pro</Link>
+                  </SheetClose>
+                  <SheetClose asChild>
                     <Link
                       href="/mcp"
-                      className="inline-flex items-center gap-1.5 transition-colors hover:opacity-90"
-                      style={{ color: MCP_ACCENT }}
+                      className="text-muted-foreground hover:text-foreground transition-colors"
                     >
-                      Rook MCP
-                      <span
-                        className="text-[10px] font-semibold tracking-[0.06em] px-1.5 py-[1px] rounded-full"
-                        style={{ backgroundColor: "rgba(140, 200, 192, 0.12)" }}
-                      >
-                        BETA
-                      </span>
+                      MCP
                     </Link>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-muted-foreground hover:text-foreground transition-colors"><DiscordIcon className="w-5 h-4" />Discord</a>
                   </SheetClose>
                   <Separator className="my-1" />
                   <SheetClose asChild>

@@ -1,13 +1,13 @@
 export const MCP_ACCENT = "rgb(140, 200, 192)";
 
-export function McpMark({ size = 14 }: { size?: number }) {
+export function McpMark({ size = 14, color = MCP_ACCENT }: { size?: number; color?: string }) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 180 180"
       fill="none"
-      style={{ color: MCP_ACCENT, opacity: 0.9 }}
+      style={{ color, opacity: 0.9 }}
       aria-hidden="true"
     >
       <path d="M18 84.85L85.88 16.97c9.37-9.37 24.57-9.37 33.94 0 9.37 9.37 9.37 24.57 0 33.94L68.56 102.18" stroke="currentColor" strokeWidth={16} strokeLinecap="round" />

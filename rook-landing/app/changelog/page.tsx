@@ -17,6 +17,20 @@ type Entry = {
 
 const entries: Entry[] = [
   {
+    version: "1.3.7",
+    date: "2026-10-02",
+    notes: [
+      "NEW dynamic variables feature: type {{name}} in a note or a code block, fill it in once, and every place it appears shows the value. Set a value for one note, a whole notebook, or a collection. Copying a code block gives you the filled-in command",
+      "Added quotes: start a line with > or choose Quote from the slash menu. Quotes nest with Tab and hold their shape through copy, paste, Markdown import and export, and the AI inbox",
+      "Quotes copied from a web page or an AI chat now paste as quotes, from Safari and Chrome",
+      "Choose the language new code blocks start in under Settings → General. Bash by default, and Rook still detects the language as you type or paste",
+      "Open Rook from any app with a keyboard shortcut you choose under Settings → General",
+      "Improved tables: deleting a whole table and moving between cells with the arrow keys",
+      "The note preview has a refreshed look",
+      "General performance improvements across the app",
+    ],
+  },
+  {
     version: "1.3.6",
     date: "2026-07-14",
     notes: [

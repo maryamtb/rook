@@ -88,7 +88,7 @@ type ThemesProps = {
 
 export function Themes({ activeTheme, onSelect }: ThemesProps) {
   return (
-    <section id="themes" className="py-24 md:py-32 relative">
+    <section id="themes" className="pt-12 pb-24 md:pt-16 md:pb-32 relative">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{

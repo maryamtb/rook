@@ -1,4 +1,4 @@
-import { McpMark, MCP_ACCENT } from "@/components/mcp-mark";
+import { McpMark } from "@/components/mcp-mark";
 
 export function McpBetaPill({ textColor }: { textColor: string }) {
   return (
@@ -12,12 +12,6 @@ export function McpBetaPill({ textColor }: { textColor: string }) {
       <McpMark />
       <span className="text-[12px] font-medium" style={{ color: textColor }}>
         MCP
-      </span>
-      <span
-        className="text-[10px] font-semibold tracking-[0.04em]"
-        style={{ color: MCP_ACCENT }}
-      >
-        BETA
       </span>
     </div>
   );

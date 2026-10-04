@@ -6,8 +6,10 @@ import { sectionHeading } from "@/lib/motion";
 
 const SHORTCUTS = [
   { keys: ["⌘", "N"], action: "New note" },
+  { keys: ["Space"], action: "Preview note" },
   { keys: ["⌘", "F"], action: "Search" },
   { keys: ["⌘", "⇧", "↵"], action: "Code block" },
+  { keys: ["⌘", "⌥", "V"], action: "Paste as Markdown" },
   { keys: ["⌘", ","], action: "Settings" },
   { keys: ["⌘", "\\"], action: "Toggle sidebar" },
   { keys: ["⌘", "/"], action: "Keyboard shortcuts" },

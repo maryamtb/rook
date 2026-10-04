@@ -34,9 +34,9 @@ export function InteractiveRook({ theme: t }: { theme: ThemeColors }) {
         ref={containerRef}
         className="relative rounded-xl shadow-2xl overflow-hidden transition-colors duration-500"
         style={{
-          backgroundColor: SIDEBAR_BG.outer,
+          backgroundColor: sidebarCollapsed ? t.bg : SIDEBAR_BG.outer,
           border: `1px solid ${t.border}`,
-          filter: isLight ? "brightness(0.92)" : undefined,
+          filter: isLight && !sidebarCollapsed ? "brightness(0.92)" : undefined,
         }}
       >
         <TitleBar
@@ -47,7 +47,7 @@ export function InteractiveRook({ theme: t }: { theme: ThemeColors }) {
           newNoteHinted={!touched.newnote}
           sidebarCollapsed={sidebarCollapsed}
           showMcp
-          bg={SIDEBAR_BG.outer}
+          bg={sidebarCollapsed ? t.bg : SIDEBAR_BG.outer}
         />
 
         <div className="relative flex" style={{ minHeight: LAYOUT.mockupMinHeight }}>
@@ -75,12 +75,13 @@ export function InteractiveRook({ theme: t }: { theme: ThemeColors }) {
             </div>
           </motion.div>
 
-          <div className="flex-1 min-w-0 flex flex-col pt-3.5 pr-3.5 pb-3.5">
+          <div className={`flex-1 min-w-0 flex flex-col ${sidebarCollapsed ? "" : "pt-3.5 pr-3.5 pb-3.5"}`}>
           <div
-            className="flex-1 flex flex-col min-w-0 relative overflow-hidden rounded-[14px] transition-colors duration-500"
+            className="flex-1 flex flex-col min-w-0 relative overflow-hidden transition-colors duration-500"
             style={{
               backgroundColor: t.bg,
-              boxShadow: isLight ? "0 3px 12px rgba(0,0,0,0.08)" : "0 4px 16px rgba(0,0,0,0.28)",
+              borderRadius: sidebarCollapsed ? 0 : 14,
+              boxShadow: sidebarCollapsed ? "none" : isLight ? "0 3px 12px rgba(0,0,0,0.08)" : "0 4px 16px rgba(0,0,0,0.28)",
             }}
           >
             <AnimatePresence mode="wait" initial={false}>

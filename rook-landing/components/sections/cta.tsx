@@ -7,7 +7,7 @@ import { BrandButton } from "@/components/brand-button";
 import { NotifyForm, WaitlistClosedNotice } from "@/components/notify-form";
 import { FooterNewsletter } from "@/components/footer-newsletter";
 import { PlatformWaitlist } from "@/components/platform-waitlist";
-import { DMG_URL, MAS_URL, MAS_BADGE_URL } from "@/lib/constants";
+import { DISCORD_URL, DMG_URL, MAS_URL, MAS_BADGE_URL } from "@/lib/constants";
 import { sectionHeading } from "@/lib/motion";
 import { captureEvent } from "@/lib/posthog-safe";
 import { EVENT } from "@/lib/events";
@@ -69,7 +69,7 @@ export function Cta({ signupMeta }: CtaProps) {
           <PlatformWaitlist source="footer_cta" variant="link" />
         </p>
 
-        <div className="mt-10 pt-8 border-t border-border/30">
+        <div id="pro" className="scroll-mt-24 mt-10 pt-8 border-t border-border/30">
           {showDiscount ? (
             capReached ? (
               <WaitlistClosedNotice />
@@ -84,7 +84,7 @@ export function Cta({ signupMeta }: CtaProps) {
           ) : (
             <div className="max-w-sm mx-auto">
               <p className="text-sm sm:text-[13px] text-muted-foreground mb-3 text-center">
-                <span className="text-foreground font-medium">Pro is on the way.</span> Subscribe for updates.
+                <span className="text-foreground font-medium">Pro is almost ready.</span> Subscribe for updates.
               </p>
               <div className="sm:flex sm:justify-center">
                 <FooterNewsletter source="cta" />
@@ -95,7 +95,7 @@ export function Cta({ signupMeta }: CtaProps) {
 
         <p className="mt-8 text-xs text-muted-foreground/60">
           Say hi in{" "}
-          <a href="https://github.com/maryamtb/rook/discussions" target="_blank" rel="noopener noreferrer" className="underline decoration-muted-foreground/30 underline-offset-2 hover:text-foreground transition-colors">GitHub Discussions</a>
+          <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="underline decoration-muted-foreground/30 underline-offset-2 hover:text-foreground transition-colors">Discord</a>
           {". Follow on "}
           <a href="https://x.com/userookapp" target="_blank" rel="noopener noreferrer" className="underline decoration-muted-foreground/30 underline-offset-2 hover:text-foreground transition-colors">X</a>
           {". Read the story on "}
